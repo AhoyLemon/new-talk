@@ -1,9 +1,15 @@
 @keyframes strobeText{
-  0%{     color: transparent;    }
-  20%{     color: #ff0000;    }
-  40%{     color: #00ff00;    }
-  60%{     color: #0000ff;    }
-  80%{     color: #ffffff;    }
+  0%{      color: #ffffff;  }
+  10%{     color: #00C3EF;  }
+  20%{     color: #0070F6;  }
+  30%{     color: #1AD688;  }
+  40%{     color: #ED131E;  }
+  50%{     color: #FFC600;  }
+  60%{     color: #FF7500;  }
+  70%{     color: #990FFF;  }
+  80%{     color: #FF76D5;  }
+  90%{     color: #C40172;  }
+  100%{    color: #ffffff;  }
 }
 
 @keyframes blinkingText {
@@ -42,7 +48,6 @@
 
   .over-photo { background:rgba(0,0,0,0.5); backdrop-filter: blur(4px); padding:1.5rem; }
 
-
   .grid { display: grid; grid-gap: 4vh;
     img { display: block; max-width: 100%; margin-left: auto; margin-right: auto; }
     &[columns="2"] { grid-template-columns: repeat(2,1fr); }
@@ -50,10 +55,8 @@
     &[columns="4"] { grid-template-columns: repeat(4,1fr); }
     .box { display:flex; align-items: center; }
   }
-
-  .grid .box img { margin-left: auto; margin-right: auto; }
   .blink {  animation:blinkingText .5s infinite; }
-  .strobe { animation:strobeText .5s infinite; }
+  .strobe { animation-name: strobeText; animation-duration: 2.25s; animation-iteration-count: infinite; animation-timing-function: linear; }
 
   blockquote { text-align: left; padding-left: 1.5em; padding-right: 1.25em; border-left: 0.2em solid #ccc; font-size:2rem; padding-bottom: 0.5em; position: relative; width: 100%; box-sizing: border-box;
     &:before { content:'“'; font-size:300%; line-height: 30%; position: absolute; top:0.4em; left:0; font-family: sans-serif; }
@@ -81,16 +84,9 @@
 
 }
 
-
 .example { height:60vh; overflow-y: scroll; position:relative;
   .inner { background:white; height:300vh;  }
   .position-fixed { background: red; width:200px; height:200px; position: absolute; top:0; left:0; }
 }
-
-
-
-
-
-
 
 .bottom-center { background-position:center bottom 28% !important; }

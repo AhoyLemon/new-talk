@@ -1,35 +1,71 @@
 @charset "UTF-8";
 @-webkit-keyframes strobeText {
   0% {
-    color: transparent;
+    color: #ffffff;
+  }
+  10% {
+    color: #00C3EF;
   }
   20% {
-    color: #ff0000;
+    color: #0070F6;
+  }
+  30% {
+    color: #1AD688;
   }
   40% {
-    color: #00ff00;
+    color: #ED131E;
+  }
+  50% {
+    color: #FFC600;
   }
   60% {
-    color: #0000ff;
+    color: #FF7500;
+  }
+  70% {
+    color: #990FFF;
   }
   80% {
+    color: #FF76D5;
+  }
+  90% {
+    color: #C40172;
+  }
+  100% {
     color: #ffffff;
   }
 }
 @keyframes strobeText {
   0% {
-    color: transparent;
+    color: #ffffff;
+  }
+  10% {
+    color: #00C3EF;
   }
   20% {
-    color: #ff0000;
+    color: #0070F6;
+  }
+  30% {
+    color: #1AD688;
   }
   40% {
-    color: #00ff00;
+    color: #ED131E;
+  }
+  50% {
+    color: #FFC600;
   }
   60% {
-    color: #0000ff;
+    color: #FF7500;
+  }
+  70% {
+    color: #990FFF;
   }
   80% {
+    color: #FF76D5;
+  }
+  90% {
+    color: #C40172;
+  }
+  100% {
     color: #ffffff;
   }
 }
@@ -147,17 +183,19 @@
       -ms-flex-align: center;
           align-items: center;
 }
-.reveal .grid .box img {
-  margin-left: auto;
-  margin-right: auto;
-}
 .reveal .blink {
   -webkit-animation: blinkingText 0.5s infinite;
           animation: blinkingText 0.5s infinite;
 }
 .reveal .strobe {
-  -webkit-animation: strobeText 0.5s infinite;
-          animation: strobeText 0.5s infinite;
+  -webkit-animation-name: strobeText;
+          animation-name: strobeText;
+  -webkit-animation-duration: 2.25s;
+          animation-duration: 2.25s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
 }
 .reveal blockquote {
   text-align: left;
