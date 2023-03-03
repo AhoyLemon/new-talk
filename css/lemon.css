@@ -92,9 +92,6 @@
 .reveal img {
   background: none;
 }
-.reveal ul.npm code {
-  color: pink;
-}
 .reveal a:hover img {
   background: transparent;
   -webkit-box-shadow: none;
@@ -191,6 +188,9 @@
   content: "—";
   padding-left: 2em;
   padding-right: 0.5em;
+}
+.reveal pre.huge {
+  font-size: clamp(2rem, 3.25vw, 44px);
 }
 .reveal kbd {
   background-color: #eee;

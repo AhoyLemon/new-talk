@@ -5,7 +5,16 @@ mixin link(url)
 
 mixin image(file)
   figure
-    img(src="/img/"+file)
+    - let imgSrc
+    if file.includes("http")
+      - imgSrc = file
+    else
+      - imgSrc = "/img/"+file
+    img(src=imgSrc)
+    if block
+      figcaption
+        block
+
 
 mixin videoBG(slug,start)
   if !start

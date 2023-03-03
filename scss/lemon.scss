@@ -29,9 +29,6 @@
     img { margin: 0; background:transparent; border:none; box-shadow:none; max-height: 65vh; }
   }
   img { background:none; }
-  ul.npm {
-    code { color:pink; }
-  }
   a {
     &:hover {
       img { background:transparent; box-shadow: none; }
@@ -64,6 +61,8 @@
       &:before { content: '—'; padding-left: 2em; padding-right: 0.5em; }
     }
   }
+
+  pre.huge { font-size:clamp(2rem,3.25vw,44px); }
 
   kbd { background-color: #eee; border-radius: 0.15em; border: 0.05em solid #b4b4b4; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 2px 0 0 rgba(255, 255, 255, 0.7) inset; color: #333; display: inline-block; font-size: 0.85em; line-height: 1; padding: 0.25em 0.5em; white-space: nowrap; text-shadow: none; }
 
