@@ -166,17 +166,21 @@ section#AutoAnimate
   section(data-auto-animate)
     h2 Automatically
     h1 Animate
+  section(data-auto-animate)
+    h2 Automatically
+    h1 Animate
+    p (by adding #[code data-auto-animate] to #[code section]s)
     
   section#ThreeBoxes(data-auto-animate)
     .grid(columns="3")
-      .box(data-id="RedBox" style="background:red; height:15vw;")
-      .box(data-id="GreenBox" style="background:green; height:15vw;")
-      .box(data-id="BlueBox" style="background:blue; height:15vw;")
+      .box(data-id="RedBox" style="background:#d11; height:15vw;")
+      .box(data-id="GreenBox" style="background:#0c0; height:15vw;")
+      .box(data-id="BlueBox" style="background:#11d; height:15vw;")
   section(data-auto-animate)
     .grid(columns="3")
-      .box(data-id="RedBox" style="background:red; height:15vw; border-radius:50%;")
-      .box(data-id="GreenBox" style="background:green; height:15vw;  border-radius:50%;")
-      .box(data-id="BlueBox" style="background:blue; height:15vw;  border-radius:50%;")
+      .box(data-id="RedBox" style="background:#f22; height:15vw; border-radius:50%;")
+      .box(data-id="GreenBox" style="background:#2f2; height:15vw;  border-radius:50%;")
+      .box(data-id="BlueBox" style="background:#44f; height:15vw;  border-radius:50%;")
     br
     br
     h4 If you're doing CSS things, these #[code data-id] attributes are necessary.
