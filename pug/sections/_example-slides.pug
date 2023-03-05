@@ -35,6 +35,79 @@ section#BasicContentTypes
       p I gave this div some background for legibilty.
 
   section
+    table
+      caption Table with #[code .highlight] on a tr
+      thead
+        tr
+          th #
+          th Country
+          th ⇣ Mb/s
+      tbody
+        tr
+          td #1
+          td Singapore
+          td 219.01
+        tr
+          td #2
+          td Chile
+          td 211.43
+        tr
+          td #6
+          td United States
+          td 167.36
+        tr.highlight
+          td #26
+          td Norway
+          td 100.89
+        tr
+          td #41
+          td Belgium
+          td 83.63
+        tr
+          td #48
+          td Germany
+          td 75.09
+        tr
+          td #104
+          td Croatia
+          td 31.09
+        tr
+          td #181
+          td Cuba
+          td 1.92
+
+  section
+    table
+      caption
+        | Table with #[code .small] in certain cells
+      thead
+        tr
+          th Phase
+          th What are we doing?
+          th Driver#[sup]*
+      tbody
+        tr
+          td bizdev
+          td.small Assess client needs, company potential, how much money we talkin' about here anyway?
+          td Sales
+        tr
+          td planning
+          td.small Figure out available resources, potential timeline(s), what deliverables we can provide and when
+          td PM
+        tr
+          td wireframes
+          td.small Explore current site, reorganize components, plan the user journey, maybe say the word "personas" if you feel like being fancy
+          td UX
+        tr
+          td visual design
+          td.small Translate strategy into beautiful visual components and document the exepectations of each.
+          td Designer
+      tfoot
+        tr
+          td.small.no-line(colspan="3" style="text-align:right;")
+            span #[em] * as an example
+
+  section
     code Lorem Khaled Ipsum is a 
       span.blink major key to success
       | . Congratulations, you played yourself. Learning is cool, but knowing is better, and I know the key to success. The key is to 
