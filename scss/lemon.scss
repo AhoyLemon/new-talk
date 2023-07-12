@@ -20,8 +20,6 @@
   71%{ opacity:1; }
 }
 
-
-
 .reveal {
   h1, h2, h3 { text-transform: none; }
 
@@ -46,7 +44,13 @@
   .shadowed { text-shadow: 3px 3px 3px rgba(0,0,0,0.5), -1px 1px 1px rgba(0,0,0,0.95);;}
   .black { color:#212121; }
 
-  .over-photo { background:rgba(0,0,0,0.5); backdrop-filter: blur(4px); padding:1.5rem; }
+  .over-photo { background:rgba(0,0,0,0.5); backdrop-filter: blur(4px); padding:1.5rem;
+    &.darker {  background:rgba(0,0,0,0.75);
+      a { color:#FFC600;
+        &:hover, &:focus { color:yellow; }
+      }
+    }
+  }
 
   .grid { display: grid; grid-gap: 4vh;
     img { display: block; max-width: 100%; margin-left: auto; margin-right: auto; }
@@ -60,11 +64,16 @@
   table { width:100%;
     caption { font-size: 80%; text-transform: uppercase; letter-spacing: 0.1em; }
     th { font-size:80%; font-weight: 700; }
-    th.small, td.small { font-size:60%; vertical-align: top; padding-bottom: 0.5em; }
+    th.small,
+    td.small,
+    tr.small td { font-size:60%; vertical-align: middle; padding-bottom: 0.5em; }
     tr.highlight {
       td { background:white; color: black; }
     }
+    td { vertical-align: middle; }
     .no-line { border:none; }
+    svg, svg * { fill:currentColor; }
+    svg[role="img"] { width:1.5em; height:1.5em; }
   }
 
   .blink {  animation:blinkingText .5s infinite; }
@@ -94,6 +103,20 @@
     > .source { opacity: 1; transition-delay: 1s; }
   }
 
+  // Single Screenshot
+  .single-screenshot { 
+    img { max-height: 42vh; margin-bottom: 10px; }
+    figcaption {
+      span { font-size:60%; padding-left: 1em; }
+    }
+  }
+  .screenshot-grid {
+    figure { text-align: center; width:100%; }
+    img { max-height: 20vh; display:block; margin-left: auto; margin-right: auto; margin-bottom:15px; }
+    figcaption { font-size:80%;
+      span { font-size:70%; padding-left: 1em; }
+    }
+  }
 }
 
 .example { height:60vh; overflow-y: scroll; position:relative;
@@ -102,3 +125,26 @@
 }
 
 .bottom-center { background-position:center bottom 28% !important; }
+
+.iframe-holder { display:flex; margin:0; padding:0; resize:both; overflow:hidden; width:100%; aspect-ratio: 16/9; //max-height:63vh;
+  .codepen { flex-grow:1; margin:0; padding:0; border:0; max-height: 100%; max-width: 100%; }
+  .local-example { flex-grow:1; margin:0; padding:0; border:0; max-height: 100%; max-width: 100%; }
+}
+
+section {
+  figure.jeff-with-glasses { position: relative; width:50vh; height:50vh; margin-left:auto; margin-right: auto; overflow: hidden;
+    img { height:100%; width:100%; margin:0; }
+    .glasses { position: absolute; top:0; left:0; transform: translateY(-120%);
+      transition: transform 2s ease;
+    }
+  }
+  &.present .present {
+    figure.jeff-with-glasses {
+      .glasses {
+        transform: translateY(0); transition-delay: 3s;
+      }
+    }
+  }
+}
+
+

@@ -21,3 +21,11 @@ mixin videoBG(slug,start)
     - start = 0
   section(data-background-iframe="https://www.youtube.com/embed/"+slug+"?start="+start+"&fs=0&showinfo=0&rel=0&modestbranding=1&autohide=1&showinfo=0&disablekb=1" data-background-interactive)
     block
+
+mixin introScreen(slug, start)
+  +videoBG(slug,start)
+    h3 This is the title for my talk.
+    .a-talk-by(style="margin-top:42.5vh;")
+      b.white.shadowed
+        | (a talk by @AhoyLemon)
+    block
