@@ -45,16 +45,16 @@ Reveal.initialize({
 
   // Add the current slide number to the URL hash so that reloading the
   // page/copying the URL will return you to the same slide
-  hash: true,
+  hash: false,
 
   // Flags if we should monitor the hash and change slides accordingly
-  respondToHashChanges: true,
+  respondToHashChanges: false,
 
   // Enable support for jump-to-slide navigation shortcuts
-	jumpToSlide: true,
+	jumpToSlide: false,
 
   // Push each slide change to the browser history.  Implies `hash: true`
-  history: true,
+  history: false,
 
   // Enable keyboard shortcuts for navigation
   keyboard: true,
@@ -183,7 +183,7 @@ Reveal.initialize({
   //           is present on the current slide or fragment
   // - 1+:     All slides will progress automatically at the given interval
   // - false:  No auto-sliding, even if data-autoslide is present
-  autoSlide: 0,
+  autoSlide: 100,
 
   // Stop auto-sliding after user input
   autoSlideStoppable: true,

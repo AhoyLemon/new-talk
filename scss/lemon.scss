@@ -117,6 +117,10 @@
       span { font-size:70%; padding-left: 1em; }
     }
   }
+
+
+  canvas.playback { width:clamp(50px, 20vw, 115px) !important; height:clamp(50px, 20vw, 115px) !important; }
+
 }
 
 .example { height:60vh; overflow-y: scroll; position:relative;
