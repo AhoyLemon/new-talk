@@ -124,27 +124,7 @@
   .position-fixed { background: red; width:200px; height:200px; position: absolute; top:0; left:0; }
 }
 
-.bottom-center { background-position:center bottom 28% !important; }
-
 .iframe-holder { display:flex; margin:0; padding:0; resize:both; overflow:hidden; width:100%; aspect-ratio: 16/9; //max-height:63vh;
   .codepen { flex-grow:1; margin:0; padding:0; border:0; max-height: 100%; max-width: 100%; }
   .local-example { flex-grow:1; margin:0; padding:0; border:0; max-height: 100%; max-width: 100%; }
 }
-
-section {
-  figure.jeff-with-glasses { position: relative; width:50vh; height:50vh; margin-left:auto; margin-right: auto; overflow: hidden;
-    img { height:100%; width:100%; margin:0; }
-    .glasses { position: absolute; top:0; left:0; transform: translateY(-120%);
-      transition: transform 2s ease;
-    }
-  }
-  &.present .present {
-    figure.jeff-with-glasses {
-      .glasses {
-        transform: translateY(0); transition-delay: 3s;
-      }
-    }
-  }
-}
-
-
