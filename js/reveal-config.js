@@ -1,5 +1,6 @@
 Reveal.initialize({
 
+  width: 1100,
   // Display presentation control arrows
   controls: true,
 

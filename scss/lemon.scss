@@ -119,6 +119,12 @@
   }
 }
 
+.hit-me-up { max-width: 38ch; margin-left: auto; margin-right: auto;
+  svg { 
+    * { fill:currentColor; }
+  }
+}
+
 .example { height:60vh; overflow-y: scroll; position:relative;
   .inner { background:white; height:300vh;  }
   .position-fixed { background: red; width:200px; height:200px; position: absolute; top:0; left:0; }
@@ -128,3 +134,10 @@
   .codepen { flex-grow:1; margin:0; padding:0; border:0; max-height: 100%; max-width: 100%; }
   .local-example { flex-grow:1; margin:0; padding:0; border:0; max-height: 100%; max-width: 100%; }
 }
+
+iframe.resizable {
+    width: 1100px;
+    max-width: 90dvw;
+    resize: both;
+    overflow: auto;
+  }

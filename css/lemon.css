@@ -152,6 +152,15 @@
           backdrop-filter: blur(4px);
   padding: 1.5rem;
 }
+.reveal .over-photo.darker {
+  background: rgba(0, 0, 0, 0.75);
+}
+.reveal .over-photo.darker a {
+  color: #FFC600;
+}
+.reveal .over-photo.darker a:hover, .reveal .over-photo.darker a:focus {
+  color: yellow;
+}
 .reveal .grid {
   display: -ms-grid;
   display: grid;
@@ -195,17 +204,29 @@
   font-size: 80%;
   font-weight: 700;
 }
-.reveal table th.small, .reveal table td.small {
+.reveal table th.small,
+.reveal table td.small,
+.reveal table tr.small td {
   font-size: 60%;
-  vertical-align: top;
+  vertical-align: middle;
   padding-bottom: 0.5em;
 }
 .reveal table tr.highlight td {
   background: white;
   color: black;
 }
+.reveal table td {
+  vertical-align: middle;
+}
 .reveal table .no-line {
   border: none;
+}
+.reveal table svg, .reveal table svg * {
+  fill: currentColor;
+}
+.reveal table svg[role=img] {
+  width: 1.5em;
+  height: 1.5em;
 }
 .reveal .blink {
   -webkit-animation: blinkingText 0.5s infinite;
@@ -297,6 +318,41 @@
   -webkit-transition-delay: 1s;
           transition-delay: 1s;
 }
+.reveal .single-screenshot img {
+  max-height: 42vh;
+  margin-bottom: 10px;
+}
+.reveal .single-screenshot figcaption span {
+  font-size: 60%;
+  padding-left: 1em;
+}
+.reveal .screenshot-grid figure {
+  text-align: center;
+  width: 100%;
+}
+.reveal .screenshot-grid img {
+  max-height: 20vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+.reveal .screenshot-grid figcaption {
+  font-size: 80%;
+}
+.reveal .screenshot-grid figcaption span {
+  font-size: 70%;
+  padding-left: 1em;
+}
+
+.hit-me-up {
+  max-width: 38ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hit-me-up svg * {
+  fill: currentColor;
+}
 
 .example {
   height: 60vh;
@@ -316,6 +372,41 @@
   left: 0;
 }
 
-.bottom-center {
-  background-position: center bottom 28% !important;
+.iframe-holder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  resize: both;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.iframe-holder .codepen {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-height: 100%;
+  max-width: 100%;
+}
+.iframe-holder .local-example {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+iframe.resizable {
+  width: 1100px;
+  max-width: 90dvw;
+  resize: both;
+  overflow: auto;
 }
