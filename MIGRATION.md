@@ -7,7 +7,7 @@ This document outlines the changes made to migrate from the old Prepros/Gulp-bas
 ### ✅ 1. Updated package.json
 
 - Replaced reveal.js-specific package.json with project-specific one
-- Added **reveal.js v5.1.0** as an npm dependency
+- Added **reveal.js v5.2.1** as an npm dependency
 - Added modern build tool dependencies:
   - `browser-sync` for live reload
   - `pug` for HTML templating
@@ -15,31 +15,40 @@ This document outlines the changes made to migrate from the old Prepros/Gulp-bas
   - `tsx` for running TypeScript build scripts
   - `chalk`, `ora`, `chokidar` for enhanced CLI experience
 - Updated scripts to use npm commands instead of gulp
+- Added `npm run update:reveal` script to copy reveal.js files
 
-### ✅ 2. Created TypeScript Build System
+### ✅ 2. Created reveal.js Copy System
 
-Created `scripts/` folder with three main files:
+- Created `scripts/update-reveal.ts` to copy reveal.js files from node_modules to `reveal/` folder
+- The `reveal/` folder is committed to git (unlike node_modules)
+- This solves the deployment issue where node_modules is gitignored
+- Run `npm run update:reveal` after installing or updating reveal.js
+
+### ✅ 3. Created TypeScript Build System
+
+Created `scripts/` folder with four main files:
 
 - **`dev.ts`**: Development server that runs all watchers and browser-sync
 - **`build-pug.ts`**: Builds all Pug files according to routing configuration
 - **`watch-pug.ts`**: Watches Pug files for changes and rebuilds
+- **`update-reveal.ts`**: Copies reveal.js files from node_modules to reveal/ folder
 
-### ✅ 3. Added Pug Routing Configuration
+### ✅ 4. Added Pug Routing Configuration
 
 - Created `routes/pug.routes.ts` to explicitly define which Pug files compile to which HTML files
 - This gives full control over the output structure
 - Supports nested routes and demos folders
 
-### ✅ 4. Updated Pug Files
+### ✅ 5. Updated Pug Files
 
 - Added `testing` variable to `pug/index.pug` for build-time environment detection
 - Updated `pug/partials/_variables.pug` to include `lastUpdated` cachebuster
 - Updated `pug/partials/_head.pug` to:
-  - Load reveal.js CSS from `node_modules/reveal.js/dist/`
-  - Load plugins from `node_modules/reveal.js/plugin/`
+  - Load reveal.js CSS from `reveal/` folder (not node_modules)
+  - Load plugins from `reveal/plugin/`
   - Add cachebuster to custom CSS
 - Updated `pug/partials/_javascripts.pug` to:
-  - Load reveal.js JS from node_modules
+  - Load reveal.js JS from `reveal/` folder (not node_modules)
   - Add cachebuster to custom JS
 - Fixed HTML structure in `pug/index.pug` (proper html/head/body tags)
 

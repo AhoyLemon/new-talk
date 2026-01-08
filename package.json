@@ -12,6 +12,7 @@
     "build:js": "echo 'No JS build needed for reveal.js presentation'",
     "watch:pug": "tsx scripts/watch-pug.ts",
     "watch:sass": "sass scss/lemon.scss:css/lemon.css scss/reveal.scss:css/reveal.css demos/scss/container-queries.scss:demos/css/container-queries.css demos/scss/has.scss:demos/css/has.css demos/scss/scroll-animation.scss:demos/css/scroll-animation.css demos/scss/starting-style.scss:demos/css/starting-style.css demos/scss/text-wrap.scss:demos/css/text-wrap.css demos/scss/toggle.scss:demos/css/toggle.css --watch --no-source-map",
+    "update:reveal": "tsx scripts/update-reveal.ts",
     "test": "sass scss/lemon.scss:css/lemon.css scss/reveal.scss:css/reveal.css --no-source-map --quiet"
   },
   "keywords": [

@@ -6,7 +6,7 @@ A reveal.js presentation template with Pug, Sass, and modern build tools.
 
 This template has been updated to use:
 
-- ✅ **reveal.js as an npm dependency** (v5.1.0) instead of local files
+- ✅ **reveal.js as an npm dependency** (v5.2.1) with committed files in `reveal/`
 - ✅ **Browser-sync** for live reload development
 - ✅ **Modern Sass** with @use syntax instead of @import
 - ✅ **Pug templating** with routing configuration
@@ -25,7 +25,15 @@ You'll need [Node.js](https://nodejs.org/) (v18 or higher) and npm installed.
    npm install
    ```
 
-2. **Start development server**
+2. **Copy reveal.js files** (only needed once, or when updating reveal.js)
+
+   ```bash
+   npm run update:reveal
+   ```
+
+   This copies reveal.js files from node_modules to the `reveal/` folder (which is committed to git).
+
+3. **Start development server**
 
    ```bash
    npm run dev
@@ -38,7 +46,7 @@ You'll need [Node.js](https://nodejs.org/) (v18 or higher) and npm installed.
    - Start BrowserSync on http://localhost:3000
    - Auto-reload when you save files
 
-3. **Build for production**
+4. **Build for production**
    ```bash
    npm run build
    ```
@@ -51,13 +59,23 @@ You'll need [Node.js](https://nodejs.org/) (v18 or higher) and npm installed.
 - `npm run build:sass` - Build Sass files only
 - `npm run watch:pug` - Watch Pug files only
 - `npm run watch:sass` - Watch Sass files only
+- `npm run update:reveal` - Update reveal.js files from node_modules to reveal/ folder
 - `npm test` - Check for Sass errors
 
 ## How do I use this?
 
 1. Clone or download this repository
 2. Run `npm install` to get dependencies
-3. Run `npm run dev` to start the development server
-4. Edit `pug/index.pug` to create your slides
-5. Edit `scss/lemon.scss` for custom styling
-6. Need to change the Reveal configuration? Edit `js/reveal-config.js`
+3. Run `npm run update:reveal` to copy reveal.js files
+4. Run `npm run dev` to start the development server
+5. Edit `pug/index.pug` to create your slides
+6. Edit `scss/lemon.scss` for custom styling
+7. Need to change the Reveal configuration? Edit `js/reveal-config.js`
+
+## Updating reveal.js
+
+When you want to update to the latest version of reveal.js:
+
+1. Update the reveal.js dependency: `npm update reveal.js`
+2. Copy the new files: `npm run update:reveal`
+3. Commit the updated `reveal/` folder to git

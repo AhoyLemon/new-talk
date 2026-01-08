@@ -1,5 +1,21 @@
 # Cleanup and Demos Setup Summary
 
+## reveal.js File Structure
+
+The project now uses a **committed `reveal/` folder** instead of referencing node_modules:
+
+- ✅ reveal.js files are copied from `node_modules/reveal.js/dist/` to `reveal/`
+- ✅ Plugin files are copied from `node_modules/reveal.js/plugin/` to `reveal/plugin/`
+- ✅ The `reveal/` folder is committed to git (unlike node_modules)
+- ✅ Pug files reference `reveal/` paths instead of `node_modules/`
+- ✅ Run `npm run update:reveal` to update reveal.js files
+
+### Why this approach?
+
+- node_modules is gitignored, so files wouldn't be available in production
+- Committing the reveal/ folder ensures all files are available for deployment
+- The update script makes it easy to update reveal.js when needed
+
 ## Folders Cleaned Up
 
 ### ✅ Deleted (No longer needed with npm-based build)
