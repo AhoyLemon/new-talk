@@ -138,19 +138,14 @@ function startProcess(
 
     // After success display, show important messages
     if (browserSyncReady && sassReady && pugReady) {
-      // Show file changes, compilations, and errors
+      // Show only file changes and errors, not compilation output
       const shouldShow =
-        output.includes("✓") ||
-        output.includes("→") ||
         output.includes("error") ||
         output.includes("Error") ||
-        output.includes("changed") ||
-        output.includes("compiled") ||
-        output.includes("Compiled") ||
-        output.includes("File changed") ||
         output.includes("🔄") ||
-        output.includes("Rebuilding") ||
-        output.includes("Building") ||
+        output.includes("➕") ||
+        output.includes("➖") ||
+        (name === "Sass" && output.includes("Compiled")) ||
         /\d+:\d+:\d+\s+[AP]M/.test(output); // Timestamp pattern
 
       if (shouldShow) {
@@ -244,12 +239,7 @@ async function startDev() {
     [
       "scss/lemon.scss:css/lemon.css",
       "scss/reveal.scss:css/reveal.css",
-      "demos/scss/container-queries.scss:demos/css/container-queries.css",
-      "demos/scss/has.scss:demos/css/has.css",
-      "demos/scss/scroll-animation.scss:demos/css/scroll-animation.css",
-      "demos/scss/starting-style.scss:demos/css/starting-style.css",
-      "demos/scss/text-wrap.scss:demos/css/text-wrap.css",
-      "demos/scss/toggle.scss:demos/css/toggle.css",
+      "demos/scss:demos/css",
       "--no-source-map",
       "--watch",
     ],

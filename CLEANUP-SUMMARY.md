@@ -19,6 +19,7 @@ The project now uses a **committed `reveal/` folder** instead of referencing nod
 ## Folders Cleaned Up
 
 ### ✅ Deleted (No longer needed with npm-based build)
+
 - **dist/** - Contained reveal.js build files, now comes from `node_modules/reveal.js/dist/`
 - **examples/** - Contained reveal.js demo HTML files, not needed for this project
 - **test/** - Contained reveal.js test files, not needed for this project
@@ -27,6 +28,7 @@ The project now uses a **committed `reveal/` folder** instead of referencing nod
 - **demos/prepros.config** - Old build system config file
 
 ### ✅ Kept (Still needed)
+
 - **js/reveal-config.js** - Custom reveal.js configuration for this presentation
 - **favicons/** - Used by the main presentation (`pug/partials/_favicons.pug`)
 
@@ -35,6 +37,7 @@ The project now uses a **committed `reveal/` folder** instead of referencing nod
 Added 21 CSS demo pages with automatic compilation:
 
 ### Demo Pages
+
 - **Container Queries**: 4 demos (container-queries-1 through 4)
 - **:has() Selector**: 5 demos (has-1 through 5)
 - **Scroll Animation**: 3 demos (scroll-animation-1 through 3)
@@ -46,15 +49,18 @@ Added 21 CSS demo pages with automatic compilation:
 ### Build System Updates
 
 1. **Pug Routes** ([routes/pug.routes.ts](routes/pug.routes.ts))
+
    - Added all 21 demo routes
    - Pattern: `demos/pug/[name].pug` → `demos/[name].html`
 
 2. **SCSS Compilation** ([package.json](package.json))
+
    - Added 6 demo SCSS files to build:sass and watch:sass scripts
    - Output: `demos/css/[name].css`
    - Converted all demo SCSS from `@import` to `@use` for variables
 
 3. **Development Server** ([scripts/dev.ts](scripts/dev.ts))
+
    - Updated Sass watcher to compile all demo SCSS files
    - Updated BrowserSync to watch demos folder:
      - `demos/**/*.html`
@@ -62,6 +68,7 @@ Added 21 CSS demo pages with automatic compilation:
      - `demos/js/*.js`
 
 4. **Pug Compiler** ([scripts/build-pug.ts](scripts/build-pug.ts))
+
    - Updated basedir to use source file's directory
    - Allows demos to use their own partials folder
 
@@ -71,6 +78,7 @@ Added 21 CSS demo pages with automatic compilation:
    - Kept `demos/pug/**/*.html` and `demos/scss/` in version control
 
 ### Demo Structure
+
 ```
 demos/
 ├── pug/               # Pug templates (version controlled)
@@ -107,6 +115,7 @@ npm run build:sass   # Compiles all SCSS files (main + demos)
 ## Live Reload
 
 BrowserSync now watches:
+
 - Main presentation files
 - All demo HTML files
 - All demo CSS files

@@ -1,4 +1,4 @@
-# Lemon's Reveal.js Talk Template
+# My Amazing Talk
 
 A reveal.js presentation template with Pug, Sass, and modern build tools.
 
@@ -25,7 +25,21 @@ You'll need [Node.js](https://nodejs.org/) (v18 or higher) and npm installed.
    npm install
    ```
 
-2. **Copy reveal.js files** (only needed once, or when updating reveal.js)
+2. **Run setup** (first time only)
+
+   ```bash
+   npm run setup
+   ```
+
+   This interactive script will ask for:
+   - Talk title (e.g., "This is My Very Cool Talk")
+   - Talk shortname (e.g., "my-talk")
+   - Live URL (e.g., "https://ahoylemon.github.io/new-css/")
+   - Description (optional)
+
+   It will update `package.json`, `pug/partials/_variables.pug`, and `README.md` with your talk details.
+
+3. **Copy reveal.js files** (only needed once, or when updating reveal.js)
 
    ```bash
    npm run update:reveal
@@ -33,7 +47,7 @@ You'll need [Node.js](https://nodejs.org/) (v18 or higher) and npm installed.
 
    This copies reveal.js files from node_modules to the `reveal/` folder (which is committed to git).
 
-3. **Start development server**
+4. **Start development server**
 
    ```bash
    npm run dev
@@ -46,7 +60,7 @@ You'll need [Node.js](https://nodejs.org/) (v18 or higher) and npm installed.
    - Start BrowserSync on http://localhost:3000
    - Auto-reload when you save files
 
-4. **Build for production**
+5. **Build for production**
    ```bash
    npm run build
    ```

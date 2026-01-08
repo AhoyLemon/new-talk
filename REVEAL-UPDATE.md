@@ -37,19 +37,23 @@ reveal/                    # Committed to git
 When a new version of reveal.js is released:
 
 1. **Update the npm package:**
+
    ```bash
    npm update reveal.js
    ```
 
 2. **Copy the new files:**
+
    ```bash
    npm run update:reveal
    ```
 
 3. **Test the changes:**
+
    ```bash
    npm run dev
    ```
+
    Open http://localhost:3000 and verify everything works
 
 4. **Commit the changes:**
@@ -66,6 +70,7 @@ The `npm run update:reveal` script copies:
 - All files from `node_modules/reveal.js/plugin/` → `reveal/plugin/`
 
 This includes:
+
 - reveal.js and reveal.esm.js (with source maps)
 - reveal.css and reset.css
 - All official themes
