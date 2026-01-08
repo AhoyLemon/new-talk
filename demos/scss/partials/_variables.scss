@@ -1,0 +1,49 @@
+// COLORS
+$white: #eee;
+$offwhite: #f0f1f2;
+$black: #313131;
+$blue: #4885ed;
+$red: #ee2a2a;
+$green: #3eae12;
+$yellow: #e4e72c;
+$teal: #4e7f71;
+$lessdark: #2a313a;
+$orange: #ac4b06;
+$lightOrange: #e98741;
+// $orange:lime;
+
+// COLOR UTILITIES
+$body: $offwhite;
+$copy: $black;
+$link: $red;
+
+// BRAND COLORS
+$color-twitter: #55acee;
+$color-github: #181616;
+$color-googleplus: #d34836;
+$color-flattr-green: #89b443;
+$color-flattr-orange: #f9ad33;
+$color-facebook: #3b5998;
+
+// FONTS
+$yrsa: "Yrsa", serif;
+$font: $yrsa;
+$font-family: $font;
+$font-size: 18px;
+$light: 300;
+$medium: 400;
+$bold: 600;
+
+// FONT UTILITIES
+
+// MEASUREMENTS //////////////////////////////////////////////////////////////////////
+$mobile-top: 56px;
+$radius: 6px;
+$mobile-max: 767px;
+$desktop-min: 768px;
+$header-height: 3.5rem;
+$max-width: 600px;
+$sidebar: 320px;
+
+$box-shadow: -13px 9px 8px rgba(0, 0, 0, 0.3);
+$border: 1px solid $black;

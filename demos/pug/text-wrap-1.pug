@@ -1,0 +1,48 @@
+- const exampleNum = 1
+
+doctype html
+html
+  head
+    include partials/_head.pug
+    title text-wrap Demo #{exampleNum}
+    link(rel="stylesheet" href="./css/text-wrap.css")
+  body
+    #app(example-number=exampleNum)
+      main
+        section.container.wrap-container
+          h2 The Default Wrapping is text-wrap: wrap
+          p
+            | This section specifically shows the standard wrapping. The browser
+            | breaks lines to fit, without any visual refinement or advanced
+            | optimization, often leaving single words stranded on the final line
+            | or creating maybe visually uneven text blocks.
+          p
+            | Observe how words are split purely at the container's edge entirely.
+            | This default method doesn't consider typographical niceties like
+            | avoiding isolated words orphaned on their own line.
+
+        section.container.pretty-wrap-container
+          h2 Understanding text-wrap: pretty for Readability
+          p
+            | Applying #[strong text-wrap: pretty] refines line breaking for
+            | visual harmony. It actively strives to eliminate single words
+            | orphaned at a paragraph's end, ensuring a cleaner visual flow
+            | and greatly improving readability for longer content like paragraphs.
+          p
+            | With #[strong pretty], the browser smartly optimizes text flow,
+            | significantly reducing instances of awkward gaps or isolated
+            | short lines. This subtle yet powerful enhancement truly boosts
+            | the aesthetic appeal of your extended prose and stuff.
+
+        section.container.balance-wrap-container
+          h2 text-wrap: balance for Visually Appealing Headlines and also Short Phrases
+          p
+            | Here, we use #[strong text-wrap: balance]. This property is specifically designed
+            | to create more visually balanced lines of text, especially for short blocks
+            | like headlines, captions, or short paragraphs. The browser tries to make
+            | lines of roughly equal length.
+          p
+            | Observe how the text breaks in a way that distributes words more evenly
+            | across lines, preventing extreme short or long lines within a single block.
+            | This often leads to a more compact and aesthetically pleasing appearance
+            | for titles and concise statements.

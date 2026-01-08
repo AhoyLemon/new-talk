@@ -1,0 +1,15 @@
+- const exampleNum = 1
+
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Toggle Demo #{exampleNum}
+    link(rel="stylesheet" href="./css/toggle.css")
+  body
+    main
+      dl.accordions(example-number=exampleNum)
+        include partials/_accordion-content.pug
+
+    script(src="./js/toggle.js")

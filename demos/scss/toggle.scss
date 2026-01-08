@@ -1,0 +1,109 @@
+@use "./partials/reset";
+@use "./partials/variables" as *;
+
+body {
+  font-size: 18px;
+}
+main {
+  padding: 40px;
+  font-family: $font-family;
+  min-height: 100dvh;
+  background-color: $yellow;
+}
+p {
+  margin-bottom: 2em;
+}
+dl {
+  background-color: $white;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: $border;
+  box-shadow: $box-shadow;
+  dt {
+    button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.5rem 1.25rem;
+      font-family: $font-family;
+      font-size: 1.75em;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.5s linear;
+      &.active {
+        background: $orange;
+        color: $white;
+      }
+    }
+  }
+
+  dd {
+    border-left: $border;
+    border-right: $border;
+    overflow: hidden;
+    .inside {
+      padding: 20px;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &[example-number="1"] {
+    dd {
+      height: 0;
+      &.visible {
+        height: auto;
+      }
+    }
+  }
+
+  &[example-number="2"] {
+    dd {
+      height: 0;
+      transition: height 2s ease-out;
+      &.visible {
+        height: 200px;
+      }
+    }
+  }
+
+  &[example-number="3"] {
+    dd {
+      display: grid;
+      grid-template-rows: 0fr;
+      overflow: hidden;
+      transition: grid-template-rows 2s ease-out;
+      .inside {
+        min-height: 0;
+        //transition: visibility 1s;
+        visibility: hidden;
+        padding: 0 20px;
+      }
+      &.visible {
+        grid-template-rows: 1fr;
+        .inside {
+          visibility: visible;
+          padding: 20px 20px 0 20px;
+        }
+      }
+    }
+  }
+
+  &[example-number="4"] {
+    dd {
+      height: 0;
+      overflow: hidden;
+      transition: height 2s ease-out;
+      &.visible {
+        height: calc-size(auto, size);
+      }
+      .inside {
+        padding-bottom: 0;
+      }
+    }
+  }
+}

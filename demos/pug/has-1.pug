@@ -1,0 +1,30 @@
+- const exampleNum = 1
+
+doctype html
+html
+  head
+    include partials/_head.pug
+    title :has() Demo #{exampleNum}
+    link(rel="stylesheet" href="./css/has.css")
+  body
+    #app(example-number=exampleNum)
+      main
+        section
+          .grid(columns="2")
+            .card-container
+              h2 Product A
+              p This is a product description.
+              img(src="https://picsum.photos/600/400" alt="Product A Image")
+
+            .card-container
+              h2 Product B
+              p This product has no image.
+
+            .card-container
+              h2 Product C
+              p This product has no image.
+
+            .card-container
+              h2 Product D
+              p Another product description.
+              img(src="https://picsum.photos/600/300?2" alt="Product C Image")

@@ -1,0 +1,267 @@
+@use "./partials/reset";
+@use "./partials/variables" as *;
+
+@mixin before() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: monospace;
+  background-color: rgba(0, 0, 0, 0.15);
+  padding: 3px 10px;
+  color: $orange;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: lowercase;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  border-right: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+main {
+  background-color: $yellow;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+
+  section {
+    padding: 20px;
+    max-width: 820px;
+    background-color: $white;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  h2 {
+    font-size: 1.5em;
+    text-align: center;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-gap: 4vh;
+  img {
+    display: block;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &[columns="2"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  &[columns="3"] {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  &[columns="4"] {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .box {
+    display: flex;
+    align-items: center;
+  }
+}
+
+form {
+  display: grid;
+  gap: 20px;
+}
+fieldset {
+  background-color: white;
+  display: grid;
+  gap: 5px;
+  padding: 20px;
+  border: 2px solid white;
+}
+label {
+  font-size: 0.875em;
+  letter-spacing: 0.1em;
+  font-weight: 725;
+  text-transform: uppercase;
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: $font-family;
+  padding: 0.5em 1.25rem;
+  appearance: none;
+}
+input,
+textarea,
+select {
+  font-size: 1em;
+  border-width: 3px;
+}
+.button-holder {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+button {
+  background-color: $black;
+  color: $yellow;
+  font-size: 1.5em;
+  padding: 0.25em 1.25em;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    background-color: $yellow;
+    color: $black;
+  }
+}
+
+#app[example-number="1"] {
+  /* Basic styling for all card containers */
+  .card-container {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+    box-sizing: border-box;
+  }
+
+  /* Style the card container ONLY if it has an image */
+  .card-container:has(img) {
+    border-color: #007bff; /* Blue border */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+    background-color: #e6f2ff; /* Light blue background */
+  }
+
+  /* Optional: Basic image styling */
+  .card-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: auto;
+    margin-bottom: 0;
+    align-self: center;
+  }
+
+  /* Ensure the paragraph has some consistent styling */
+  .card-container p {
+    flex-grow: 1;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+#app[example-number="3"] {
+  fieldset:has([required]) {
+    label {
+      &:after {
+        content: "*";
+        color: $red;
+      }
+    }
+  }
+  fieldset:has(:focus) {
+    label {
+      color: $blue !important;
+    }
+
+    input,
+    select,
+    textarea {
+      outline: none;
+      border-color: $blue;
+      color: $blue;
+    }
+    option {
+      color: $black;
+    }
+  }
+  fieldset:has(input[required]:invalid) {
+    border: 2px solid red;
+    label {
+      color: $red;
+    }
+  }
+  fieldset:has(select[required]:invalid) {
+    border: 2px solid red;
+    label {
+      color: $red;
+    }
+  }
+}
+
+#app[example-number="4"],
+#app[example-number="5"] {
+  #AddBox {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 1em;
+  }
+
+  main {
+    section {
+      width: 100%;
+      max-width: 620px;
+    }
+  }
+  .grid {
+    width: 100%;
+    gap: 20px;
+    .box {
+      border: 2px solid $black;
+      background-color: #ddd;
+      aspect-ratio: 1/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+#app[example-number="5"] {
+  .grid[four] {
+    position: relative;
+    padding-top: 10px;
+    &:before {
+      @include before();
+      top: -20px;
+      left: -20px;
+    }
+  }
+
+  // 2 Grid
+  .grid[four="grid"] {
+    &:before {
+      content: "display: grid";
+    }
+  }
+  .grid[four="flex"] {
+    &:before {
+      content: "display: flex";
+    }
+  }
+  .grid[four="grid"]:has(.box:nth-child(4)) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // Flex 3
+  .grid[four="flex"]:has(.box:nth-child(4)) {
+    display: flex; /* Change to flexbox */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: center; /* Horizontally center the items */
+    gap: 20px; /* Maintain gap between items */
+  }
+  .grid[four="flex"]:has(.box:nth-child(4)) .box {
+    flex-basis: 33.333%;
+    max-width: calc(33.333% - 15px);
+    margin: 0; /* Remove potential default margins */
+  }
+  #GridOrFlex {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 1em;
+  }
+}
