@@ -32,6 +32,7 @@ You'll need [Node.js](https://nodejs.org/) (v18 or higher) and npm installed.
    ```
 
    This interactive script will ask for:
+
    - Talk title (e.g., "This is My Very Cool Talk")
    - Talk shortname (e.g., "my-talk")
    - Live URL (e.g., "https://ahoylemon.github.io/new-css/")
@@ -69,22 +70,18 @@ You'll need [Node.js](https://nodejs.org/) (v18 or higher) and npm installed.
 
 - `npm run dev` - Start development server with live reload
 - `npm run build` - Build all files for production
-- `npm run build:pug` - Build Pug files only
-- `npm run build:sass` - Build Sass files only
-- `npm run watch:pug` - Watch Pug files only
-- `npm run watch:sass` - Watch Sass files only
 - `npm run update:reveal` - Update reveal.js files from node_modules to reveal/ folder
 - `npm test` - Check for Sass errors
 
-## How do I use this?
+## How do I edit the deck?
 
-1. Clone or download this repository
-2. Run `npm install` to get dependencies
-3. Run `npm run update:reveal` to copy reveal.js files
-4. Run `npm run dev` to start the development server
-5. Edit `pug/index.pug` to create your slides
-6. Edit `scss/lemon.scss` for custom styling
-7. Need to change the Reveal configuration? Edit `js/reveal-config.js`
+- Edit the `pug/index.pug` file to modify your slides. You can use Pug syntax to create sections, add content, and include mixins.
+  - **Strongly Recommended:** Split your slides into multiple partials in the `pug/partials/` directory and include them in `index.pug` for better organization.
+  - Check out `pug/partials/_mixins.pug` for useful mixins like `demo` and `iframe`.
+- Edit the global styles by editing `scss/lemon.scss`. You can add your own styles or override existing ones.
+- **Need help with demos?** See [demos/demos.md](demos/demos.md)
+- Edit `js/reveal-config.js` to customize reveal.js settings like transitions, controls, and plugins.
+- Need additional reveal.js help? Check out the [reveal.js documentation](https://revealjs.com/).
 
 ## Updating reveal.js
 

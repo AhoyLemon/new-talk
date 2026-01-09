@@ -34,9 +34,14 @@ async function setup() {
       name: "shortname",
       message: "Talk shortname (for URLs, e.g., 'my-talk'):",
       initial: (prev: string) =>
-        prev.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+        prev
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, ""),
       validate: (value: string) =>
-        /^[a-z0-9-]+$/.test(value) ? true : "Only lowercase letters, numbers, and hyphens",
+        /^[a-z0-9-]+$/.test(value)
+          ? true
+          : "Only lowercase letters, numbers, and hyphens",
     },
     {
       type: "text",
@@ -69,7 +74,10 @@ async function setup() {
       packageJson.description = response.description;
     }
 
-    fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + "\n");
+    fs.writeFileSync(
+      packageJsonPath,
+      JSON.stringify(packageJson, null, 2) + "\n"
+    );
     console.log("✓ Updated package.json");
   } catch (error) {
     console.error("❌ Error updating package.json:", (error as any).message);
@@ -123,10 +131,7 @@ async function setup() {
     let readme = fs.readFileSync(readmePath, "utf8");
 
     // Update title in README
-    readme = readme.replace(
-      /# .*/,
-      `# ${response.talkTitle}`
-    );
+    readme = readme.replace(/# .*/, `# ${response.talkTitle}`);
 
     fs.writeFileSync(readmePath, readme);
     console.log("✓ Updated README.md");

@@ -29,3 +29,9 @@ mixin introScreen(slug, start)
       b.white.shadowed
         | (a talk by @AhoyLemon)
     block
+
+mixin demo(fileName, width = 1000, height = 600)
+  iframe.resizable(src=`./demos/html/${fileName}` width=width height=height)
+
+mixin iframe(url, width = 1000, height = 600)
+  iframe.resizable(src=url width=width height=height)

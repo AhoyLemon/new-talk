@@ -2,16 +2,6 @@
 node_modules/
 package-lock.json
 
-# Build outputs
-css/*.css
-css/*.css.map
-demos/css/*.css
-demos/css/*.css.map
-*.html
-demos/*.html
-!pug/**/*.html
-!demos/pug/**/*.html
-
 # OS
 .DS_Store
 Thumbs.db

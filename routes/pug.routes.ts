@@ -70,27 +70,7 @@ export const routes: RouteMap = {
   "pug/index.pug": "index.html",
 
   // CSS Demos
-  "demos/pug/container-queries-1.pug": "demos/container-queries-1.html",
-  "demos/pug/container-queries-2.pug": "demos/container-queries-2.html",
-  "demos/pug/container-queries-3.pug": "demos/container-queries-3.html",
-  "demos/pug/container-queries-4.pug": "demos/container-queries-4.html",
-  "demos/pug/css-variables-1.pug": "demos/css-variables-1.html",
-  "demos/pug/has-1.pug": "demos/has-1.html",
-  "demos/pug/has-2.pug": "demos/has-2.html",
-  "demos/pug/has-3.pug": "demos/has-3.html",
-  "demos/pug/has-4.pug": "demos/has-4.html",
-  "demos/pug/has-5.pug": "demos/has-5.html",
-  "demos/pug/scroll-animation-1.pug": "demos/scroll-animation-1.html",
-  "demos/pug/scroll-animation-2.pug": "demos/scroll-animation-2.html",
-  "demos/pug/scroll-animation-3.pug": "demos/scroll-animation-3.html",
-  "demos/pug/starting-style-1.pug": "demos/starting-style-1.html",
-  "demos/pug/starting-style-2.pug": "demos/starting-style-2.html",
-  "demos/pug/starting-style-3.pug": "demos/starting-style-3.html",
-  "demos/pug/text-wrap-1.pug": "demos/text-wrap-1.html",
-  "demos/pug/toggle-1.pug": "demos/toggle-1.html",
-  "demos/pug/toggle-2.pug": "demos/toggle-2.html",
-  "demos/pug/toggle-3.pug": "demos/toggle-3.html",
-  "demos/pug/toggle-4.pug": "demos/toggle-4.html",
+  "demos/pug/sample-demo.pug": "demos/sample-demo.html",
 };
 
 export default routes;
