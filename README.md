@@ -1,17 +1,7 @@
-# My Amazing Talk
+# Lemon's Talk Template
 
-A reveal.js presentation template with Pug, Sass, and modern build tools.
-
-## What Changed? (Migration from Prepros/Gulp setup)
-
-This template has been updated to use:
-
-- ✅ **reveal.js as an npm dependency** (v5.2.1) with committed files in `reveal/`
-- ✅ **Browser-sync** for live reload development
-- ✅ **Modern Sass** with @use syntax instead of @import
-- ✅ **Pug templating** with routing configuration
-- ✅ **TypeScript-based build scripts** for better tooling
-- ✅ **No more Prepros/Gulp** - simplified build system with npm scripts
+A [reveal.js](https://revealjs.com/) presentation template with Pug, Sass, and modern build tools.
+This template is designed to help you quickly create and customize your own reveal.js presentations using Pug for templating and Sass for styling
 
 ## Prerequisites
 
