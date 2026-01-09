@@ -1,7 +1,7 @@
 {
-  "name": "my-amazing-talk",
+  "name": "new-talk",
   "version": "1.0.0",
-  "description": "Fuckin, I dunno, whatever.",
+  "description": "",
   "type": "module",
   "license": "MIT",
   "scripts": {

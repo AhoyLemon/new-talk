@@ -24,14 +24,21 @@ mixin videoBG(slug,start)
 
 mixin introScreen(slug, start)
   +videoBG(slug,start)
-    h3= talkTitle
-    .a-talk-by(style="margin-top:42.5vh;")
-      b.white.shadowed
-        | (a talk by @AhoyLemon)
+    if talkTitle && subtitle
+      h3(style="margin-bottom:0")= talkTitle
+      h4(style="text-transform:none;")= subtitle
+      .a-talk-by(style="margin-top:52vh;")
+        b.white.shadowed
+          | (a talk by @AhoyLemon)
+    else if talkTitle
+      h3(style="margin-bottom:0")= talkTitle
+      .a-talk-by(style="margin-top:52vh;")
+        b.white.shadowed
+          | (a talk by @AhoyLemon)
     block
 
-mixin demo(fileName, width = 1000, height = 600)
-  iframe.resizable(src=`./demos/html/${fileName}` width=width height=height)
+mixin demo(fileName, width = 1280, height = 600)
+  iframe.resizable(src=`./demos/${fileName}` width=width height=height)
 
-mixin iframe(url, width = 1000, height = 600)
+mixin iframe(url, width = 1280, height = 600)
   iframe.resizable(src=url width=width height=height)

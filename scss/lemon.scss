@@ -53,6 +53,9 @@
 }
 
 .reveal {
+  a {
+    color: yellow;
+  }
   h1,
   h2,
   h3 {
@@ -264,7 +267,7 @@
     color: white;
     font-style: normal;
     padding: 0.75em 1.25em;
-    transform: translate(-140px, 12px);
+    transform: translate(-14px, 12px);
     a {
       color: yellow;
       &:hover {
@@ -316,19 +319,19 @@
       }
     }
   }
-}
 
-.hit-me-up {
-  max-width: 38ch;
-  margin-left: auto;
-  margin-right: auto;
-  svg {
-    * {
-      fill: currentColor;
+  pre {
+    code {
+      max-height: 60dvh;
     }
   }
-  td {
-    vertical-align: middle;
+
+  iframe.resizable {
+    width: 1280px;
+    max-width: 70dvw;
+    resize: both;
+    overflow: auto;
+    box-shadow: 6px 6px 6px black;
   }
 }
 
@@ -376,9 +379,144 @@
   }
 }
 
-iframe.resizable {
-  width: 1100px;
-  max-width: 90dvw;
-  resize: both;
-  overflow: auto;
+.form-example {
+  display: grid;
+  gap: 10px;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+  fieldset {
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.25em;
+    label {
+      display: block;
+      font-size: 0.75em;
+      text-transform: uppercase;
+    }
+    textarea,
+    select,
+    input {
+      font-size: 0.75em;
+      max-width: 100%;
+      padding: 0.5em 1em;
+      min-width: 7em;
+    }
+  }
+  &.field-sizing {
+    fieldset {
+      textarea,
+      select,
+      input {
+        field-sizing: content;
+        max-width: 740px;
+      }
+    }
+  }
+}
+
+// SLACK MESSAGE
+.slack-message {
+  display: inline-grid;
+  grid-template-columns: 5em 1fr;
+  column-gap: 1em;
+  background: white;
+  color: #212121;
+  padding: 20px;
+  font-size: 80%;
+  font-family: "Lato", sans-serif;
+  border-radius: 0.25em;
+  box-shadow: 0.25em 0.25em 0.25em black;
+  .avatar-holder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  img {
+    border-radius: 1em;
+  }
+  .text {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-content: initial;
+    justify-content: center;
+    gap: 0.5em;
+  }
+  strong {
+    font-weight: 900;
+  }
+  .name-and-date {
+    display: flex;
+    gap: 1em;
+    time {
+      color: #999;
+    }
+  }
+  p {
+    text-shadow: none;
+    font-weight: 500;
+    margin: unset;
+  }
+}
+
+.grid.css-experts {
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 20px;
+  .box {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  figcaption {
+    font-size: 21px;
+    .name {
+      font-weight: bold;
+    }
+    .company {
+      font-style: italic;
+    }
+  }
+}
+
+.css-export-lemon {
+  .box {
+    opacity: 0;
+    scale: 0.1;
+    background-color: #222;
+    max-width: 260px;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translate(0, 0);
+    transition: opacity 1s linear 0s,
+      scale 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0s,
+      transform 1.5s ease-out 1.85s;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.75), 0 1.5px 0 black,
+      0 0 0 8px rgba(0, 0, 0, 0.15);
+  }
+  figure {
+    padding: 0;
+    img {
+      width: 100%;
+      max-width: unset;
+    }
+  }
+  figcaption {
+    background-color: #222;
+    font-size: 21px;
+    .name {
+      font-weight: bold;
+    }
+    .company {
+      font-style: italic;
+    }
+  }
+
+  &.current-fragment {
+    .box {
+      opacity: 1;
+      scale: 1;
+    }
+  }
 }

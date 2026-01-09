@@ -31,10 +31,16 @@ async function setup() {
     },
     {
       type: "text",
+      name: "subtitle",
+      message: "Talk subtitle (optional):",
+      initial: "",
+    },
+    {
+      type: "text",
       name: "shortname",
       message: "Talk shortname (for URLs, e.g., 'my-talk'):",
-      initial: (prev: string) =>
-        prev
+      initial: (prev: string, values: any) =>
+        values.talkTitle
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/^-|-$/g, ""),
@@ -97,6 +103,12 @@ async function setup() {
     pugVars = pugVars.replace(
       /- const talkTitle = ".*"/,
       `- const talkTitle = "${response.talkTitle}"`
+    );
+
+    // Update subtitle
+    pugVars = pugVars.replace(
+      /- const subtitle = ".*"/,
+      `- const subtitle = "${response.subtitle || ""}"`
     );
 
     // Update live URL

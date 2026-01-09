@@ -1,6 +1,5 @@
 Reveal.initialize({
-
-  width: 1100,
+  width: 1280,
   // Display presentation control arrows
   controls: true,
 
@@ -9,11 +8,11 @@ Reveal.initialize({
   controlsTutorial: true,
 
   // Determines where controls appear, "edges" or "bottom-right"
-  controlsLayout: 'bottom-right',
+  controlsLayout: "bottom-right",
 
   // Visibility rule for backwards navigation arrows; "faded", "hidden"
   // or "visible"
-  controlsBackArrows: 'faded',
+  controlsBackArrows: "faded",
 
   // Display a presentation progress bar
   progress: false,
@@ -38,7 +37,7 @@ Reveal.initialize({
   // - "all":      Always show the slide number
   // - "print":    Only when printing to PDF
   // - "speaker":  Only in the speaker view
-  showSlideNumber: 'speaker',
+  showSlideNumber: "speaker",
 
   // Use 1 based indexing for # links to match slide number (default is zero
   // based)
@@ -52,7 +51,7 @@ Reveal.initialize({
   respondToHashChanges: true,
 
   // Enable support for jump-to-slide navigation shortcuts
-	jumpToSlide: true,
+  jumpToSlide: true,
 
   // Push each slide change to the browser history.  Implies `hash: true`
   history: true,
@@ -109,7 +108,7 @@ Reveal.initialize({
   // If you're on slide 1.3 and navigate right, you will normally move
   // from 1.3 -> 2.1. If "grid" is used, the same navigation takes you
   // from 1.3 -> 2.3.
-  navigationMode: 'default',
+  navigationMode: "default",
 
   // Randomizes the order of slides each time the presentation loads
   shuffle: false,
@@ -157,7 +156,7 @@ Reveal.initialize({
 
   // Default settings for our auto-animate transitions, can be
   // overridden per-slide or per-element via data arguments
-  autoAnimateEasing: 'ease',
+  autoAnimateEasing: "ease",
   autoAnimateDuration: 1.0,
   autoAnimateUnmatched: true,
 
@@ -165,18 +164,18 @@ Reveal.initialize({
   // is matched separately so there's no need to include styles
   // like top/right/bottom/left, width/height or margin.
   autoAnimateStyles: [
-    'opacity',
-    'color',
-    'background-color',
-    'padding',
-    'font-size',
-    'line-height',
-    'letter-spacing',
-    'border-width',
-    'border-color',
-    'border-radius',
-    'outline',
-    'outline-offset'
+    "opacity",
+    "color",
+    "background-color",
+    "padding",
+    "font-size",
+    "line-height",
+    "letter-spacing",
+    "border-width",
+    "border-color",
+    "border-radius",
+    "outline",
+    "outline-offset",
   ],
 
   // Controls automatic progression to the next slide
@@ -215,13 +214,13 @@ Reveal.initialize({
   focusBodyOnPageVisibilityChange: true,
 
   // Transition style
-  transition: 'slide', // none/fade/slide/convex/concave/zoom
+  transition: "slide", // none/fade/slide/convex/concave/zoom
 
   // Transition speed
-  transitionSpeed: 'default', // default/fast/slow
+  transitionSpeed: "default", // default/fast/slow
 
   // Transition style for full page slide backgrounds
-  backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+  backgroundTransition: "fade", // none/fade/slide/convex/concave/zoom
 
   // The maximum number of pages a single slide can expand onto when printing
   // to PDF, unlimited by default
@@ -246,7 +245,7 @@ Reveal.initialize({
   mobileViewDistance: 2,
 
   // The display mode that will be used to show slides
-  display: 'block',
+  display: "block",
 
   // Hide cursor if inactive
   hideInactiveCursor: true,
@@ -254,5 +253,5 @@ Reveal.initialize({
   // Time before the cursor is hidden (in ms)
   hideCursorTime: 5000,
 
-  plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+  plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom],
 });

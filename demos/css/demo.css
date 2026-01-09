@@ -15,5 +15,7 @@ body {
 }
 
 body {
+  padding: 40px;
+  font-family: "Yrsa", serif;
   background-color: #e4e72c;
 }
