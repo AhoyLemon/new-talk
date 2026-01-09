@@ -1,0 +1,14 @@
+- const exampleNum = 1
+
+doctype html
+html
+  head
+    include partials/_head.pug
+    title Demo #{exampleNum}
+    link(rel="stylesheet" href="./css/has.css")
+  body
+    #app(example-number=exampleNum)
+      main
+        h1 Demo #{exampleNum}
+        p This is a sample demo to illustrate how to add a demo to
+          span= talkTitle  

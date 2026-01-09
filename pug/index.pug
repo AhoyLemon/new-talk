@@ -1,30 +1,32 @@
+- const testing = true
 include partials/_variables.pug
 
 doctype html
-head
-  include partials/_head.pug
-body  
-  include partials/_mixins.pug
+html(lang="en")
+  head
+    include partials/_head.pug
+  body  
+    include partials/_mixins.pug
 
-  .reveal
-    .slides
+    .reveal
+      .slides
 
-      // Video Screens
-      include sections/_intros.pug
-      
-      // Personal Intro
-      include sections/_hello.pug
+        // Video Screens
+        include sections/_intros.pug
+        
+        // Personal Intro
+        include sections/_hello.pug
 
-      // Personal Intro
-      include sections/_hit-me-up.pug
+        // Personal Intro
+        include sections/_hit-me-up.pug
 
 
 
-      // Just some slides you can try out.
-      include sections/_custom-slides.pug
-      include sections/_example-slides.pug
+        // Just some slides you can try out.
+        include sections/_custom-slides.pug
+        include sections/_example-slides.pug
 
-      // Let's finish this.
-      include sections/_thank-you.pug
-  
+        // Let's finish this.
+        include sections/_thank-you.pug
+    
     include partials/_javascripts.pug 

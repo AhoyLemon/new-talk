@@ -1,0 +1,6 @@
+@use "partials/reset";
+@use "partials/variables" as var;
+
+body {
+  background-color: var.$yellow;
+}
