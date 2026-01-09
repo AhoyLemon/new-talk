@@ -9,7 +9,7 @@ You'll need [Node.js](https://nodejs.org/) (v18 or higher) and npm installed.
 
 ## Getting Started
 
-1. **Click [Use This Template](https://github.com/AhoyLemon/startHere/generate)** to use this repo as a project template.
+1. Click [Use This Template](https://github.com/AhoyLemon/startHere/generate) to use this repo as a project template.
 1. Clone your new repository locally
 1. Run `npm install` to install dependencies
 1. Run `npm run setup` to configure your project name and details
