@@ -9,52 +9,12 @@ You'll need [Node.js](https://nodejs.org/) (v18 or higher) and npm installed.
 
 ## Getting Started
 
-1. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
-2. **Run setup** (first time only)
-
-   ```bash
-   npm run setup
-   ```
-
-   This interactive script will ask for:
-
-   - Talk title (e.g., "This is My Very Cool Talk")
-   - Talk shortname (e.g., "my-talk")
-   - Live URL (e.g., "https://ahoylemon.github.io/new-css/")
-   - Description (optional)
-
-   It will update `package.json`, `pug/partials/_variables.pug`, and `README.md` with your talk details.
-
-3. **Copy reveal.js files** (only needed once, or when updating reveal.js)
-
-   ```bash
-   npm run update:reveal
-   ```
-
-   This copies reveal.js files from node_modules to the `reveal/` folder (which is committed to git).
-
-4. **Start development server**
-
-   ```bash
-   npm run dev
-   ```
-
-   This will:
-
-   - Compile Pug templates to HTML
-   - Watch and compile Sass files
-   - Start BrowserSync on http://localhost:3000
-   - Auto-reload when you save files
-
-5. **Build for production**
-   ```bash
-   npm run build
-   ```
+1. **Click [Use This Template](https://github.com/AhoyLemon/startHere/generate)** to use this repo as a project template.
+1. Clone your new repository locally
+1. Run `npm install` to install dependencies
+1. Run `npm run setup` to configure your project name and details
+1. Run `npm run update:reveal` to copy reveal.js files
+1. Run `npm run dev` to start the development server
 
 ## Commands
 
