@@ -47,3 +47,7 @@ When you want to update to the latest version of reveal.js:
 1. Update the reveal.js dependency: `npm update reveal.js`
 2. Copy the new files: `npm run update:reveal`
 3. Commit the updated `reveal/` folder to git
+
+## License
+
+[CC-BY-4.0](LICENSE) - Creative Commons Attribution 4.0 International License
