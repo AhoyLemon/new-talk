@@ -1,4 +1,8 @@
 {
+  "files.associations": {
+    "bun.lock": "jsonc"
+  }
+}{
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
   },

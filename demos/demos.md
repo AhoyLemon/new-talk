@@ -11,7 +11,7 @@
 You can use the `demo` mixin by declaring the filename and optional width/height.
 
 ```pug
-+demo('sample-demo.html') // default 1000x600
++demo('sample-demo.html') // default size: 1280x600
 // or
-+demo('sample-demo.html', 800, 600) // 800x600
++demo('sample-demo.html', 800, 400) // custom size: 800x400
 ```
