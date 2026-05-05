@@ -12,19 +12,18 @@ html(lang="en")
       .slides
 
         // Video Screens
-        include sections/_intros.pug
-        
+        include sections/shared/_intros.pug
+
         // Personal Intro
-        include sections/_hello.pug
-        
-        // Just some slides you can try out.
-        include sections/_custom-slides.pug
-        include sections/_example-slides.pug
+        include sections/shared/_hello.pug
+
+        // Talk content — replace with your slides
+        include sections/_talk-content.pug
 
         // HMU
-        include sections/_hit-me-up.pug
+        include sections/shared/_hit-me-up.pug
 
         // Let's finish this.
-        include sections/_thank-you.pug
+        include sections/shared/_thank-you.pug
     
     include partials/_javascripts.pug 

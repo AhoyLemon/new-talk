@@ -238,7 +238,7 @@ async function startDev() {
     "sass",
     [
       "scss/lemon.scss:css/lemon.css",
-      "scss/reveal.scss:css/reveal.css",
+      "scss/talk.scss:css/talk.css",
       "demos/scss:demos/css",
       "--no-source-map",
       "--watch",

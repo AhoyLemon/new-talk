@@ -460,63 +460,87 @@
   }
 }
 
-.grid.css-experts {
-  max-width: 820px;
-  margin-left: auto;
-  margin-right: auto;
-  gap: 20px;
-  .box {
-    border: 1px solid rgba(255, 255, 255, 0.5);
+.reveal {
+  .white {
+    color: #f8f8f2;
   }
-  figcaption {
-    font-size: 21px;
-    .name {
-      font-weight: bold;
+  .yellow {
+    color: #f1fa8c;
+  }
+  .purple {
+    color: #bd93f9;
+  }
+
+  .talk-title {
+    line-height: 0.875em;
+    opacity: 0.65;
+    .first-line {
+      font-weight: 725;
+      font-size: 111%;
+      color: white;
     }
-    .company {
-      font-style: italic;
+    .second-line {
+      font-weight: 725;
+      font-size: 100%;
+    }
+  }
+
+  .a-talk-by {
+    opacity: 0.75;
+    font-weight: 600;
+  }
+
+  table.hmu {
+    td {
+      vertical-align: middle;
+    }
+    svg {
+      aspect-ratio: 1/1;
+      width: 42px;
+      fill: currentColor;
     }
   }
 }
 
-.css-export-lemon {
-  .box {
-    opacity: 0;
-    scale: 0.1;
-    background-color: #222;
-    max-width: 260px;
-    margin-left: auto;
-    margin-right: auto;
-    transform: translate(0, 0);
-    transition: opacity 1s linear 0s,
-      scale 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0s,
-      transform 1.5s ease-out 1.85s;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.75), 0 1.5px 0 black,
-      0 0 0 8px rgba(0, 0, 0, 0.15);
+.q-and-a {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2em;
+  dl {
+    width: 100%;
   }
-  figure {
-    padding: 0;
-    img {
-      width: 100%;
-      max-width: unset;
-    }
+  dt {
+    font-size: 135%;
   }
-  figcaption {
-    background-color: #222;
-    font-size: 21px;
-    .name {
-      font-weight: bold;
-    }
-    .company {
-      font-style: italic;
-    }
-  }
+}
 
-  &.current-fragment {
-    .box {
-      opacity: 1;
-      scale: 1;
-    }
+cite.credit {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding-top: 3em;
+  display: block;
+  font-size: 1rem;
+  opacity: 0;
+}
+
+section.present {
+  cite.credit {
+    transition: opacity 1s linear;
+    transition-delay: 2s;
+    opacity: 1;
+  }
+}
+
+section.future {
+  cite.credit {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blink,
+  .strobe {
+    animation: none;
   }
 }

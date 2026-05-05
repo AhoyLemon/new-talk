@@ -9,12 +9,12 @@
     "dev": "tsx scripts/dev.ts",
     "build": "npm run build:pug && npm run build:sass && npm run build:js",
     "build:pug": "tsx scripts/build-pug.ts",
-    "build:sass": "sass scss/lemon.scss:css/lemon.css scss/reveal.scss:css/reveal.css demos/scss:demos/css --no-source-map",
+    "build:sass": "sass scss/lemon.scss:css/lemon.css scss/talk.scss:css/talk.css demos/scss:demos/css --no-source-map",
     "build:js": "echo 'No JS build needed for reveal.js presentation'",
     "watch:pug": "tsx scripts/watch-pug.ts",
-    "watch:sass": "sass scss/lemon.scss:css/lemon.css scss/reveal.scss:css/reveal.css demos/scss:demos/css --watch --no-source-map",
+    "watch:sass": "sass scss/lemon.scss:css/lemon.css scss/talk.scss:css/talk.css demos/scss:demos/css --watch --no-source-map",
     "update:reveal": "tsx scripts/update-reveal.ts",
-    "test": "sass scss/lemon.scss:css/lemon.css scss/reveal.scss:css/reveal.css --no-source-map --quiet"
+    "test": "sass scss/lemon.scss:css/lemon.css scss/talk.scss:css/talk.css --no-source-map --quiet"
   },
   "keywords": [
     "reveal",
