@@ -2,6 +2,7 @@
 
 [![RevealJS](https://img.shields.io/badge/reveal.js-000?style=for-the-badge&labelColor=F2E142&logo=reveal.js&logoColor=111&color=222)](https://revealjs.com/)
 [![Pug](https://img.shields.io/badge/Pug-000?style=for-the-badge&labelColor=A86454&logo=pug&logoColor=white&color=222)](https://pugjs.org/)
+[![Sass](https://img.shields.io/badge/Sass-000?style=for-the-badge&labelColor=CD6799&logo=sass&logoColor=white&color=222)](https://sass-lang.com/)
 
 A [reveal.js](https://revealjs.com/) presentation template with Pug, Sass, and modern build tools.
 This template is designed to help you quickly create and customize your own reveal.js presentations using Pug for templating and Sass for styling
@@ -24,10 +25,10 @@ You'll either need [Node.js](https://nodejs.org/) or [Bun](https://bun.sh/). It 
 ## Commands
 
 ```bash
-npm run dev   # Start development server with live reload
-npm run build # Build all files for production
-npm run update:reveal # Update reveal.js files from node_modules to reveal/ folder
-npm test      # Check for Sass errors
+npm run dev             # Start development server with live reload
+npm run build           # Build all files for production
+npm run update:reveal   # Update reveal.js files from node_modules to reveal/ folder
+npm test                # Check for Sass errors
 ```
 
 ## How do I edit the deck?
