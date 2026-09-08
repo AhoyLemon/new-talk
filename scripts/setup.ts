@@ -44,10 +44,16 @@ async function setup() {
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/^-|-$/g, ""),
-      validate: (value: string) =>
-        /^[a-z0-9-]+$/.test(value)
-          ? true
-          : "Only lowercase letters, numbers, and hyphens",
+      format: (value: string) =>
+        value.trim().replace(/[‐-―−]/g, "-"),
+      validate: (value: string) => {
+        const cleaned = value.trim().replace(/[‐-―−]/g, "-");
+        if (/^[a-z0-9-]+$/.test(cleaned)) return true;
+        const badChars = [...new Set(cleaned.replace(/[a-z0-9-]/g, ""))]
+          .map((c) => `"${c}" (U+${c.codePointAt(0)!.toString(16).toUpperCase().padStart(4, "0")})`)
+          .join(", ");
+        return `Only lowercase letters, numbers, and hyphens. Found: ${badChars}`;
+      },
     },
     {
       type: "text",
