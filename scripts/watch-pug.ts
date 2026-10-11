@@ -9,9 +9,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
 
-/**
- * Compile a single Pug file
- */
 function compilePugFile(
   source: string,
   output: string,
@@ -26,9 +23,11 @@ function compilePugFile(
       return false;
     }
 
+    // testing:true keeps local dev resolving siteURL/asset links to localhost
     const html = pug.renderFile(sourcePath, {
       pretty: true,
       basedir: path.dirname(sourcePath),
+      testing: true,
     });
 
     const outputDir = path.dirname(outputPath);
@@ -47,23 +46,15 @@ function compilePugFile(
   }
 }
 
-/**
- * Rebuild all Pug files
- */
 function rebuildAll(silent = false) {
   Object.entries(routes).forEach(([source, output]) => {
     compilePugFile(source, output, silent);
   });
 }
 
-/**
- * Watch Pug files for changes
- */
 function watchPug() {
-  // Initial build (silent mode)
   rebuildAll(true);
 
-  // Watch all .pug files
   const watcher = chokidar.watch(["pug/**/*.pug", "demos/pug/**/*.pug"], {
     ignored: /(^|[\/\\])\../, // ignore dotfiles
     persistent: true,

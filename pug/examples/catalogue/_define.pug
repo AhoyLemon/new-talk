@@ -1,0 +1,91 @@
+//- DEFINE: metrics, Q&A, tables, links.
+
+section(data-spine="Define it")
+
+  section.divider
+    h2 Define it
+    p Terms, answers, tables and links.
+    p templates/_reference.scss, components/_tables.scss
+
+  section(data-spine-section="Metrics")
+    dl.metric
+      dt CQW
+      dd.metric-name.fragment Container Query Width
+      dd.fragment One percent of the nearest size container's width. Here, the slide.
+    aside.notes
+      ul
+        li dl.metric: the term billed big in Yrsa, its name in Mustard, one line of meaning.
+
+  section(data-spine-section="Q&A")
+    .q-and-a
+      dl
+        dt #[strong Q:] Why no px inside a slide?
+        dd.fragment #[strong A:] Reveal scales the whole canvas, so px only fit one canvas size.
+      dl.fragment
+        dt #[strong Q:] And vw?
+        dd #[strong A:] It measures the window, then gets scaled a second time.
+    aside.notes
+      ul
+        li .q-and-a: the questions people actually ask.
+
+  section(data-spine-section="Tables")
+    table
+      caption Lemon's three faces
+      thead
+        tr
+          th Face
+          th Job
+          th How often
+      tbody
+        tr
+          td Syne
+          td Everyday text
+          td Always
+        tr.highlight
+          td Yrsa
+          td The big moments
+          td About one slide in eight
+        tr
+          td Share Tech Mono
+          td Code, numbers, asides
+          td Whenever it's a joke
+    aside.notes
+      ul
+        li The loose table: a handful of rows. tr.highlight is a faint tint, never a block.
+
+  section
+    table.dense
+      caption Talk formats
+      thead
+        tr
+          th Format
+          th Length
+          th Slides
+          th Demos
+      tbody
+        each row in [["Lightning", "5 min", "~20", "0"], ["Short", "20 min", "~50", "1–2"], ["Standard", "30 min", "~80", "3–5"], ["Long", "45 min", "~110", "5–8"], ["Keynote", "45 min", "~120", "1"], ["Panel", "45 min", "2", "0"], ["Workshop, half day", "3 hours", "~60", "Many"], ["Workshop, full day", "6 hours", "~120", "Too many"]]
+          tr(class=row[0] === "Standard" ? "highlight" : null)
+            each cell in row
+              td= cell
+    aside.notes
+      ul
+        li table.dense: a dozen rows, talked through rather than read.
+
+  section(data-spine-section="Links")
+    h3 Resources
+    ul.links
+      li
+        strong reveal.js
+        +link("https://revealjs.com") revealjs.com
+      li
+        strong Syne
+        +link("https://fonts.google.com/specimen/Syne") fonts.google.com/specimen/Syne
+      li
+        strong Yrsa
+        +link("https://fonts.google.com/specimen/Yrsa") fonts.google.com/specimen/Yrsa
+      li
+        strong Share Tech Mono
+        +link("https://fonts.google.com/specimen/Share+Tech+Mono") fonts.google.com/specimen/Share+Tech+Mono
+    aside.notes
+      ul
+        li ul.links: strong for what it is, a link for where it lives.

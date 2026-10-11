@@ -1,0 +1,159 @@
+//- SHOW IT: media over the canvas, figures, grids, backgrounds, embeds and demos.
+
+section(data-spine="Show it")
+
+  section.divider
+    h2 Show it
+    p Pictures, video, grids, embeds and demos.
+    p templates/_over-media.scss, components/_blocks.scss, components/_embeds.scss
+
+  section.over-media(data-background-image="img/gif/simone_lemon_maker_faire.gif" data-background-size="cover" data-spine-section="Over media")
+    h2 A caption, on a cream strip.
+    p A p rides on an ink strip.
+    cite.credit GIF: Simone at Maker Faire
+    aside.notes
+      ul
+        li section.over-media with a data-background-image (or -video). The strip is what makes it readable, so no text shadow.
+        li cite.credit fades in a beat after the slide arrives.
+
+  section(data-background-image="img/gif/shooty-frooty.gif" data-background-size="contain")
+    p.over-photo Or just a strip of text, wherever you put it.
+    aside.notes
+      ul
+        li .over-photo: a cream strip for text on a photo, without the over-media layout.
+
+  +gag("A placeholder for a picture you haven't found yet. Loud on purpose, so it can't ship by accident.")
+    h2 The gag goes here.
+    aside.notes
+      ul
+        li +gag(description): swap the real asset in as the slide's data-background and drop the mixin. components/_gag.scss.
+
+  section(data-spine-section="Images")
+    +image("gif/simone_lemon_maker_faire.gif")
+      | A figure, with its caption in the aside voice.
+    aside.notes
+      ul
+        li +image(file) with the block as its figcaption.
+
+  section
+    h3 One image at a time
+    .r-stack
+      img.fragment(src="img/gif/simone_lemon_maker_faire.gif")
+      img.fragment(src="img/gif/shooty-frooty.gif")
+      img.fragment(src="og-image.png")
+    aside.notes
+      ul
+        li reveal's .r-stack: each image a little smaller, so the earlier edges still show.
+
+  section(data-spine-section="Grids")
+    .grid(data-columns="2-1")
+      figure
+        img(src="img/gif/simone_lemon_maker_faire.gif")
+        figcaption The picture carries the weight.
+      .column
+        h3 So it gets the room
+        p Two thirds for the image, one for the words beside it.
+    aside.notes
+      ul
+        li .grid(data-columns="2-1"). Flip it with "1-2" when the words matter more.
+
+  section
+    .grid(data-columns="1-2")
+      .column
+        h3 Words first
+        p One third for the words, two for the picture.
+      figure.fragment
+        img(src="img/gif/shooty-frooty.gif")
+        figcaption The other way round.
+    aside.notes
+      ul
+        li .grid(data-columns="1-2"), with the figure landing as a fragment. A figure's image sits flush left over its caption.
+
+  section
+    h3 Three things, one job each
+    .grid(data-columns="3")
+      .column
+        h3 Pug
+        p Writes the slides.
+      .column
+        h3 Sass
+        p Dresses them.
+      .column
+        h3 reveal.js
+        p Moves them.
+    aside.notes
+      ul
+        li .grid(data-columns="3") of words.
+
+  section
+    .grid(data-columns="4")
+      figure
+        img(src="img/gif/simone_lemon_maker_faire.gif")
+        figcaption Four
+      figure
+        img(src="img/gif/shooty-frooty.gif")
+        figcaption columns
+      figure
+        img(src="og-image.png")
+        figcaption of
+      figure
+        img(src="svg/lemon.svg")
+        figcaption figures
+    p.source Source: the template's own assets
+    aside.notes
+      ul
+        li .grid(data-columns="4") of figures, with a p.source credit.
+
+  section(data-spine-section="Fit text")
+    h2.r-fit-text Fit this.
+    aside.notes
+      ul
+        li reveal's .r-fit-text grows a line to fill the width.
+
+  section(data-background-color="#d95a2c" data-spine-section="Backgrounds")
+    h2 A background colour.
+    aside.notes
+      ul
+        li data-background-color. Prefer a palette colour.
+
+  section(data-background-gradient="linear-gradient(to bottom, #141411, #d95a2c)")
+    h2 A background gradient.
+    aside.notes
+      ul
+        li data-background-gradient.
+
+  section(data-background-image="og-image.png" data-background-size="contain")
+    aside.notes
+      ul
+        li data-background-image with data-background-size="contain", and nothing on top.
+
+  section(data-spine-section="Video")
+    h3 A video element
+    video.r-stretch(src="video/simone-thankyou-8.mp4" muted controls playsinline)
+    aside.notes
+      ul
+        li video.r-stretch fills the room left under the heading.
+
+  section(data-spine-section="Embeds")
+    .iframe-holder
+      iframe(src="https://www.youtube.com/embed/dJrYZKjT8cQ" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen)
+    aside.notes
+      ul
+        li .iframe-holder: a 16:9 hole for YouTube, CodePen or a live site. components/_embeds.scss.
+
+  section
+    +iframe("https://ahoylemon.xyz")
+    aside.notes
+      ul
+        li +iframe(url, width, height) for a page at its own size.
+
+  section(data-background-iframe="https://ahoylemon.xyz" data-background-interactive)
+    .source #[strong Source:] #[+link("https://ahoylemon.xyz") ahoylemon.xyz]
+    aside.notes
+      ul
+        li data-background-iframe: a live page as the background.
+
+  +demo("sample-demo.html")(data-spine-section="Demos")
+    aside.notes
+      ul
+        li +demo(file, width, height) builds its own section.demo and scales the demo to fit. templates/_demo.scss.

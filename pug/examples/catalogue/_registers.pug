@@ -1,0 +1,76 @@
+//- STRUCTURE: dividers, the spine, auto-animate and links.
+
+section(data-spine="Structure")
+
+  section.divider
+    h2 Structure
+    p Dividers, the spine, and things that move together.
+    p templates/_divider.scss, layout/_spine.scss, motion/_auto-animate.scss
+
+
+  section.divider(data-spine-section="The spine")
+    h2 Part two
+    p A new side of the tape.
+    p.fragment The promise sits low on the right.
+    aside.notes
+      ul
+        li section.divider: the Mustard field floods the left 40%, the name sits high in it, the promise low on the right. Never count with it.
+        li A name too long for the field runs on past its edge in the field's colour.
+
+  section.spine-card(data-auto-animate)
+    p.spine-number(data-id="SpineNumber") 01
+    code.spine-label one thing
+    aside.notes
+      ul
+        li section.spine-card: the section's summary, big, in the middle. layout/_spine.scss.
+        li Its number has a data-id; its label has none, so js/arrivals.js can turn it onto the band.
+
+  section.has-spine(data-auto-animate)
+    .spine-tag
+      p.spine-number(data-id="SpineNumber") 01
+      code.spine-label(data-id="SpineLabel") one thing
+    h3(data-id="SpineHeading") The spine carries the summary
+    ul
+      li(data-id="SpinePoint1") A number at the top
+    aside.notes
+      ul
+        li The band slides in, the number shrinks into place, and the label turns, shrinks and lands.
+        li .has-spine on every slide of the section, with a .spine-tag holding p.spine-number and .spine-label (both with a data-id). Only for a section that's about one thing.
+
+  section.has-spine(data-auto-animate)
+    .spine-tag
+      p.spine-number(data-id="SpineNumber") 01
+      code.spine-label(data-id="SpineLabel") one thing
+    h3(data-id="SpineHeading") The spine carries the summary
+    ul
+      li(data-id="SpinePoint1") A number at the top
+      li A label up the band
+    aside.notes
+      ul
+        li Everything matched by data-id holds perfectly still; only the new point rises in.
+
+  section(data-auto-animate data-spine-section="Auto-animate")
+    h3 Auto-animate
+    ul
+      li(data-id="First") First
+      li(data-id="Second") Second
+      li(data-id="Third") Third
+    aside.notes
+      ul
+        li data-auto-animate on both slides, data-id on each li. Match text on a p, heading or li so only its font-size animates.
+
+  section(data-auto-animate)
+    h3 Auto-animate
+    ul
+      li(data-id="Third") Third
+      li(data-id="First") First
+      li(data-id="Second") Second
+      li Fourth, rising in unmatched
+
+  section(data-spine-section="Links")
+    h3 Internal links
+    p
+      a(href="#/CatalogueCode") Jump back to the code examples.
+    aside.notes
+      ul
+        li An id on a section, then a href="#/ThatId".

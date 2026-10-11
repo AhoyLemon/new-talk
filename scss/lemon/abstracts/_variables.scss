@@ -1,0 +1,84 @@
+// Every value the Lemon deck system decides, in one place. Colours are custom properties (set in base/_root.scss) so a talk can retune them from talk.scss without touching Lemon; each one is bound to a Sass variable here exactly once.
+
+// Palette ---------------------------------------------------------------------
+
+$ink: var(--lemon-ink);
+$cream: var(--lemon-cream);
+$cream-line: var(--lemon-cream-line);
+$cream-muted: var(--lemon-cream-muted);
+$focus: var(--lemon-focus);
+$rust: var(--lemon-rust);
+$mustard: var(--lemon-mustard);
+$wheat: var(--lemon-wheat);
+
+// Roles: what a colour is for. Templates use these, not the palette names.
+$ground: var(--lemon-ground);
+$text: var(--lemon-text);
+$text-quiet: var(--lemon-text-quiet);
+$line: var(--lemon-line);
+$touch: var(--lemon-touch);
+$field: var(--lemon-field);
+$on-field: var(--lemon-on-field);
+$surface: var(--lemon-surface);
+$code-surface: var(--lemon-code-surface);
+$code-frame: var(--lemon-code-frame);
+
+// Type ------------------------------------------------------------------------
+// Syne does the everyday work. Yrsa is rationed, so it lands when it appears. Share Tech Mono is code, plus asides and jokes.
+
+$font-sans: "Syne", "Avenir Next", "Helvetica Neue", sans-serif;
+$font-display: "Yrsa", Georgia, serif;
+$font-mono: "Share Tech Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+// Space -----------------------------------------------------------------------
+// Everything inside a slide is measured against the slide canvas, never the browser window: .reveal .slides is a size container, so cqw and cqh are percentages of the 16:9 canvas before reveal scales it. Viewport units are for window-space chrome only.
+
+$root-size: 3.125cqw; // 40px on a 1280 canvas
+$safe-x: 7.5cqw; // 96px on 1280
+$safe-y: 10cqh; // 72px on 720
+$gap: 2.5cqw;
+
+// The type scale, in em of $root-size. Nothing meant to be read goes below $step-small.
+$step-small: 0.6em; // 24px at 1280
+$step-body: 0.8em;
+$step-lead: 1em;
+$step-heading: 1.25em;
+$step-statement: 1.9em;
+$step-shout: 2.4em; // the sentence cap, 96px at 1280
+
+$measure-statement: 17ch;
+$measure-body: 34ch;
+
+// Motion ----------------------------------------------------------------------
+
+$speed-slide: 640ms;
+$speed-land: 900ms;
+$speed-quick: 220ms;
+
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+// A recorded spring, all 87 samples, as a linear() easing. Fragments land on it, and its overshoot is what makes .fragment.bounce bounce.
+$spring: linear(0, 0.051, 0.141, 0.261, 0.399, 0.546, 0.693, 0.832, 0.957, 1.066, 1.153, 1.219, 1.264, 1.288, 1.294, 1.284, 1.262, 1.229, 1.19, 1.148, 1.105, 1.063, 1.025, 0.991, 0.963, 0.942, 0.927, 0.918, 0.914, 0.915, 0.921, 0.929, 0.94, 0.952, 0.965, 0.977, 0.989, 0.999, 1.008, 1.015, 1.02, 1.023, 1.025, 1.025, 1.024, 1.022, 1.019, 1.015, 1.012, 1.008, 1.004, 1.001, 0.998, 0.996, 0.995, 0.993, 0.993, 0.993, 0.993, 0.993, 0.994, 0.995, 0.996, 0.997, 0.998, 0.999, 1, 1.001, 1.001, 1.002, 1.002, 1.002, 1.002, 1.002, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999);
+
+// The spine ------------------------------------------------------------------
+// A narrow column down the left edge of the slides that opt in, cut off by a fold line, like the spine of a cassette's J-card. It carries the section marker (a number, set at the top) and gives those slides a fixed edge to sit against. The fraction lives on its own so demo scaling can do arithmetic with it.
+
+$spine-fraction: 0.07;
+$spine: 7cqw;
+$panel-gap: 4cqw;
+$fold-width: 0.16cqw;
+$fold: var(--lemon-fold);
+$spine-ground: var(--lemon-spine-ground);
+$spine-text: var(--lemon-spine-text);
+
+// Blank Metal ------------------------------------------------------------------
+// _M's accents and motion curves, from the _M storybook (src/styles/base/_tokens.scss, docs/motion.md). Only the .bm hello slides use them.
+
+$bm-magenta: var(--lemon-bm-magenta);
+$bm-coral: var(--lemon-bm-coral);
+$bm-cobalt-light: var(--lemon-bm-cobalt-light);
+$bm-white: var(--lemon-bm-white);
+$bm-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+$bm-ease-anticipate: cubic-bezier(0.36, 0, 0.66, -0.56);
+$bm-ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+$bm-ignite: 640ms;

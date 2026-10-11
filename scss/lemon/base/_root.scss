@@ -1,0 +1,36 @@
+// Lemon's palette and roles. A talk retunes any of these from talk.scss by redeclaring the property on :root; templates only ever read the role properties.
+
+:root {
+  --lemon-ink: #141411;
+  --lemon-cream: #f7f0d8;
+  --lemon-cream-line: color-mix(in oklab, var(--lemon-cream) 68%, transparent);
+  --lemon-cream-muted: color-mix(in oklab, var(--lemon-cream) 32%, transparent);
+  --lemon-focus: #ffe600;
+  --lemon-rust: #d95a2c;
+  --lemon-mustard: #e1d36f;
+  --lemon-wheat: #f3e6a8;
+
+  --lemon-ground: var(--lemon-ink);
+  --lemon-text: var(--lemon-cream);
+  --lemon-text-quiet: color-mix(in oklab, var(--lemon-cream) 72%, transparent);
+  --lemon-line: var(--lemon-cream-line);
+  --lemon-touch: var(--lemon-rust);
+  --lemon-field: var(--lemon-mustard);
+  --lemon-on-field: var(--lemon-ink);
+  --lemon-surface: color-mix(in oklab, var(--lemon-ink), var(--lemon-cream) 8%);
+  --lemon-fold: var(--lemon-cream-muted);
+  --lemon-spine-ground: var(--lemon-surface);
+  --lemon-code-surface: color-mix(in oklab, var(--lemon-ink), var(--lemon-cream) 4%);
+  --lemon-code-frame: color-mix(in oklab, var(--lemon-cream) 18%, transparent);
+  --lemon-spine-text: var(--lemon-cream);
+
+  // Blank Metal's _M accents and the white of its split slides, from the _M storybook (src/styles/base/_tokens.scss). Only the .bm hello slides use them.
+  --lemon-bm-magenta: #fc2ffc;
+  --lemon-bm-coral: #ff6b6b;
+  --lemon-bm-cobalt-light: #8c9fff;
+  --lemon-bm-white: #fff;
+
+  // The canvas reveal-config.js declares, as plain numbers, so demo iframes (which keep their own CSS-pixel frame) can be scaled to fit beside the spine.
+  --lemon-canvas-w: 1280;
+  --lemon-canvas-h: 720;
+}

@@ -1,0 +1,231 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// The everyday blocks a talk reaches for: column grids, quotes, figures and screenshots, source credits, keys.
+
+// Pick columns with data-columns="2|3|4|2-1|1-2".
+.reveal .grid {
+  display: grid;
+  gap: $gap;
+  align-items: center;
+
+  &[data-columns="2"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &[data-columns="3"] {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &[data-columns="4"] {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  // Uneven splits: the bigger share goes to whichever side carries the weight.
+  &[data-columns="2-1"] {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  &[data-columns="1-2"] {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  // A column of words: a heading, a sentence or two, maybe a code block.
+  .column {
+    display: grid;
+    align-content: start;
+    gap: 0.4em;
+
+    h3 {
+      font-size: $step-lead;
+    }
+
+    p {
+      color: $text-quiet;
+      font-size: $step-small;
+      line-height: 1.35;
+    }
+
+    pre {
+      font-size: 0.5em;
+    }
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  // A figure's image sits flush left, so its caption lines up under it.
+  figure img {
+    margin-inline: 0;
+  }
+
+  .box {
+    display: flex;
+    align-items: center;
+  }
+}
+
+// A quote: the opening mark sits inside the block in Mustard, the words start just after it, and the cite is indented under them in Yrsa's italic, the one place an italic belongs.
+.reveal blockquote {
+  position: relative;
+  width: auto;
+  max-width: 26ch;
+  margin: 0;
+  padding: 0 0 0 0.75em;
+  background: none;
+  box-shadow: none;
+  font-size: $step-heading;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.15;
+  text-wrap: balance;
+
+  &::before {
+    content: "\201C";
+    position: absolute;
+    top: -0.06em;
+    left: 0;
+    color: $mustard;
+    font-size: 1.5em;
+    line-height: 1;
+  }
+
+  p {
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  cite {
+    display: block;
+    margin-top: 0.7em;
+    padding-left: 1.6em;
+    color: $text-quiet;
+    font-family: $font-display;
+    font-size: 0.62em;
+    font-style: italic;
+    font-weight: 400;
+
+    &::before {
+      content: "\2014\00a0";
+    }
+  }
+}
+
+.reveal figure {
+  margin: 0;
+}
+
+.reveal section img {
+  max-height: 70cqh;
+  margin: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.reveal figcaption {
+  margin-top: 0.6em;
+  color: $text-quiet;
+  font-family: $font-mono;
+  font-size: $step-small;
+}
+
+.reveal .single-screenshot img {
+  max-height: 54cqh;
+}
+
+.reveal .screenshot-grid {
+  figure {
+    width: 100%;
+    text-align: center;
+  }
+
+  img {
+    display: block;
+    max-height: 26cqh;
+    margin-inline: auto;
+  }
+}
+
+.reveal .overflow-scroll {
+  overflow-y: auto;
+  max-height: 60cqh;
+}
+
+// Text that has to sit on a photo sits on a cream strip, the same strip the demos use for context, so it reads without a shadow.
+.reveal .over-photo {
+  padding: 0.3em 0.5em;
+  background: $cream;
+  color: $ink;
+  box-decoration-break: clone;
+}
+
+// A source credit fades in a beat after its slide arrives, low on the panel.
+.reveal .source,
+.reveal cite.credit {
+  position: absolute;
+  bottom: 3.5cqh;
+  left: calc(var(--spine, 0cqw) + #{$panel-gap});
+  display: block;
+  padding: 0.25em 0.55em;
+  background: $ground;
+  color: $text-quiet;
+  font-family: $font-mono;
+  font-size: $step-small;
+  font-style: normal;
+  opacity: 0;
+  transition: opacity 500ms linear;
+
+  a {
+    color: inherit;
+  }
+}
+
+// The present slide only, not a present stack: a stack is .present too, which would show every credit in it before its own slide arrives.
+.reveal section.present > .source,
+.reveal section.present:not(.stack) cite.credit {
+  opacity: 1;
+  transition-delay: 1s;
+}
+
+.reveal kbd {
+  display: inline-block;
+  padding: 0.15em 0.4em;
+  border: $fold-width solid $line;
+  border-radius: 0;
+  color: $text;
+  font-family: $font-mono;
+  font-size: 0.85em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.reveal sub.footnote,
+.reveal .footnote {
+  @include aside;
+}
+
+// A generic embedded page (the +iframe mixin). Demos use the scaled section.demo instead.
+.reveal iframe.resizable {
+  max-width: 100%;
+  border: 0;
+  background: $ground;
+}
+
+// A stack of images shown one over the next (reveal's .r-stack), each a little smaller so the edges of the earlier ones still show.
+.reveal .r-stack img {
+  width: 66cqw;
+  max-height: 62cqh;
+  object-fit: cover;
+
+  &:nth-child(2) {
+    width: 62cqw;
+  }
+
+  &:nth-child(3) {
+    width: 58cqw;
+  }
+}

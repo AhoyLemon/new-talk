@@ -1,17 +1,27 @@
-// THANK YOU
+//- THANK YOU. The last slide stays up through Q&A, so it carries the URL.
 section
-  section(data-background="img/gif/simone_lemon_maker_faire.gif")
-    h1.white(style="padding-top:40vh; text-shadow:0.05em 0.05em 0.05em black, -1px -1px 1px black") Thank you.
+  section.over-media.thanks(data-background-video="video/simone-thankyou-8.mp4" data-background-video-loop="true" data-background-video-muted)
+    h1 Thank you.
     aside.notes
-      p Wish I could be there.
-      p Maybe next time?
-      p Questions?
-  
-  section(data-background="#e6e924")
+      ul
+        li Land it.
+        li Then the lemon slide, which stays up for Q&amp;A.
+
+  //- Optional: the stickers plug. Swap the placeholder for a photo of the stickers, then uncomment.
+  //- +gag("A photo of the stickers you brought.")
+  //-   h2 I have stickers!
+  //-   aside.notes
+  //-     ul
+  //-       li Hold one up. Tell them where you'll be standing.
+
+  //- The cover again, on lemon yellow: the deck ends where it started.
+  section.cover.lemon-slide(data-background="#e6e924")
     figure
-      img(src="svg/lemon.svg" style="width:212px; height:212px;")
-    p(style="transform:translateY(25vh);")
-      a(href="https://ahoylemon.xyz" target="_blank") 
+      img(src="svg/lemon.svg" alt="" role="presentation")
+    p
+      +link("https://ahoylemon.xyz")
         strong ahoylemon.xyz
     aside.notes
-      h1 STICKERS
+      ul
+        li Leave this up for Q&amp;A.
+        li STICKERS.

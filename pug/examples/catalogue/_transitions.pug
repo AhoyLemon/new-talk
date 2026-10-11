@@ -1,0 +1,126 @@
+//- TRANSITIONS: Lemon's dissolve is the default, so a slide that moves differently says something. Each of reveal's own transitions is shown where its move means something. Lemon's rules step aside for any slide with a data-transition (motion/_transitions.scss).
+
+section(data-spine="Transitions")
+  section.divider
+    h2 Transitions
+    p One dissolve by default, and reveal's own when the move means something.
+    p data-transition on a section; motion/_transitions.scss
+
+  section.statement(data-spine-section="Dissolve")
+    h2 Every slide dissolves.
+    p Nothing flies by default, so when something does, it means something.
+    aside.notes
+      ul
+        li transition: "lemon" in js/reveal-config.js. Moving down a stack dissolves faster than moving to the next idea.
+
+  section.statement(data-spine-section="None")
+    h2 Everything is fine.
+    aside.notes
+      ul
+        li The setup, on the normal dissolve.
+
+  section.statement.is-shout(data-transition="none")
+    h2 It is not fine.
+    aside.notes
+      ul
+        li data-transition="none": a smash cut. The punchline lands the instant you press the key.
+
+  section.statement(data-spine-section="Fade")
+    h2 I'll just fix one small bug.
+    aside.notes
+      ul
+        li The setup.
+
+  section.statement.lead-in(data-transition="fade" data-transition-speed="slow")
+    p Four hours later.
+    h2 I have rewritten the build.
+    aside.notes
+      ul
+        li data-transition="fade" with data-transition-speed="slow": a long crossfade says time passed.
+
+  section.statement.lead-in(data-transition="slide" data-spine-section="Slide")
+    p Step one.
+    h2 Write the markup.
+    aside.notes
+      ul
+        li data-transition="slide" on every step: the steps of one sequence push each other along, so the room feels the order.
+
+  section.statement.lead-in(data-transition="slide")
+    p Step two.
+    h2 Style it.
+
+  section.statement.lead-in(data-transition="slide")
+    p Step three.
+    h2 Script it, if you must.
+
+  section.statement.lead-in(data-transition="convex" data-spine-section="Convex")
+    p What the designer sees:
+    h2 A button.
+    aside.notes
+      ul
+        li data-transition="convex" turns the deck like a cube: the same thing, seen from another side.
+
+  section.statement.lead-in(data-transition="convex")
+    p What the developer sees:
+    h2 Eleven states and a spinner.
+
+  section.statement(data-transition="concave" data-spine-section="Concave")
+    h2 It just works.
+    aside.notes
+      ul
+        li data-transition="concave" folds inward: from the surface of a thing into how it works.
+
+  section(data-transition="concave")
+    h3 Under the hood
+    pre(data-file="it-just-works.js")
+      code.js(data-trim).
+        try {
+          itJustWorks();
+        } catch {
+          // it does not just work
+          location.reload();
+        }
+
+  section(data-spine-section="Zoom")
+    h3 The sign-up form
+    ul
+      li Name
+      li Email
+      li Password
+      li Confirm password
+      li Sign up
+    aside.notes
+      ul
+        li The whole thing first, on the normal dissolve.
+
+  section.statement(data-transition="zoom")
+    h2 Confirm password.
+    p.aside (why is this still here)
+    aside.notes
+      ul
+        li data-transition="zoom": dive into one detail of what came before.
+
+  section.statement(data-transition="zoom-in fade-out" data-spine-section="Mixed")
+    h2 Arrive loud, leave quiet.
+    aside.notes
+      ul
+        li data-transition="zoom-in fade-out": the first word is how the slide arrives, the second how it leaves. Any pair works, e.g. "slide-in fade-out".
+
+  section.statement(data-transition="slide" data-transition-speed="fast")
+    h2 A quick aside.
+    p.aside (data-transition-speed="fast")
+    aside.notes
+      ul
+        li data-transition-speed="fast" or "slow" changes the pace of any transition.
+
+  section.over-media(data-background-image="img/gif/simone_lemon_maker_faire.gif" data-background-size="cover" data-spine-section="Backgrounds")
+    h2 The words dissolve.
+    aside.notes
+      ul
+        li Two over-media slides in a row: the words dissolve as usual...
+
+  section.over-media(data-background-image="img/gif/shooty-frooty.gif" data-background-size="cover" data-background-transition="zoom")
+    h2 The picture zooms.
+    aside.notes
+      ul
+        li ...while data-background-transition="zoom" moves the picture separately. Reveal's default for backgrounds is a fade (backgroundTransition in the config).

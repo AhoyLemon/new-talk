@@ -1,0 +1,134 @@
+@use "../abstracts/variables" as *;
+
+// Code is a self-contained object: a barely lifted surface with a faint hairline frame, so the block reads as one thing on the slide without shouting. Every block gets line numbers (js/line-numbers.js). The highlight plugin stacks one copy of the block per line-highlight step, positioned over the first, so the surface has to be opaque or earlier steps show through.
+
+.reveal pre {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+  font-family: $font-mono;
+  font-size: 0.7em;
+  line-height: 1.4;
+  text-align: left;
+  word-wrap: normal;
+
+  &.huge {
+    font-size: 1.05em;
+  }
+
+  code {
+    display: block;
+    box-sizing: border-box;
+    overflow: auto;
+    max-height: 72cqh;
+    padding: 0.9em 1.1em;
+    border: $fold-width solid $code-frame;
+    background: $code-surface;
+    color: $text;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    word-wrap: normal;
+    tab-size: 2;
+  }
+}
+
+// Reveal ships 15pt for highlighted code; the slide's own scale wins instead.
+.reveal pre code.hljs {
+  padding: 0.9em 1.1em;
+  background: $code-surface;
+  color: $text;
+  font-size: inherit;
+}
+
+// Numbered code is a table (one row per line), so the generic td rules from base/_type.scss and components/_tables.scss would shrink every line to body size. Code keeps the block's own size and leading, and long lines wrap rather than run off a slide that can't scroll.
+.reveal pre .hljs-ln td {
+  font-size: inherit;
+  line-height: inherit;
+  white-space: pre-wrap;
+  text-wrap-style: auto;
+}
+
+.reveal .hljs-ln-numbers {
+  padding-right: 1.1em;
+  color: $text-quiet;
+  opacity: 0.5;
+}
+
+.reveal .hljs.has-highlights tr:not(.highlight-line) {
+  opacity: 0.32;
+}
+
+// The syntax palette: cream for structure, Mustard for property names, Wheat for values, Rust for at-rules and keywords, and quiet cream for comments. Focus Yellow stays off code so it can still mean the one thing to watch.
+.reveal .hljs {
+  .hljs-comment,
+  .hljs-quote {
+    color: $text-quiet;
+    opacity: 0.75;
+  }
+
+  .hljs-attribute,
+  .hljs-attr,
+  .hljs-property,
+  .hljs-variable {
+    color: $mustard;
+  }
+
+  .hljs-number,
+  .hljs-string,
+  .hljs-built_in,
+  .hljs-literal,
+  .hljs-symbol,
+  .hljs-template-variable,
+  .hljs-params {
+    color: $wheat;
+  }
+
+  .hljs-keyword,
+  .hljs-meta,
+  .hljs-tag,
+  .hljs-name,
+  .hljs-selector-pseudo,
+  .hljs-type {
+    color: $rust;
+  }
+
+  .hljs-selector-tag,
+  .hljs-selector-class,
+  .hljs-selector-id,
+  .hljs-selector-attr,
+  .hljs-title,
+  .hljs-punctuation {
+    color: $text;
+  }
+
+  .hljs-emphasis {
+    font-style: normal;
+  }
+
+  .hljs-strong {
+    font-weight: 400;
+  }
+}
+
+// A filename tab, part of the frame itself: pre(data-file="styles.css") draws it on the frame's top edge, so the label can't drift away from its code.
+.reveal pre[data-file] {
+  margin-top: 1.7em;
+
+  &::before {
+    content: attr(data-file);
+    position: absolute;
+    bottom: calc(100% - #{$fold-width});
+    left: 0;
+    z-index: 1;
+    padding: 0.35em 0.9em 0.3em;
+    border: $fold-width solid $code-frame;
+    border-bottom: none;
+    background: $code-surface;
+    color: $text-quiet;
+    font-family: $font-mono;
+    font-size: 0.82em;
+    line-height: 1;
+  }
+}

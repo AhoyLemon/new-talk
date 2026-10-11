@@ -1,0 +1,69 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// A divider: a new side of the tape. A field of colour floods the left of the slide, wall to wall, with the name set high in it in Yrsa; the promise sits low on the ground beside it. Name top-left, promise bottom-right, so the eye crosses the whole slide. It must never be mistaken for anything that counts.
+//
+// A name longer than the field runs straight on past its edge: On field colour inside the field, the field's own colour outside it, split by a hard stop in the text's background at the field's edge.
+
+.reveal .slides section.divider {
+  grid-template-columns: 40cqw minmax(0, 1fr);
+  grid-template-rows: 1fr auto auto;
+  align-content: stretch;
+  column-gap: 5cqw;
+  row-gap: 0.25em;
+  padding-left: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 40cqw;
+    background: $field;
+    box-shadow: -50cqw 0 0 50cqw $field;
+  }
+
+  > h2 {
+    position: relative;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    align-self: start;
+    justify-self: start;
+    inline-size: max-content;
+    max-inline-size: 100%;
+    // The text's background only paints inside the box, so the box reaches past the tight line height to cover ascenders and descenders.
+    padding-block: 0.12em 0.22em;
+    margin-block: -0.12em -0.22em;
+    padding-left: $safe-x;
+    background: linear-gradient(to right, $on-field 40cqw, $field 40cqw);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-family: $font-display;
+    font-size: 22cqh;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 0.85;
+  }
+
+  > p {
+    grid-column: 2;
+    grid-row: 2;
+    max-inline-size: 22ch;
+    font-size: $step-heading;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  > p + p {
+    grid-row: 3;
+    color: $text-quiet;
+    font-size: $step-lead;
+    font-weight: 400;
+  }
+}
+
+.reveal.overview .slides section.divider::before {
+  box-shadow: none;
+}

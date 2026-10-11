@@ -1,0 +1,176 @@
+@use "../abstracts/variables" as *;
+
+// Blank Metal's hello slides: the Lemon deck with a bit of _M in it. Lemon's ground, faces and statement line; _M's stacked logo (+bmLogo), its two accents, its split (an ink panel on the left, content on white on the right) and its metal hand, all from the _M storybook. The accents and the white appear nowhere else in the deck (DESIGN.md records it).
+
+// Every .bm slide: a tracked label pinned to the top (and matched by data-id), so it holds still while the logo and the white side move around it. Content hangs from Lemon's statement line.
+.reveal .slides section.bm {
+  align-content: start;
+  padding-top: 26cqh;
+  row-gap: 0;
+
+  > .bm-logo {
+    inline-size: 52cqw;
+  }
+
+  > .bm-logo + .bm-tagline {
+    margin-top: 0.8em;
+  }
+}
+
+.reveal .bm-label {
+  position: absolute;
+  top: $safe-y;
+  left: $safe-x;
+  margin: 0;
+  // Cobalt light: _M's cobalt for text on ink (plain cobalt is about 3:1 there).
+  color: $bm-cobalt-light;
+  font-family: $font-mono;
+  font-size: $step-small;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+// The stacked _M logo. Its coral A and the magenta stem of the L in METAL spell "AI".
+.reveal .bm-logo {
+  display: block;
+  block-size: auto;
+  overflow: visible;
+  color: $text;
+  fill: currentColor;
+
+  .bm-accent-a {
+    fill: $bm-coral;
+  }
+
+  .bm-accent-i {
+    fill: $bm-magenta;
+  }
+}
+
+// The hello: the logo billed big from the statement line, mono at first. A beat after the slide arrives it ignites, the way it does in the _M storybook: the A and the stem fade into their colours, and "AI" was in METAL all along.
+@keyframes bm-ignite {
+  from {
+    fill: currentColor;
+  }
+}
+
+.reveal .slides section.bm-hello.present .bm-logo :is(.bm-accent-a, .bm-accent-i) {
+  animation: bm-ignite $bm-ignite $bm-ease 1.2s backwards;
+}
+
+.reveal .bm-tagline {
+  max-inline-size: 26ch;
+  color: $text-quiet;
+  font-size: $step-heading;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+// The split: the ink panel takes Lemon's divider line (40cqw) and keeps the logo; the content sits on white to the right. The white is the section's own ::before, bled past the canvas edge like the spine, and arriving from a slide without it, it slides in from the right (js/arrivals.js sets .bm-arrives on that step only).
+.reveal .slides section.bm.bm-split {
+  grid-template-columns: 40cqw minmax(0, 1fr);
+  column-gap: 6cqw;
+  padding-left: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 40cqw;
+    right: 0;
+    background: $bm-white;
+    box-shadow: 50cqw 0 0 50cqw $bm-white;
+  }
+
+  > .bm-logo {
+    grid-column: 1;
+    inline-size: 26cqw;
+    margin-left: $safe-x;
+  }
+
+  > .bm-content {
+    position: relative;
+    grid-column: 2;
+    grid-row: 1;
+    color: $ink;
+  }
+}
+
+// A quiet line before the heading on the white side, the way a statement's lead-in works.
+.reveal .bm-role {
+  margin: 0 0 0.3em;
+  color: color-mix(in oklab, var(--lemon-ink) 70%, transparent);
+  font-size: $step-heading;
+  font-weight: 500;
+}
+
+@keyframes bm-white-in {
+  from {
+    translate: 100% 0;
+  }
+}
+
+.reveal .slides section.bm-split.bm-arrives.present::before {
+  animation: bm-white-in $bm-ignite $bm-ease both;
+}
+
+.reveal.overview .slides section.bm-split::before {
+  box-shadow: none;
+}
+
+// Reveal's arrows and slide number sit over the white side, so they turn ink there.
+.reveal:has(.slides section.bm-split.present) :is(.controls, .slide-number) {
+  color: $ink;
+}
+
+// The _M list: a magenta metal hand for a bullet, as in the storybook's hand list. When its item lands, the hand headbangs once: the storybook's headbang, cut down to a single nod.
+@keyframes bm-headbang {
+  0% {
+    translate: 0 0;
+    animation-timing-function: $bm-ease-anticipate;
+  }
+
+  40% {
+    translate: 0 -0.35em;
+    animation-timing-function: $bm-ease-overshoot;
+  }
+
+  100% {
+    translate: 0 0;
+  }
+}
+
+.reveal ul.bm-hands {
+  display: grid;
+  gap: 0.6em;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: grid;
+    grid-template-columns: 0.85em 1fr;
+    column-gap: 0.6em;
+    align-items: center;
+    font-size: $step-lead;
+
+    &::before {
+      content: "";
+      aspect-ratio: 210 / 249;
+      background: $bm-magenta;
+      mask: url("../svg/_m/metal-hand.svg") center / contain no-repeat;
+    }
+  }
+
+  li.fragment.visible::before {
+    animation: bm-headbang 560ms 280ms both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .slides section.bm-hello.present .bm-logo :is(.bm-accent-a, .bm-accent-i),
+  .reveal .slides section.bm-split.bm-arrives.present::before,
+  .reveal ul.bm-hands li.fragment.visible::before {
+    animation: none;
+  }
+}

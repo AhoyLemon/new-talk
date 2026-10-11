@@ -1,0 +1,116 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// Reference slides. A metric is a term at billing scale with its name and one line of meaning. A Q&A slide pairs the question people actually ask with the short answer. Contact details get one tidy list.
+
+.reveal .slides section dl.metric {
+  display: grid;
+  gap: 0.2em;
+  margin: 0;
+
+  dt {
+    color: $text;
+    font-family: $font-display;
+    font-size: 30cqh;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 0.85;
+  }
+
+  // The term's full name.
+  dd.metric-name {
+    margin: 0;
+    color: $mustard;
+    font-size: $step-heading;
+    font-weight: 600;
+  }
+
+  dd {
+    max-inline-size: $measure-body;
+    margin: 0.4em 0 0;
+    color: $text-quiet;
+    font-size: $step-lead;
+  }
+}
+
+.reveal .q-and-a {
+  display: grid;
+  gap: 1.2em;
+
+  dl {
+    display: grid;
+    gap: 0.35em;
+    margin: 0;
+  }
+
+  dt {
+    max-inline-size: 22ch;
+    font-size: $step-heading;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  dd {
+    max-inline-size: 34ch;
+    margin: 0;
+    color: $text-quiet;
+    font-size: $step-lead;
+  }
+
+  strong {
+    color: $mustard;
+    font-family: $font-mono;
+    font-weight: 400;
+  }
+}
+
+.reveal table.hmu {
+  width: auto;
+
+  caption {
+    font-size: $step-small;
+  }
+
+  td {
+    padding: 0.35em 0.8em 0.35em 0;
+    border-bottom: none;
+    font-size: $step-body;
+  }
+
+  svg {
+    width: 1.1em;
+    aspect-ratio: 1;
+    fill: currentColor;
+  }
+}
+
+// The hit-me-up photos: both cropped to one shape, so the pair sits level whatever size each photo is.
+.reveal .hmu-photos img {
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+// Resources: what it is, then where it lives.
+.reveal .links {
+  display: grid;
+  gap: 0.9em;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: grid;
+    gap: 0.1em;
+  }
+
+  strong {
+    font-size: $step-heading;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  // An ordinary link, the same as anywhere else in the deck: text colour with the Rust underline.
+  a {
+    font-size: $step-body;
+  }
+}

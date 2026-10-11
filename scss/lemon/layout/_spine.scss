@@ -1,0 +1,112 @@
+@use "../abstracts/variables" as *;
+
+// The spine: a solid band down the left edge, like the spine of a cassette's J-card, carrying a summary of what the whole section is about (a number at the top, a label running up the band). A section gets one only when it's about a thing that can be summarised there; everything else runs edge to edge, so the band is never decoration. Opt in with .has-spine on each slide of the section, and put the summary in a .spine-tag.
+//
+// The band is the section's own ::before, so it travels with its slide, and its shadow carries it past the canvas edge, so a window wider or taller than 16:9 still shows one continuous band.
+
+.reveal .slides section:not(.stack) {
+  --spine: 0cqw;
+}
+
+.reveal .slides section.has-spine:not(.stack) {
+  --spine: #{$spine};
+
+  padding-left: calc(var(--spine) + #{$panel-gap});
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--spine);
+    box-sizing: border-box;
+    border-right: $fold-width solid $fold;
+    background: $spine-ground;
+    box-shadow: -50cqw 0 0 50cqw $spine-ground;
+    transform-origin: left center;
+    pointer-events: none;
+  }
+}
+
+// Arriving from a slide without a band, the band slides in from the left edge while the number travels into it. js/arrivals.js sets .spine-arrives only on that step, so moving within a section doesn't replay it.
+@keyframes lemon-spine-in {
+  from {
+    translate: -100% 0;
+  }
+}
+
+.reveal .slides section.has-spine.spine-arrives.present::before {
+  animation: lemon-spine-in 560ms $ease-out both;
+}
+
+.reveal.overview .slides section::before {
+  box-shadow: none;
+}
+
+.reveal .spine-tag {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  justify-items: center;
+  width: var(--spine);
+  padding: $safe-y 0 calc(#{$safe-y} * 0.75);
+  color: $spine-text;
+  pointer-events: none;
+}
+
+// Share Tech Mono, the same face as the card's big number, so the number keeps its shape as it travels into the band.
+.reveal .slides .spine-number {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  font-family: $font-mono;
+  font-size: 1.6em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+// Set sideways and read bottom to top, like the title on a cassette spine.
+.reveal .spine-label {
+  align-self: end;
+  overflow: hidden;
+  max-height: 100%;
+  color: inherit;
+  font-family: $font-mono;
+  font-size: $step-small;
+  line-height: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0.75;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+}
+
+// The spine card: a section's title card, with its summary set big in the middle of the slide. Auto-animate from it into the section's first spine slide and the summary moves onto the band: reveal shrinks the number into place (matched by data-id), and js/arrivals.js turns the label on its side, shrinks it and lands it. Give the card's label no data-id, so reveal leaves it to the script.
+.reveal .slides section.spine-card {
+  place-content: center;
+  justify-items: center;
+  row-gap: 0.1em;
+  text-align: center;
+
+  > .spine-number {
+    color: $text;
+    font-size: 34cqh;
+    line-height: 0.85;
+  }
+
+  > .spine-label {
+    align-self: auto;
+    max-height: none;
+    font-size: $step-heading;
+    opacity: 1;
+    writing-mode: horizontal-tb;
+    rotate: none;
+  }
+}

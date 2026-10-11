@@ -1,0 +1,460 @@
+// The shared foundation for every demo: Lemon's tokens and faces, the base page, the frame (stage, context strip, control rail), and the rail controls. A demo stylesheet `@use`s this file and adds only its own subject, composition, keyframes and lesson states.
+//
+// Demos are real pages in an iframe, not slides on the canvas, so px and viewport units are fine here.
+
+// Lemon's palette, emitted as the same --lemon-* custom properties the deck uses, so a demo and the slide around it never drift apart.
+@use "../../../scss/lemon/base/root";
+
+// COLORS ---------------------------------------------------------------------
+$ink: var(--lemon-ink);
+$focus-yellow: var(--lemon-focus);
+$rust: var(--lemon-rust);
+$mustard: var(--lemon-mustard);
+$wheat: var(--lemon-wheat);
+$cream: var(--lemon-cream);
+$cream-line: var(--lemon-cream-line);
+$cream-muted: var(--lemon-cream-muted);
+
+// TYPOGRAPHY -----------------------------------------------------------------
+$font-headline: "Yrsa", Georgia, serif;
+$font-body: "Syne", sans-serif;
+$font-code: "Share Tech Mono", monospace;
+$font-size-headline: clamp(1.45rem, 2vw, 2.05rem);
+$font-size-label-small: clamp(0.82rem, 1.2vw, 0.98rem);
+$font-size-code: clamp(0.74rem, 1vw, 0.9rem);
+
+// FRAME ----------------------------------------------------------------------
+// The deck embeds every demo at 1280 x 600 (+demo's default). Stage + strip + rail must add up.
+$frame-width: 1280px;
+$frame-height: 600px;
+$strip-height: 44px;
+$rail-height: 88px;
+$stage-min: $frame-height - $strip-height - $rail-height; // 468px
+$frame-inset: clamp(32px, 5vw, 64px);
+$rail-inset: clamp(28px, 5vw, 64px);
+
+// CONTROLS -------------------------------------------------------------------
+$run-button-min-width: 168px;
+$toggle-width: 68px;
+$toggle-height: 34px;
+$toggle-knob: 22px;
+$toggle-knob-inset: 4px;
+$toggle-travel: $toggle-width - $toggle-knob - (2 * $toggle-knob-inset) - 4px; // 34px: the track's inside (border-box, minus its 2px borders) less the knob and both insets
+$range-width: 116px;
+$range-height: 40px;
+$range-thumb: 26px;
+$range-notch-inset: 13px;
+$focus-outline: 3px solid $cream;
+$focus-outline-offset: 3px;
+
+// MIXINS ---------------------------------------------------------------------
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// Land the end state without the journey. Use inside @media (prefers-reduced-motion: reduce).
+@mixin reduce-motion {
+  animation-duration: 1ms;
+  animation-iteration-count: 1;
+  transition-duration: 1ms;
+}
+
+@mixin headline {
+  margin: 0;
+  font-family: $font-headline;
+  font-size: $font-size-headline;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+}
+
+@mixin label-small {
+  font-family: $font-body;
+  font-size: $font-size-label-small;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+@mixin code {
+  font-family: $font-code;
+  font-size: $font-size-code;
+  font-weight: 400;
+}
+
+// Rail primary action: Ink fill on the Rust rail, lightens on hover/focus.
+@mixin run-button {
+  min-width: $run-button-min-width;
+  border: 2px solid $ink;
+  padding: 9px 14px;
+  border-radius: 0;
+  background: $ink;
+  color: $rust;
+  @include label-small;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, translate 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: $cream;
+    color: $ink;
+    outline: $focus-outline;
+    outline-offset: $focus-outline-offset;
+  }
+
+  &:active {
+    translate: 0 2px;
+  }
+}
+
+// Stage secondary action: a Rust ghost on the Ink stage.
+@mixin stage-action {
+  border: 1px solid $rust;
+  border-radius: 0;
+  padding: 10px 12px;
+  background: transparent;
+  color: $rust;
+  @include label-small;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, translate 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: $rust;
+    color: $ink;
+    outline: $focus-outline;
+    outline-offset: $focus-outline-offset;
+  }
+
+  &:active {
+    translate: 0 2px;
+  }
+}
+
+// BASE -----------------------------------------------------------------------
+
+// Every size in this file (the frame, the controls' tracks and knobs) is measured border-box.
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+  accent-color: $rust;
+
+  &::selection {
+    background: $rust;
+    color: $ink;
+  }
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: $ink;
+  color: $cream;
+  font-family: $font-body;
+  font-weight: 400;
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+// FRAME ----------------------------------------------------------------------
+// #app.demo-frame > main.demo-stage + aside.context-strip? + footer.control-rail?
+//
+// The stage is the page. The strip and rail pin to the bottom of the viewport, and the stage reserves their height so nothing overlaps. In the deck's 1280 x 600 iframe that leaves a 468px stage; standalone, the stage grows.
+
+$dock-inset: max(#{$rail-inset}, calc((100vw - #{$frame-width}) / 2 + #{$rail-inset}));
+
+.demo-frame {
+  display: grid;
+  grid-template-rows: minmax($stage-min, 1fr);
+  width: min(100%, $frame-width);
+  min-height: 100vh;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-bottom: $strip-height + $rail-height;
+  background: $ink;
+
+  &:not(:has(.control-rail)) {
+    padding-bottom: $strip-height;
+  }
+
+  &:not(:has(.context-strip)) {
+    padding-bottom: $rail-height;
+  }
+
+  &:not(:has(.control-rail)):not(:has(.context-strip)) {
+    padding-bottom: 0;
+  }
+}
+
+.demo-stage {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  padding: $frame-inset;
+  align-content: center;
+}
+
+// The API or idea the demo is about, in one line on a cream strip.
+.context-strip {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: $strip-height;
+  box-sizing: border-box;
+  padding: 0 $dock-inset;
+  background: $cream;
+  color: $ink;
+
+  p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: baseline;
+    margin: 0;
+    @include label-small;
+    line-height: 1.3;
+  }
+
+  code,
+  output {
+    @include code;
+    color: $ink;
+    line-height: 1.3;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  strong {
+    font-weight: 400;
+  }
+}
+
+.demo-frame:has(.control-rail) .context-strip {
+  bottom: $rail-height;
+}
+
+// The controls, on a Rust rail along the bottom.
+.control-rail {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 11;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(20px, 3vw, 44px);
+  min-height: $rail-height;
+  box-sizing: border-box;
+  padding: 12px $dock-inset;
+  border-top: 2px solid $ink;
+  background: $rust;
+  color: $ink;
+}
+
+// Groups momentary actions at the rail's start.
+.rail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+// Groups persistent conditions at the rail's end.
+.rail-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(20px, 3vw, 44px);
+  margin-left: auto;
+}
+
+// RAIL CONTROLS --------------------------------------------------------------
+
+.demo-trigger {
+  @include run-button;
+}
+
+.stage-action {
+  @include stage-action;
+}
+
+// label.demo-toggle > span + input[type=checkbox] + span.toggle-visual
+.demo-toggle {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: $ink;
+  @include label-small;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    @include visually-hidden;
+  }
+
+  .toggle-visual {
+    position: relative;
+    flex: none;
+    width: $toggle-width;
+    height: $toggle-height;
+    border: 2px solid $ink;
+    border-radius: 999px;
+    background: transparent;
+    transition: background 160ms ease;
+
+    &::after {
+      position: absolute;
+      top: $toggle-knob-inset;
+      left: $toggle-knob-inset;
+      width: $toggle-knob;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: $ink;
+      content: "";
+      transition: background 160ms ease, translate 160ms ease;
+    }
+  }
+
+  input:focus-visible + .toggle-visual {
+    outline: $focus-outline;
+    outline-offset: $focus-outline-offset;
+  }
+
+  input:checked + .toggle-visual {
+    background: $ink;
+
+    &::after {
+      background: $cream;
+      translate: $toggle-travel 0;
+    }
+  }
+}
+
+// label.demo-range > span + span.range-well > input[type=range] + span.range-visual > span.range-notches + span.range-thumb, then output
+// Set --range-stops (default 3) and --range-value (0-based) on the well; demos/ts/partials/_range.ts does both.
+.demo-range {
+  display: grid;
+  grid-template-columns: auto $range-width auto;
+  gap: 12px;
+  align-items: center;
+  color: $ink;
+  @include label-small;
+
+  output {
+    min-width: 4ch;
+    @include code;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+}
+
+.range-well {
+  --range-stops: 3;
+  --range-value: 0;
+  position: relative;
+  width: $range-width;
+  height: $range-height;
+
+  input[type="range"] {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    appearance: none;
+    opacity: 0.001;
+    cursor: pointer;
+
+    &:focus-visible + .range-visual {
+      outline: $focus-outline;
+      outline-offset: $focus-outline-offset;
+    }
+  }
+}
+
+.range-visual {
+  position: absolute;
+  inset: 0;
+  border: 2px solid $ink;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.range-notches {
+  position: absolute;
+  inset: 0 $range-notch-inset;
+  display: grid;
+  grid-template-columns: repeat(var(--range-stops), 1fr);
+  align-items: center;
+
+  span {
+    justify-self: center;
+    width: 2px;
+    height: 12px;
+    background: $ink;
+  }
+}
+
+.range-thumb {
+  position: absolute;
+  top: 50%;
+  left: calc(#{$range-notch-inset} + (100% - #{2 * $range-notch-inset}) / var(--range-stops) * (var(--range-value) + 0.5));
+  width: $range-thumb;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: $ink;
+  translate: -50% -50%;
+  transition: left 160ms ease;
+}
+
+// STANDALONE ---------------------------------------------------------------------
+// The deck's 1280 x 600 iframe never reaches this; it's for opening a demo on a phone.
+
+@media (max-width: 760px) {
+  .demo-frame {
+    grid-template-rows: minmax(440px, 1fr);
+  }
+
+  .demo-stage {
+    padding: 32px 24px;
+  }
+
+  .control-rail,
+  .context-strip {
+    padding-inline: 24px;
+  }
+
+  .demo-trigger {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .rail-group {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+}

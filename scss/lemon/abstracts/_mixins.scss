@@ -1,0 +1,28 @@
+@use "variables" as *;
+
+// A slide that sits on the field colour instead of the ground. Applied to the section itself, so the colour travels with the slide during a transition instead of fading behind it.
+@mixin on-field {
+  background: $field;
+  color: $on-field;
+  --lemon-text: var(--lemon-on-field);
+  --lemon-text-quiet: color-mix(in oklab, var(--lemon-on-field) 72%, transparent);
+  --lemon-line: color-mix(in oklab, var(--lemon-on-field) 60%, transparent);
+}
+
+// The aside voice: Share Tech Mono for the parenthetical, the joke, the thing said under the breath.
+@mixin aside {
+  color: $text-quiet;
+  font-family: $font-mono;
+  font-size: $step-small;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

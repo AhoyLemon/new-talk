@@ -1,0 +1,96 @@
+@use "../abstracts/variables" as *;
+
+// Fragments land: a short rise and a fade, the rise eased on a recorded spring ($spring). Only translate and opacity move, so the compositor does all of it. The selectors are long on purpose: they have to outrank both reveal's fragment rules and the transition auto-animate injects, without !important. Stepped code copies (code.hljs.fragment) are stacked on top of each other and must not move, and reveal's own fragment styles (fade-*, highlight-*, grow, shrink, current-visible) keep their own motion.
+
+.reveal .slides section .fragment:not(.strike):not(.mark):not(.custom):not(code):not([class*="fade-"]):not([class*="highlight-"]):not(.grow):not(.shrink):not(.current-visible) {
+  --land-rise: 0.32em;
+
+  translate: 0 var(--land-rise);
+  transition: opacity 360ms $ease-out, translate $speed-land $spring, visibility 360ms;
+
+  &.visible {
+    translate: 0 0;
+  }
+}
+
+// A literal bounce: it drops in from above and the spring's overshoot does the bouncing. Ration it.
+.reveal .slides section .fragment.bounce:not(.custom) {
+  --land-rise: -1.1em;
+
+  transition: opacity 200ms linear, translate 1450ms $spring, visibility 200ms;
+}
+
+// Strike: a Rust line drawn left to right through whatever it lands on, instead of reveal's instant line-through.
+.reveal .slides section .fragment.strike {
+  position: relative;
+  text-decoration: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 52%;
+    right: -0.06em;
+    left: -0.06em;
+    height: 0.09em;
+    background: $touch;
+    scale: 0 1;
+    transform-origin: left center;
+    transition: scale 520ms $ease-out;
+    pointer-events: none;
+  }
+
+  &.visible {
+    text-decoration: none;
+
+    &::before {
+      scale: 1 1;
+    }
+  }
+}
+
+// Mark: Focus Yellow sweeps in behind a word. It's the one thing to watch, so a slide gets one at most.
+.reveal .slides section .fragment.mark {
+  position: relative;
+  z-index: 0;
+  opacity: 1;
+  visibility: inherit;
+  transition: color 300ms $ease-out 120ms;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0.05em -0.12em 0;
+    z-index: -1;
+    background: $focus;
+    scale: 0 1;
+    transform-origin: left center;
+    transition: scale 420ms $ease-out;
+  }
+
+  &.visible {
+    color: $ink;
+
+    &::before {
+      scale: 1 1;
+    }
+  }
+}
+
+// Reduced is not none: everything still arrives, it just crossfades in place.
+@media (prefers-reduced-motion: reduce) {
+  .reveal .slides section .fragment:not(.strike):not(.mark):not(.custom):not(code):not([class*="fade-"]):not([class*="highlight-"]):not(.grow):not(.shrink):not(.current-visible) {
+    --land-rise: 0em;
+
+    transition: opacity 240ms linear, visibility 240ms;
+  }
+
+  .reveal .slides section .fragment:is(.strike, .mark)::before {
+    scale: 1 1;
+    opacity: 0;
+    transition: opacity 240ms linear;
+  }
+
+  .reveal .slides section .fragment:is(.strike, .mark).visible::before {
+    opacity: 1;
+  }
+}

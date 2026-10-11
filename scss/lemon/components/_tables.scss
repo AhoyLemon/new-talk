@@ -1,0 +1,70 @@
+@use "../abstracts/variables" as *;
+
+// Two tables. Loose is the default, for a handful of rows read from the back of the room. .dense is for the slide that genuinely needs a dozen rows and will be talked through, not read. Rows are hairline-ruled and indented a little from the frame on both sides. The caption is the table's title, in the working face; the column headings are small mono capitals, so the two never look alike. A highlighted row is only tinted, so the rest of the table can still be read.
+
+.reveal table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+
+  caption {
+    padding-bottom: 0.7em;
+    color: $text;
+    font-family: $font-sans;
+    font-size: $step-lead;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  th,
+  td {
+    padding: 0.45em 0.8em;
+    border-bottom: $fold-width solid $line;
+    font-size: $step-body;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    color: $text-quiet;
+    font-family: $font-mono;
+    font-size: $step-small;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  tr.highlight td {
+    background: color-mix(in oklab, var(--lemon-focus) 9%, transparent);
+    color: color-mix(in oklab, var(--lemon-cream), var(--lemon-focus) 40%);
+  }
+
+  .small,
+  tr.small td {
+    font-size: $step-small;
+  }
+
+  .no-line {
+    border: none;
+  }
+
+  svg {
+    fill: currentColor;
+  }
+
+  svg[role="img"] {
+    width: 1.1em;
+    height: 1.1em;
+  }
+
+  &.dense {
+    th,
+    td {
+      padding: 0.25em 0.7em;
+    }
+
+    td {
+      font-size: $step-small;
+    }
+  }
+}

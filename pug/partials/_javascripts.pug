@@ -5,4 +5,8 @@
   script(src="reveal/plugin/markdown/markdown.js")
   script(src="reveal/plugin/highlight/highlight.js")
   script(src="reveal/plugin/zoom/zoom.js")
+  //- Slide scripts load after the plugins and before the config: line-numbers.js and stacks.js rewrite slides before reveal reads them, and arrivals.js listens on .reveal, which already exists.
+  script(src="js/line-numbers.js?updated="+lastUpdated)
+  script(src="js/stacks.js?updated="+lastUpdated)
+  script(src="js/arrivals.js?updated="+lastUpdated)
   script(src="js/reveal-config.js?updated="+lastUpdated)

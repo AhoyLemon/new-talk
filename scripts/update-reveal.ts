@@ -22,11 +22,7 @@ const revealPluginSource = path.join(
 );
 const revealDest = path.join(projectRoot, "reveal");
 
-/**
- * Recursively copy directory contents
- */
 function copyDir(src: string, dest: string, relativePath: string = "") {
-  // Create destination directory
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest, { recursive: true });
   }
@@ -47,9 +43,6 @@ function copyDir(src: string, dest: string, relativePath: string = "") {
   }
 }
 
-/**
- * Get reveal.js version from package.json
- */
 function getRevealVersion(): string {
   try {
     const packageJsonPath = path.join(
@@ -65,9 +58,6 @@ function getRevealVersion(): string {
   }
 }
 
-/**
- * Remove directory recursively
- */
 function removeDir(dir: string) {
   if (fs.existsSync(dir)) {
     fs.rmSync(dir, { recursive: true, force: true });
@@ -82,7 +72,6 @@ async function updateReveal() {
   }).start();
 
   try {
-    // Check if source exists
     if (!fs.existsSync(revealDistSource)) {
       spinner.fail(chalk.red("reveal.js not found in node_modules"));
       console.log(
@@ -95,13 +84,11 @@ async function updateReveal() {
 
     const version = getRevealVersion();
 
-    // Remove old reveal folder
     if (fs.existsSync(revealDest)) {
       spinner.text = chalk.cyan("Removing old reveal.js files...");
       removeDir(revealDest);
     }
 
-    // Copy new files
     spinner.text = chalk.cyan(`Copying reveal.js v${version}...`);
     spinner.stop();
 
@@ -109,10 +96,8 @@ async function updateReveal() {
       chalk.cyan(`\n  📦 Copying reveal.js v${version} from node_modules...\n`)
     );
 
-    // Copy dist files
     copyDir(revealDistSource, revealDest, "reveal");
 
-    // Copy plugin folder
     console.log("");
     const pluginDest = path.join(revealDest, "plugin");
     copyDir(revealPluginSource, pluginDest, "reveal/plugin");

@@ -1,0 +1,18 @@
+@use "../abstracts/variables" as *;
+
+// Inside an auto-animated stack, auto-animate replaces the dissolve: matched elements (a spine number, say) hold their place and everything else arrives around them. Reveal fades unmatched elements in on its own timing; this lets them rise a touch on the way, the same land the fragments use, so the stack and its fragments move as one grammar.
+
+.reveal section[data-auto-animate]:not(.stack):not([data-auto-animate="running"]) [data-auto-animate-target^="unmatched"]:not(.demo-frame) {
+  translate: 0 0.25em;
+}
+
+.reveal section[data-auto-animate="running"] [data-auto-animate-target^="unmatched"]:not(.demo-frame) {
+  translate: 0 0;
+  transition: opacity 480ms $ease-out 160ms, translate 700ms $ease-out 160ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal section[data-auto-animate] [data-auto-animate-target^="unmatched"] {
+    translate: none;
+  }
+}

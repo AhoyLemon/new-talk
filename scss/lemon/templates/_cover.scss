@@ -1,0 +1,98 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// The cover: the front of the J-card. The byline sits at the top of the panel like a label, and the title is set low and heavy in Yrsa, one of the few places Yrsa appears. A talk's last slide can wear .cover too, so the tape ends where it started.
+
+.reveal .slides section.cover {
+  grid-template-rows: auto 1fr auto auto;
+  align-content: stretch;
+  row-gap: 0.4em;
+
+  > h1 {
+    grid-row: 3;
+    max-inline-size: 13ch;
+    font-family: $font-display;
+    font-size: $step-shout;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+  }
+
+  > p {
+    grid-row: 4;
+    @include aside;
+
+    font-size: $step-body;
+  }
+
+  > .a-talk-by,
+  > .cover-label {
+    grid-row: 1;
+    color: $text-quiet;
+    font-family: $font-sans;
+    font-size: $step-small;
+    letter-spacing: 0.01em;
+  }
+}
+
+// Hello: the first words. "Hi!" is Yrsa at billing scale, the name lands under it in the working face, and the parenthetical is an aside.
+.reveal .slides section.hello {
+  align-content: end;
+  padding-bottom: 16cqh;
+  row-gap: 0.25em;
+
+  > h1 {
+    font-family: $font-display;
+    font-size: 34cqh;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 0.85;
+  }
+
+  > h2 {
+    font-size: $step-statement;
+  }
+
+  > p {
+    @include aside;
+
+    font-size: $step-body;
+  }
+}
+
+// The lemon slide: the shared last slide (pug/sections/shared/_thank-you.pug), which returns to the cover's composition on lemon yellow: the lemon where the byline was, the address where the title was. It's shared, so it lives here in Lemon, not in a talk's own styles.
+.reveal .slides section.lemon-slide {
+  --lemon-text: var(--lemon-ink);
+  --lemon-text-quiet: color-mix(in oklab, var(--lemon-ink) 70%, transparent);
+  --lemon-fold: color-mix(in oklab, var(--lemon-ink) 30%, transparent);
+
+  color: $ink;
+
+  > figure {
+    grid-row: 1;
+  }
+
+  img {
+    width: 22cqh;
+    height: 22cqh;
+  }
+
+  > p {
+    grid-row: 3;
+    font-family: $font-display;
+    font-size: $step-shout;
+    font-weight: 500;
+    line-height: 0.95;
+  }
+
+  a {
+    color: $ink;
+    text-decoration-color: $ink;
+
+    &:hover,
+    &:focus-visible {
+      color: $ink;
+      text-decoration-thickness: 0.12em;
+    }
+  }
+}

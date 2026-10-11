@@ -1,0 +1,27 @@
+@use "../abstracts/variables" as *;
+
+// Visual-gag placeholders (+gag): loud on purpose, so none of them ships by accident. Each one already sits in the over-media layout its real image will use, so swapping the asset in changes nothing else. They break the no-gradient and One Watch rules deliberately, and disappear when the asset lands.
+
+.reveal .slides section.gag .gag-placeholder {
+  position: absolute;
+  inset: 6cqh 6cqw 30cqh calc(var(--spine, 0cqw) + 6cqw);
+  box-sizing: border-box;
+  display: grid;
+  align-content: start;
+  gap: 0.6em;
+  padding: 1.2em;
+  border: 0.35cqw dashed $focus;
+  background: repeating-linear-gradient(45deg, color-mix(in oklab, var(--lemon-focus) 8%, transparent) 0 2cqw, transparent 2cqw 4cqw);
+}
+
+.reveal .gag-label {
+  color: $focus;
+  font-family: $font-mono;
+  font-size: $step-small;
+}
+
+.reveal .gag-description {
+  max-inline-size: 40ch;
+  color: $text-quiet;
+  font-size: $step-body;
+}

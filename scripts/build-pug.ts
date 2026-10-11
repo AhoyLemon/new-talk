@@ -8,11 +8,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
 
+const checkOnly = process.argv.includes("--check");
+
 /**
- * Build all Pug files according to the routing configuration
+ * Build all Pug files according to the routing configuration. In --check mode, renders every route to catch template errors without writing output, so `bun run test` can validate Pug without side effects.
  */
 function buildPug() {
-  console.log("Building Pug files...");
+  console.log(checkOnly ? "Checking Pug files..." : "Building Pug files...");
 
   let successCount = 0;
   let errorCount = 0;
@@ -22,28 +24,29 @@ function buildPug() {
       const sourcePath = path.resolve(projectRoot, source);
       const outputPath = path.resolve(projectRoot, output);
 
-      // Check if source file exists
       if (!fs.existsSync(sourcePath)) {
         console.error(`❌ Source file not found: ${source}`);
         errorCount++;
         return;
       }
 
-      // Compile Pug to HTML
+      // Compile Pug to HTML. testing:false makes siteURL/asset links resolve to the live URL, matching what gets committed/deployed.
       const html = pug.renderFile(sourcePath, {
         pretty: true,
         basedir: path.dirname(sourcePath),
+        testing: false,
       });
 
-      // Ensure output directory exists
-      const outputDir = path.dirname(outputPath);
-      if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true });
+      if (!checkOnly) {
+        const outputDir = path.dirname(outputPath);
+        if (!fs.existsSync(outputDir)) {
+          fs.mkdirSync(outputDir, { recursive: true });
+        }
+
+        fs.writeFileSync(outputPath, html);
       }
 
-      // Write HTML file
-      fs.writeFileSync(outputPath, html);
-      console.log(`✓ ${source} → ${output}`);
+      console.log(checkOnly ? `✓ ${source}` : `✓ ${source} → ${output}`);
       successCount++;
     } catch (error) {
       if (error instanceof Error) {
@@ -56,7 +59,7 @@ function buildPug() {
   });
 
   console.log(
-    `\n✨ Build complete: ${successCount} successful, ${errorCount} failed`
+    `\n✨ ${checkOnly ? "Check" : "Build"} complete: ${successCount} successful, ${errorCount} failed`
   );
 
   if (errorCount > 0) {
