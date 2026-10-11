@@ -23,8 +23,9 @@ There is no reveal theme. `reveal/reset.css` and `reveal/reveal.css` stay, becau
 | `scss/lemon/motion/` | The dissolve, landing fragments, auto-animate |
 | `scss/lemon/todo/_shame.scss` | The few rules that need `!important` (print, and reduced motion inside auto-animate) |
 | `js/line-numbers.js` | Gives every code block line numbers before reveal starts |
+| `js/stacks.js` | Stack-level defaults: a vertical stack's `data-timing` and `data-spine` apply to every slide in it |
 | `js/arrivals.js` | Slides the spine (and a Blank Metal split's white side) in when you arrive from a slide without one, and lands a spine card's label on the band |
-| `pug/examples/_example-slides.pug` | The catalogue: an index over `pug/examples/catalogue/`, one partial per family. Not in the build. |
+| `pug/examples/_example-slides.pug` | The catalogue: an index over `pug/examples/catalogue/`, one vertical stack per family. A fresh talk's starting content. |
 
 ## The canvas, and why there are no px
 
@@ -77,6 +78,20 @@ section.has-spine(data-auto-animate)
 ```
 
 With `data-auto-animate` on each slide and `data-id` on the number and label, they hold still while the content changes. The band is the slide's own `::before`, so it travels with its slide, and its shadow carries it past the canvas into any letterboxing. Arriving from a slide without a spine, it slides in from the left edge: `js/arrivals.js` sets `.spine-arrives` on that step only.
+
+**A whole stack on the spine.** When a vertical stack is one concept, set it once on the stack instead of writing a `.spine-tag` into every slide: `js/stacks.js` gives every slide in it the spine, numbered by the stack's place among spine stacks (or `data-spine-number`), labelled with `data-spine`. Put `data-spine-section` on the slide where a subsection starts and the label reads "Label › Subsection" from there on. Dividers, spine cards, slides that already have a spine, Blank Metal slides and anything marked `.no-spine` keep their own left edge. The catalogue does this for every family, so the spine always says where you are while you browse:
+
+```pug
+section(data-spine="Show it")
+  section.divider
+    h2 Show it
+  section(data-spine-section="Images")
+    +image("photo.jpg")
+  section(data-spine-section="Grids")
+    .grid(data-columns="2")
+```
+
+It's optional, like every spine: use it when a stack is one idea you want the room to keep in mind.
 
 Open the section with a **spine card** and the summary is handed to the band. The card sets the number and label big in the middle of the slide; auto-animate into the first spine slide and the band slides in, reveal shrinks the number into place, and `js/arrivals.js` turns the label on its side, shrinks it and lands it:
 
@@ -141,9 +156,9 @@ Each template is a class on the `section`. A slide with no template class still 
 - `display: "grid"`: reveal writes `display` inline on every visible slide, so the slide grid has to come from the config. A `display` in CSS loses.
 - `center: true`: it never actually centres anything, because every Lemon slide is exactly canvas-tall, so reveal's centring offset is zero. What it buys is auto-animate measuring with `getBoundingClientRect`. With `center: false` reveal measures `offsetLeft` against each element's own offset parent, and anything travelling between two differently positioned parents (a number moving into the spine) flies to the wrong place.
 - `transition: "lemon"`.
-- `defaultTiming` non-null, so the speaker view's pacing timer shows. A slide sets its own with `data-timing` (seconds); the intro reel and the catalogue use `data-timing="0"` so they don't count.
-- Script order in `pug/partials/_javascripts.pug`: anything that rewrites slides (`line-numbers.js`) or listens on `.reveal` (`arrivals.js`) loads after reveal's plugins and before `reveal-config.js`.
+- `defaultTiming` non-null, so the speaker view's pacing timer shows. A slide sets its own with `data-timing` (seconds), or a whole stack sets one for all its slides (`js/stacks.js`): the intro reel's stack uses `data-timing="0"` so its reels don't count.
+- Script order in `pug/partials/_javascripts.pug`: anything that rewrites slides (`line-numbers.js`, `stacks.js`) or listens on `.reveal` (`arrivals.js`) loads after reveal's plugins and before `reveal-config.js`.
 
 ## Using the catalogue
 
-Include `pug/examples/_example-slides.pug` at the end of `pug/index.pug` to see every template in the real deck, and take the include out again before the talk. Each family in `pug/examples/catalogue/` opens with a divider; each template is a horizontal stack with its default first and its alternates below it, and each slide's notes name the class and the partial that styles it. When you add a template to Lemon, add it to the catalogue in the same commit.
+A fresh talk starts with the catalogue as its content: `pug/index.pug` includes `pug/examples/_example-slides.pug` between the shared intro and outro. Each family in `pug/examples/catalogue/` is one vertical stack that opens with a divider and carries its name (and the current subsection) on the spine; walk down a stack to see each template and its alternates. Each slide's notes name the class and the partial that styles it. Copy what you need into your own files in `pug/sections/`, then swap the catalogue's include for yours. When you add a template to Lemon, add it to the catalogue in the same commit.

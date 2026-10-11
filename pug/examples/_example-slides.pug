@@ -1,13 +1,6 @@
-//- The Lemon slide catalogue: every template in lemon.scss, with each one's alternates stacked under it. Copy from here when you need a pattern; docs/LEMON-DECK.md says what each one is for.
+//- The Lemon slide catalogue: every template in lemon.scss, with each one's alternates. It's a fresh talk's starting content, so pug/index.pug includes it between the shared intro and outro: copy what you need into your own files in pug/sections/, then swap this include for yours. docs/LEMON-DECK.md says what each template is for.
 //-
-//- Not part of any talk's build. To judge a pattern in the real deck, include this file at the end of pug/index.pug for a while, then take the include out again. Every slide carries data-timing="0" so the speaker view's pacing timer ignores it.
-//-
-//- One family per partial in catalogue/. Each opens with a divider; right is the next template, down is its alternates.
-
-section.divider(data-timing="0")
-  h2 Examples
-  p Every Lemon template, with its alternates underneath.
-  p Disposable: take the include out before the talk.
+//- One family per partial in catalogue/, each its own vertical stack: right is the next family, down walks through it. Each stack sets data-spine, so js/stacks.js puts the family and the current data-spine-section on the spine as you browse. Nothing here repeats the shared sections (the intro reel, hello, hit me up, thank you).
 
 include catalogue/_say.pug
 include catalogue/_code.pug

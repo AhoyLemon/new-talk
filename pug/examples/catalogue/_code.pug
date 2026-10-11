@@ -1,14 +1,13 @@
 //- CODE: framed blocks, highlight steps, huge one-liners, side by side, and builds across slides.
 
-section#CatalogueCode.divider(data-timing="0")
-  h2 Code
-  p Framed, numbered, stepped and built.
-  p components/_code.scss, js/line-numbers.js
+section(data-spine="Code")
 
-//- A framed block. Default first, alternates below.
-section
+  section#CatalogueCode.divider
+    h2 Code
+    p Framed, numbered, stepped and built.
+    p components/_code.scss, js/line-numbers.js
 
-  section(data-timing="0")
+  section(data-spine-section="Blocks")
     h3 A labelled block, in steps
     pre(data-file="card.css")
       code.css(data-trim data-line-numbers="1-3|5-7").
@@ -23,7 +22,7 @@ section
       ul
         li pre(data-file) draws the filename tab. data-line-numbers="1-3|5-7" steps the highlight. Every block gets line numbers from js/line-numbers.js.
 
-  section(data-timing="0")
+  section
     h3 Two short blocks
     pre(data-file="index.html")
       code.html(data-trim).
@@ -37,7 +36,7 @@ section
       ul
         li Two pre blocks stacked: keep each to a few lines.
 
-  section.statement(data-timing="0")
+  section.statement
     pre.huge
       code.css(data-trim).
         :has(> img)
@@ -46,37 +45,34 @@ section
       ul
         li pre.huge for a single big line.
 
-//- Side by side: two columns, each with its own code.
-section(data-timing="0")
-  h3 Two ways to centre a thing
-  .grid(data-columns="2")
-    .column
-      h3 Flexbox
-      p Two properties on the parent, one per axis.
-      pre
-        code.css(data-trim).
-          .parent {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-    .column
-      h3 Grid
-      p One property does both axes.
-      pre
-        code.css(data-trim).
-          .parent {
-            display: grid;
-            place-items: center;
-          }
-  aside.notes
-    ul
-      li .grid(data-columns="2") with a .column each. components/_blocks.scss.
+  section(data-spine-section="Side by side")
+    h3 Two ways to centre a thing
+    .grid(data-columns="2")
+      .column
+        h3 Flexbox
+        p Two properties on the parent, one per axis.
+        pre
+          code.css(data-trim).
+            .parent {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+      .column
+        h3 Grid
+        p One property does both axes.
+        pre
+          code.css(data-trim).
+            .parent {
+              display: grid;
+              place-items: center;
+            }
+    aside.notes
+      ul
+        li .grid(data-columns="2") with a .column each. components/_blocks.scss.
 
-//- The same block, growing: auto-animate matches the pre by data-id.
-section
 
-  section(data-auto-animate data-timing="0")
+  section(data-auto-animate data-spine-section="Builds")
     h3 Sass had variables first
     pre(data-id="VariablesBuild")
       code.scss(data-trim).
@@ -85,7 +81,7 @@ section
       ul
         li An auto-animate build: matching pre(data-id) on each slide.
 
-  section(data-auto-animate data-timing="0")
+  section(data-auto-animate)
     h3 Sass had variables first
     pre(data-id="VariablesBuild")
       code.scss(data-trim).
@@ -95,7 +91,7 @@ section
           background: $brand;
         }
 
-  section(data-auto-animate data-timing="0")
+  section(data-auto-animate)
     h3 CSS has them now
     pre(data-id="VariablesBuild")
       code.css(data-trim).

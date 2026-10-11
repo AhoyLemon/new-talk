@@ -33,8 +33,7 @@ bun run check:fonts     # Warn if Yrsa, Syne or Share Tech Mono aren't installed
 
 ## How do I edit the deck?
 
-- Write your slides in [`pug/sections/_talk-content.pug`](pug/sections/_talk-content.pug), and split them into more files in `pug/sections/` as the talk grows. [`pug/index.pug`](pug/index.pug) includes them between the shared intro and outro.
-  - [`pug/examples/_example-slides.pug`](pug/examples/_example-slides.pug) is the catalogue of every slide template, with alternates. Include it at the end of `index.pug` to browse it in the real deck.
+- A fresh talk starts with the catalogue of every slide template ([`pug/examples/_example-slides.pug`](pug/examples/_example-slides.pug)) between the shared intro and outro. Browse it, copy what you need into your own files in `pug/sections/`, then swap its include in [`pug/index.pug`](pug/index.pug) for yours.
   - [`pug/partials/_mixins.pug`](pug/partials/_mixins.pug) has the mixins, like `+demo`, `+image`, `+iframe` and `+gag`.
 - The look lives in [`scss/lemon/`](scss/lemon/), and [`docs/LEMON-DECK.md`](docs/LEMON-DECK.md) explains it. Put this talk's own styles, and any colour retuning, in [`scss/talk.scss`](scss/talk.scss).
 - **Need help with demos?** See [`demos/demos.md`](demos/demos.md)

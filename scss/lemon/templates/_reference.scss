@@ -86,9 +86,11 @@
   }
 }
 
-.reveal .hmu-emoji {
-  font-size: 16cqh;
-  line-height: 1;
+// The hit-me-up photos: both cropped to one shape, so the pair sits level whatever size each photo is.
+.reveal .hmu-photos img {
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 // Resources: what it is, then where it lives.

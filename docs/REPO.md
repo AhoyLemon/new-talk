@@ -42,7 +42,7 @@ A Markdown paragraph is one line. So is a comment in Pug, TypeScript, JavaScript
 | To change… | Edit… | Not… |
 |---|---|---|
 | Shared slide content | `pug/sections/shared/` files | `*.html` |
-| Talk-specific slide content | `pug/sections/_talk-content.pug` (split it into more files as the talk grows) | `*.html` |
+| Talk-specific slide content | your own files in `pug/sections/`, included from `pug/index.pug` in place of the catalogue | `*.html` |
 | Demo content / markup | `demos/pug/` files | `demos/*.html` |
 | Shared presentation styles (the Lemon deck system) | `scss/lemon/` partials (`scss/lemon.scss` is `@use` lines only) | `css/lemon.css` |
 | Talk-specific styles | `scss/talk.scss` (and `scss/talk/` partials once it grows) | `css/talk.css` |
@@ -59,15 +59,17 @@ A Markdown paragraph is one line. So is a comment in Pug, TypeScript, JavaScript
 A `testing` local (switches `siteURL` between `localURL` and `liveURL`, and thus which URLs the OG/Twitter meta tags resolve against) is set by whichever script does the rendering, not hardcoded in the template — see [Deployment](#deployment).
 
 - **`pug/partials/_variables.pug`** — talk title, subtitle, `liveURL`, `localURL`, `description` and `authorHandle`. `setup` fills these in; edit them directly after that.
-- **`pug/partials/_mixins.pug`** — reusable Pug mixins: `+link`, `+image`, `+videoBG`, `+introScreen`, `+demo` (builds its own `section.demo`, so a demo slide is `+demo("file.html")(data-timing="…")` with its notes in the block), `+iframe`, `+gag(description)` (a loud placeholder for a visual gag that still needs its asset), and `+bmLogo` (Blank Metal's stacked _M logo, inline so CSS can light its accents).
-- **`pug/sections/`** — one file per logical section of the talk, included in `index.pug`. Shared sections in `shared/` (`_hello.pug`, `_intros.pug`, `_hit-me-up.pug`, `_thank-you.pug`) carry forward across talks — edit lightly. `_hello.pug` includes the Blank Metal intro; drop those four slides for a talk that isn't a Blank Metal one. `_talk-content.pug` is the blank canvas for this talk's slides; replace it entirely, and split it into more files as the talk grows.
-- **`pug/examples/`** — `_example-slides.pug` is the Lemon catalogue: every slide template and its alternates, one family per partial in `pug/examples/catalogue/`. Not included in the build; to judge a pattern in the real deck, include it at the end of `pug/index.pug` for a while and take it out again. `_example-videos.pug` holds intro reels.
+- **`pug/partials/_mixins.pug`** — reusable Pug mixins: `+link`, `+image`, `+videoBG`, `+introScreen`, `+demo` (builds its own `section.demo`, so a demo slide is `+demo("file.html")(data-spine-section="…")` with its notes in the block), `+iframe`, `+gag(description)` (a loud placeholder for a visual gag that still needs its asset), and `+bmLogo` (Blank Metal's stacked _M logo, inline so CSS can light its accents).
+- **`pug/sections/`** — one file per logical section of the talk, included in `index.pug`. Shared sections in `shared/` (`_hello.pug`, `_intros.pug`, `_hit-me-up.pug`, `_thank-you.pug`) carry forward across talks — edit lightly. `_hello.pug` includes the Blank Metal intro; drop those four slides for a talk that isn't a Blank Metal one. The talk's own slides go in new files here.
+- **`pug/examples/`** — `_example-slides.pug` is the Lemon catalogue: every slide template and its alternates, one family per vertical stack in `pug/examples/catalogue/`. A fresh talk includes it as its starting content between the shared intro and outro; copy what you need into `pug/sections/`, then swap the include in `pug/index.pug` for your own. `_example-videos.pug` holds intro reels.
 
-A slide can carry `data-timing` (seconds), which drives the pacing timer in reveal's speaker view; slides without one use `defaultTiming` from the config. Slides outside the main path (the intro reel, the catalogue) carry `data-timing="0"`.
+A slide can carry `data-timing` (seconds), which drives the pacing timer in reveal's speaker view; slides without one use `defaultTiming` from the config. Set it once on a vertical stack and `js/stacks.js` gives it to every slide in the stack that doesn't set its own: the intro reel's stack sets `data-timing="0"`, so its reels don't count.
+
+The same script gives a whole stack the spine: `data-spine="Label"` on the stack puts a number and the label on every slide in it, and `data-spine-section="Sub"` on a slide makes the label read "Label › Sub" from there on. The catalogue does this for each family. LEMON-DECK.md has the details.
 
 ### Assets
 
-`img/`, `svg/`, `video/` hold talk assets. Folders prefixed with `_` (e.g. `img/_shared/`) are shared across all talks — don't delete them when starting a new talk. Unprefixed files and folders are talk-specific. `svg/_m/metal-hand.svg` (from the _M storybook) is the Blank Metal intro's bullet. `svg/lemon.svg`, `video/simone-thankyou-8.mp4` and the GIFs in `img/gif/` are used by the shared sections.
+`img/`, `svg/`, `video/` hold talk assets. Folders prefixed with `_` (e.g. `img/_shared/`) are shared across all talks — don't delete them when starting a new talk. Unprefixed files and folders are talk-specific. `svg/_m/metal-hand.svg` (from the _M storybook) is the Blank Metal intro's bullet, and `img/_shared/` holds the hit-me-up photos. `svg/lemon.svg`, `video/simone-thankyou-8.mp4` and the GIFs in `img/gif/` are used by the shared sections.
 
 ### Routing
 
@@ -120,7 +122,7 @@ Inside a slide, sizes are in `cqw`/`cqh` (the slide canvas is a size container) 
 
 `js/reveal-config.js` contains `Reveal.initialize({...})` with all options and plugin registration. Plugins loaded: Markdown, Highlight, Notes, Zoom. The canvas (1280×720, `margin: 0`), `display: "grid"`, `center: true` and `transition: "lemon"` are all load-bearing for the Lemon deck system; LEMON-DECK.md says why. `defaultTiming` is set so the speaker view's pacing timer shows.
 
-Two scripts load before the config: `js/line-numbers.js` gives every code block line numbers before reveal reads it, and `js/arrivals.js` slides the spine (and a Blank Metal split's white side) in when you arrive from a slide without one.
+Three scripts load before the config: `js/line-numbers.js` gives every code block line numbers before reveal reads it, `js/stacks.js` hands a stack's `data-timing` and `data-spine` to its slides, and `js/arrivals.js` slides the spine (and a Blank Metal split's white side) in when you arrive from a slide without one.
 
 ### Vendored reveal.js
 
@@ -128,7 +130,7 @@ The `reveal/` folder contains reveal.js source copied from `node_modules` and co
 
 1. Bump the package: `bun update reveal.js`
 2. Copy `dist/` and `plugin/` into `reveal/`: `bun run update:reveal`
-3. Walk the deck (with the catalogue included) before committing `reveal/` and `package.json`
+3. Walk the deck (the catalogue covers every template) before committing `reveal/` and `package.json`
 
 The Lemon deck system leans on reveal internals that can shift between versions (`display` written inline, the transition name added as a class, auto-animate measuring with `getBoundingClientRect` under `center: true`), so check a spine number travelling with auto-animate and a few dissolves in particular.
 

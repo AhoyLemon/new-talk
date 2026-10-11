@@ -1,14 +1,13 @@
 //- SAY IT: covers, statements, lists, quotes, and the loud ones.
 
-section.divider(data-timing="0")
-  h2 Say it
-  p Covers, statements, lists and quotes.
-  p templates/_cover.scss, templates/_statement.scss, components/_blocks.scss
+section(data-spine="Say it")
 
-//- The cover, then hello.
-section
+  section.divider
+    h2 Say it
+    p Covers, statements, lists and quotes.
+    p templates/_cover.scss, templates/_statement.scss, components/_blocks.scss
 
-  section.cover(data-timing="0")
+  section.cover(data-spine-section="Covers")
     p.a-talk-by a talk by #{authorHandle}
     h1 The Title Goes Low
     p (and the subtitle is an aside)
@@ -16,32 +15,21 @@ section
       ul
         li section.cover: byline at the top, title set low in Yrsa, subtitle as an aside. templates/_cover.scss.
 
-  section.hello(data-timing="0")
-    h1 Hi!
-    h2.fragment My name is Lemon.
-    p.fragment (I make websites.)
-    aside.notes
-      ul
-        li section.hello: "Hi!" in Yrsa at billing scale. templates/_cover.scss.
-
-//- Statements: one sentence, placed. Default first, alternates below.
-section
-
-  section.statement(data-timing="0")
+  section.statement(data-spine-section="Statements")
     h2 One sentence, hung high and flush left.
     p.fragment The kicker lands after, quieter.
     aside.notes
       ul
         li section.statement with a p kicker. templates/_statement.scss.
 
-  section.statement(data-timing="0")
+  section.statement
     h2 Or the kicker is an aside.
     p.aside (said under the breath)
     aside.notes
       ul
         li p.aside makes the kicker the mono aside voice.
 
-  section.statement(data-timing="0")
+  section.statement
     h2 I like CSS.
     h2.fragment I like the browser.
     h2.fragment I like you.
@@ -49,20 +37,20 @@ section
       ul
         li Several h2s stack as a build on one edge.
 
-  section.statement.lead-in(data-timing="0")
+  section.statement.lead-in
     p The setup line comes first.
     h2.fragment Then the payoff lands.
     aside.notes
       ul
         li .statement.lead-in: a quiet p before the heading.
 
-  section.statement.is-shout(data-timing="0")
+  section.statement.is-shout
     h2 The one line that earns it.
     aside.notes
       ul
         li .statement.is-shout: the loud register, in Yrsa. Once per talk, maybe twice.
 
-  section.statement(data-background-image="img/gif/speed-driving.gif" data-background-size="cover" data-background-opacity="0.35" data-timing="0")
+  section.statement(data-background-image="img/gif/speed-driving.gif" data-background-size="cover" data-background-opacity="0.35")
     h2.strobe Speed round!
     p.aside (prefers-reduced-motion turns the strobe off)
     aside.notes
@@ -70,16 +58,13 @@ section
         li .strobe cycles the palette. components/_effects.scss.
         li data-background-opacity dims a busy picture so the words on it stay readable.
 
-  section.statement(data-timing="0")
+  section.statement
     h2 Do not #[span.blink blink].
     aside.notes
       ul
         li .blink on an inline span: it holds still, then blinks twice, like an eye.
 
-//- Lists, quotes, fragments, small print.
-section
-
-  section(data-timing="0")
+  section(data-spine-section="Lists")
     h3 A heading with points that land
     ul
       li.fragment One at a time.
@@ -89,7 +74,7 @@ section
       ul
         li Plain ul with li.fragment. motion/_fragments.scss.
 
-  section(data-timing="0")
+  section
     h3 Numbered steps
     ol
       li.fragment Write the thing.
@@ -99,7 +84,7 @@ section
       ul
         li Plain ol with li.fragment.
 
-  section(data-timing="0")
+  section(data-spine-section="Quotes")
     blockquote
       p Any sufficiently advanced CSS is indistinguishable from JavaScript.
       cite Someone, probably
@@ -107,17 +92,14 @@ section
       ul
         li blockquote + cite. The mark is Mustard, the cite Yrsa italic. components/_blocks.scss.
 
-  section.statement(data-timing="0")
+  section.statement(data-spine-section="Fragments")
     h2 Fragments with #[span.fragment.mark opinions].
-    p
-      span.fragment.strike It's fine.
-      |
-      span.fragment.bounce It's not fine.
+    p #[span.fragment.strike It's fine.] #[span.fragment.bounce It's not fine.]
     aside.notes
       ul
         li .fragment.mark sweeps Focus Yellow behind a word, .fragment.strike draws a Rust line through, .fragment.bounce drops in from above.
 
-  section(data-timing="0")
+  section(data-spine-section="Small print")
     h3 Small print and keys
     p Press #[kbd S] for speaker view, #[kbd F] for full screen.
     p.footnote * Your keyboard may vary.

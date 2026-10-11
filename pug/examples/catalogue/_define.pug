@@ -1,14 +1,13 @@
 //- DEFINE: metrics, Q&A, tables, links.
 
-section.divider(data-timing="0")
-  h2 Define it
-  p Terms, answers, tables and links.
-  p templates/_reference.scss, components/_tables.scss
+section(data-spine="Define it")
 
-//- A metric, then Q&A.
-section
+  section.divider
+    h2 Define it
+    p Terms, answers, tables and links.
+    p templates/_reference.scss, components/_tables.scss
 
-  section(data-timing="0")
+  section(data-spine-section="Metrics")
     dl.metric
       dt CQW
       dd.metric-name.fragment Container Query Width
@@ -17,7 +16,7 @@ section
       ul
         li dl.metric: the term billed big in Yrsa, its name in Mustard, one line of meaning.
 
-  section(data-timing="0")
+  section(data-spine-section="Q&A")
     .q-and-a
       dl
         dt #[strong Q:] Why no px inside a slide?
@@ -29,10 +28,7 @@ section
       ul
         li .q-and-a: the questions people actually ask.
 
-//- Tables: loose by default, dense as the alternate.
-section
-
-  section(data-timing="0")
+  section(data-spine-section="Tables")
     table
       caption Lemon's three faces
       thead
@@ -57,7 +53,7 @@ section
       ul
         li The loose table: a handful of rows. tr.highlight is a faint tint, never a block.
 
-  section(data-timing="0")
+  section
     table.dense
       caption Talk formats
       thead
@@ -75,22 +71,21 @@ section
       ul
         li table.dense: a dozen rows, talked through rather than read.
 
-//- Links: what it is, then where it lives.
-section(data-timing="0")
-  h3 Resources
-  ul.links
-    li
-      strong reveal.js
-      +link("https://revealjs.com") revealjs.com
-    li
-      strong Syne
-      +link("https://fonts.google.com/specimen/Syne") fonts.google.com/specimen/Syne
-    li
-      strong Yrsa
-      +link("https://fonts.google.com/specimen/Yrsa") fonts.google.com/specimen/Yrsa
-    li
-      strong Share Tech Mono
-      +link("https://fonts.google.com/specimen/Share+Tech+Mono") fonts.google.com/specimen/Share+Tech+Mono
-  aside.notes
-    ul
-      li ul.links: strong for what it is, a link for where it lives.
+  section(data-spine-section="Links")
+    h3 Resources
+    ul.links
+      li
+        strong reveal.js
+        +link("https://revealjs.com") revealjs.com
+      li
+        strong Syne
+        +link("https://fonts.google.com/specimen/Syne") fonts.google.com/specimen/Syne
+      li
+        strong Yrsa
+        +link("https://fonts.google.com/specimen/Yrsa") fonts.google.com/specimen/Yrsa
+      li
+        strong Share Tech Mono
+        +link("https://fonts.google.com/specimen/Share+Tech+Mono") fonts.google.com/specimen/Share+Tech+Mono
+    aside.notes
+      ul
+        li ul.links: strong for what it is, a link for where it lives.

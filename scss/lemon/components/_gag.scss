@@ -4,7 +4,7 @@
 
 .reveal .slides section.gag .gag-placeholder {
   position: absolute;
-  inset: 6cqh 6cqw 30cqh;
+  inset: 6cqh 6cqw 30cqh calc(var(--spine, 0cqw) + 6cqw);
   box-sizing: border-box;
   display: grid;
   align-content: start;
