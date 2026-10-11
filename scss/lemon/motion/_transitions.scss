@@ -1,0 +1,37 @@
+@use "../abstracts/variables" as *;
+
+// The one transition between unlike slides: a dissolve through the ground. The outgoing slide clears quickly, the incoming one arrives a beat later and more slowly, and nothing flies. Inside an auto-animated stack, auto-animate takes over instead (motion/_auto-animate.scss). Every rule keeps reveal's :not([data-transition]) guard, so a slide can still ask for something else.
+
+.reveal.lemon .slides section:not([data-transition]) {
+  transition: opacity 260ms ease-in, visibility 260ms;
+}
+
+.reveal.lemon .slides section:not([data-transition]):is(.past, .future) {
+  opacity: 0;
+}
+
+.reveal.lemon .slides section:not([data-transition]).present {
+  opacity: 1;
+  transition: opacity $speed-slide $ease-out 120ms, visibility 0s;
+}
+
+// Moving down a stack is a smaller step than moving to the next idea, so it dissolves faster.
+.reveal.lemon .slides > section > section:not([data-transition]) {
+  transition-duration: 180ms;
+}
+
+.reveal.lemon .slides > section > section:not([data-transition]).present {
+  transition-duration: 420ms, 0s;
+  transition-delay: 60ms, 0s;
+}
+
+.reveal.lemon.overview .slides section {
+  opacity: 1;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal.lemon .slides section:not([data-transition]).present {
+    transition: opacity 200ms linear, visibility 0s;
+  }
+}

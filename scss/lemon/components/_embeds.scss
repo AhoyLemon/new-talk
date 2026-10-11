@@ -1,0 +1,18 @@
+@use "../abstracts/variables" as *;
+
+// A 16:9 hole for a page that isn't one of ours (a CodePen, a live site) or a local example that should fill the panel. Demos built for the talk use +demo instead, which keeps the demo's own frame and scales it. The width is capped so the 16:9 box never runs taller than the safe area.
+.reveal .iframe-holder {
+  display: flex;
+  inline-size: min(100%, (100cqh - 2 * $safe-y) * 16 / 9);
+  aspect-ratio: 16 / 9;
+  margin: 0;
+
+  iframe {
+    flex-grow: 1;
+    max-inline-size: 100%;
+    max-block-size: 100%;
+    margin: 0;
+    border: 0;
+    background: $ground;
+  }
+}

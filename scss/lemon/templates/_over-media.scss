@@ -1,0 +1,39 @@
+@use "../abstracts/variables" as *;
+
+// Over media: a photo, GIF or video owns the whole canvas (a reveal data-background), and the caption rides on a cream strip low on the left, the same strip the demos use for context. No text shadow anywhere; the strip is what makes it readable on any image.
+
+.reveal .slides section.over-media {
+  align-content: end;
+  justify-items: start;
+  padding-bottom: 9cqh;
+  row-gap: 0.3em;
+
+  > h1,
+  > h2,
+  > h3 {
+    max-inline-size: 22ch;
+    padding: 0.12em 0.35em 0.18em;
+    background: $cream;
+    color: $ink;
+    font-size: $step-heading;
+    font-weight: 600;
+    line-height: 1.15;
+    box-decoration-break: clone;
+  }
+
+  > p {
+    padding: 0.2em 0.5em;
+    background: $ink;
+    color: $cream;
+    font-family: $font-mono;
+    font-size: $step-small;
+  }
+}
+
+// The thank-you: the same strip, with the word in Yrsa.
+.reveal .slides section.over-media.thanks > h1 {
+  font-family: $font-display;
+  font-size: $step-shout;
+  font-weight: 500;
+  line-height: 0.95;
+}

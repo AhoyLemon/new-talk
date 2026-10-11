@@ -1,0 +1,55 @@
+@use "../abstracts/variables" as *;
+
+// The loud ones, kept for the slide that wants to be loud on purpose. Both cycle through the palette rather than a rainbow, and both stop for anyone who asked for less motion.
+
+@keyframes lemon-strobe {
+  0%,
+  100% {
+    color: var(--lemon-cream);
+  }
+
+  20% {
+    color: var(--lemon-focus);
+  }
+
+  40% {
+    color: var(--lemon-rust);
+  }
+
+  60% {
+    color: var(--lemon-mustard);
+  }
+
+  80% {
+    color: var(--lemon-wheat);
+  }
+}
+
+@keyframes lemon-blink {
+  0%,
+  40%,
+  71%,
+  100% {
+    opacity: 1;
+  }
+
+  41%,
+  70% {
+    opacity: 0;
+  }
+}
+
+.reveal .strobe {
+  animation: lemon-strobe 1.6s steps(5) infinite;
+}
+
+.reveal .blink {
+  animation: lemon-blink 0.5s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .strobe,
+  .reveal .blink {
+    animation: none;
+  }
+}

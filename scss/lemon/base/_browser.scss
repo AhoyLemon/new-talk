@@ -1,0 +1,57 @@
+@use "../abstracts/variables" as *;
+
+// The surfaces nobody draws on purpose: selection, focus, links, reveal's own arrows and slide number. They ship in the palette or they ship as browser defaults.
+
+::selection {
+  background: $focus;
+  color: $ink;
+}
+
+.reveal {
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: $touch;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+    transition: color $speed-quick ease-out, text-decoration-color $speed-quick ease-out;
+
+    &:hover,
+    &:focus-visible {
+      color: $focus;
+      text-decoration-color: currentColor;
+    }
+
+    &:active {
+      color: $touch;
+    }
+  }
+
+  :focus-visible {
+    outline: 0.12em solid $focus;
+    outline-offset: 0.18em;
+  }
+
+  // Reveal's arrows and slide number sit on the window, not the canvas, so they're measured in viewport units.
+  .controls {
+    color: $text-quiet;
+
+    button:focus-visible {
+      outline: 2px solid $focus;
+      outline-offset: 2px;
+    }
+  }
+
+  .progress {
+    height: 0.4vmin;
+    background: transparent;
+    color: $focus;
+  }
+
+  .slide-number {
+    background: transparent;
+    color: $text-quiet;
+    font-family: $font-mono;
+    font-size: max(12px, 1.4vmin);
+  }
+}

@@ -1,0 +1,58 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// A statement: one sentence, placed. It hangs from a fixed line high on the panel, flush to the left edge, with the empty canvas underneath, so every statement in the deck lands in the same spot and the eye stops hunting. Confidence comes from the placement and the room around it, not from making it bigger.
+
+.reveal .slides section.statement {
+  align-content: start;
+  padding-top: 26cqh;
+  row-gap: 0.15em;
+
+  > h2 {
+    max-inline-size: $measure-statement;
+    font-size: $step-statement;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+  }
+
+  // The kicker: the line that lands after. Quiet, and a little smaller, so it reads as a reply, not a second headline.
+  > p {
+    max-inline-size: 30ch;
+    margin-top: 0.5em;
+    color: $text-quiet;
+    font-size: $step-lead;
+    line-height: 1.2;
+  }
+
+  > p.aside {
+    @include aside;
+
+    font-size: $step-body;
+  }
+
+  // Stacked builds ("I like CSS. / I like the browser.") share one edge and one rhythm.
+  > h2 + h2 {
+    margin-top: 0.05em;
+  }
+}
+
+// The shout: the loud register, in Yrsa, saved for the one line in a talk that earns it.
+.reveal .slides section.statement.is-shout {
+  > h2 {
+    max-inline-size: 14ch;
+    font-family: $font-display;
+    font-size: $step-shout;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+  }
+}
+
+// Lead-in, then payoff: a quiet setup line said first, and the heading it was setting up lands under it.
+.reveal .slides section.statement.lead-in > p:first-child {
+  margin: 0 0 0.3em;
+  color: $text-quiet;
+  font-size: $step-heading;
+  font-weight: 500;
+}

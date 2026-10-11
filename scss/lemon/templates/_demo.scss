@@ -1,0 +1,28 @@
+@use "../abstracts/variables" as *;
+
+// A live demo. The iframe keeps the CSS-pixel frame its demo was designed for (the width and height the +demo mixin writes), and is scaled as one piece to fit the panel beside the spine. Scaling is arithmetic on plain numbers, the canvas size from base/_root.scss against the demo's own, so it holds for any canvas a talk declares.
+
+.reveal .slides section.demo {
+  --spine-fraction: 0;
+  --demo-room-x: calc(0.97 - var(--spine-fraction));
+  --demo-room-y: 0.92;
+  --demo-scale: min(calc(var(--demo-room-x) * var(--lemon-canvas-w) / var(--demo-w)), calc(var(--demo-room-y) * var(--lemon-canvas-h) / var(--demo-h)));
+
+  padding: 0;
+}
+
+.reveal .slides section.demo.has-spine {
+  --spine-fraction: #{$spine-fraction};
+}
+
+.reveal .demo-frame {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--spine) + (100cqw - var(--spine) - var(--demo-w) * var(--demo-scale) * 1px) / 2);
+  max-width: none;
+  max-height: none;
+  border: 0;
+  background: $ground;
+  transform: translateY(-50%) scale(var(--demo-scale));
+  transform-origin: 0 50%;
+}

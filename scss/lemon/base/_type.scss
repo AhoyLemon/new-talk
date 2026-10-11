@@ -1,0 +1,98 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// Default type for anything a template doesn't claim. Syne is the working face, and never heavier than 600: past that it widens into an extended cut that's hard to read from the back of a room. No uppercase, no text shadow, no theme heading font.
+
+.reveal {
+  font-family: $font-sans;
+  font-weight: 400;
+  color: $text;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    color: inherit;
+    font-family: $font-sans;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    text-wrap: balance;
+    text-shadow: none;
+    word-wrap: normal;
+  }
+
+  h1 {
+    font-size: $step-shout;
+  }
+
+  h2 {
+    font-size: $step-statement;
+  }
+
+  h3 {
+    font-size: $step-heading;
+  }
+
+  h4 {
+    font-size: $step-lead;
+  }
+
+  p,
+  li,
+  dd,
+  td,
+  th,
+  figcaption {
+    margin: 0;
+    font-size: $step-body;
+    line-height: 1.3;
+    text-wrap: pretty;
+  }
+
+  ul,
+  ol {
+    display: grid;
+    gap: 0.4em;
+    margin: 0;
+    padding-left: 1.2em;
+  }
+
+  li::marker {
+    color: $text-quiet;
+  }
+
+  strong,
+  b {
+    font-weight: 600;
+  }
+
+  em,
+  i {
+    font-style: normal;
+    color: $focus;
+  }
+
+  sub {
+    font-size: 70%;
+  }
+
+  // Inline code inside prose keeps the line's size and colour; only the face changes.
+  :not(pre) > code {
+    font-family: $font-mono;
+    font-size: 0.92em;
+    letter-spacing: 0;
+  }
+
+  .aside {
+    @include aside;
+  }
+
+  .visually-hidden {
+    @include visually-hidden;
+  }
+}
