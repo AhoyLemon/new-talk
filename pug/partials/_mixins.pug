@@ -9,7 +9,7 @@ mixin image(file)
     if file.includes("http")
       - imgSrc = file
     else
-      - imgSrc = "/img/"+file
+      - imgSrc = "img/"+file
     img(src=imgSrc)
     if block
       figcaption
@@ -19,7 +19,7 @@ mixin image(file)
 mixin videoBG(slug,start)
   if !start
     - start = 0
-  section(data-background-iframe="https://www.youtube.com/embed/"+slug+"?start="+start+"&fs=0&showinfo=0&rel=0&modestbranding=1&autohide=1&showinfo=0&disablekb=1" data-background-interactive)
+  section(data-background-iframe="https://www.youtube.com/embed/"+slug+"?start="+start+"&fs=0&showinfo=0&rel=0&modestbranding=1&autohide=1&showinfo=0&disablekb=1" data-background-interactive)&attributes(attributes)
     block
 
 mixin introScreen(slug, start)
@@ -29,12 +29,12 @@ mixin introScreen(slug, start)
       h4(style="text-transform:none;")= subtitle
       .a-talk-by(style="margin-top:52vh;")
         b.white.shadowed
-          | (a talk by @AhoyLemon)
+          | (a talk by #{authorHandle})
     else if talkTitle
       h3(style="margin-bottom:0")= talkTitle
       .a-talk-by(style="margin-top:52vh;")
         b.white.shadowed
-          | (a talk by @AhoyLemon)
+          | (a talk by #{authorHandle})
     block
 
 mixin demo(fileName, width = 1280, height = 600)
