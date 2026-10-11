@@ -1,8 +1,0 @@
-@use "partials/reset";
-@use "partials/variables" as var;
-
-body {
-  padding: 40px;
-  font-family: var.$font-family;
-  background-color: var.$yellow;
-}

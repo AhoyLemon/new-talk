@@ -1,0 +1,26 @@
+@use "partials/demo-foundation" as demo;
+
+// The skeleton stylesheet. The foundation owns the frame, strip, rail, controls and type; this file owns only the subject and its lesson.
+
+.single-stage {
+  place-items: center;
+}
+
+.subject {
+  width: clamp(180px, 24vw, 280px);
+  aspect-ratio: 1;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.subject-ground {
+  fill: demo.$focus-yellow;
+}
+
+.subject-mark {
+  fill: demo.$ink;
+}

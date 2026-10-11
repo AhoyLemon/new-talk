@@ -5,13 +5,24 @@ doctype html
 html(lang="en")
   head
     include partials/_head.pug
-    title Demo #{exampleNum}
+    link(rel="stylesheet" href="css/sample-demo.css?updated="+lastUpdated)
+    title Sample demo
   body
-    #app(example-number=exampleNum)
-      main
-        h1.subject Demo #{exampleNum}
-        p This is a sample demo to illustrate how to add a demo to 
-          span= talkTitle
-        button.demo-trigger(type="button") Animate the heading
+    //-
+      The skeleton every demo starts from. Copy this file, its stylesheet (demos/scss/) and its script (demos/ts/), register the route in routes/pug.routes.ts, then replace the subject and the lesson. The context strip and the control rail are both optional.
+    #app.demo-frame.sample-demo(example-number=exampleNum)
+      main.demo-stage.single-stage
+        .subject
+          svg(viewBox="0 0 240 240" role="presentation" focusable="false")
+            rect.subject-ground(x="20" y="20" width="200" height="200")
+            polygon.subject-mark(points="120,58 190,182 50,182")
+
+      aside.context-strip
+        p
+          span Web Animations API
+          code element.animate(keyframes, { duration: 420 })
+
+      footer.control-rail
+        button.demo-trigger(type="button") Animate the subject
 
     script(type="module" src="js/sample-demo.js?updated="+lastUpdated)

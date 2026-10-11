@@ -1,10 +1,15 @@
 ## To add a new demo...
 
-- Create a new Pug file in the `demos/pug/` directory.
-  - You can use the existing `sample-demo.pug` as a template.
+- Copy `sample-demo.pug`, `sample-demo.scss` and `sample-demo.ts`. They are the skeleton: `#app.demo-frame` holding a stage, an optional context strip and an optional control rail.
 - Add the input and output to `routes/pug.routes.ts`
-- scss goes in `demos/scss/`
-- TypeScript goes in `demos/ts/`, and is bundled to `demos/js/`
+- scss goes in `demos/scss/`. Start it with `@use "partials/demo-foundation" as demo;` and keep the file to that demo's own subject, composition, keyframes and lesson states.
+- TypeScript goes in `demos/ts/`, and is bundled to `demos/js/`. Shared helpers live in `demos/ts/partials/` (`_range.ts` wires up the range picker).
+
+## The demo foundation
+
+`demos/scss/partials/_demo-foundation.scss` gives every demo the same ground as the deck: Lemon's `--lemon-*` tokens (shared from `scss/lemon/base/_root.scss`, not copied), the three faces, an Ink page, and a frame sized for `+demo`'s 1280 × 600 iframe. The frame is a stage, then a cream context strip naming the API or idea, then a Rust control rail. The rail's controls are `.demo-trigger` (the run button), `.stage-action`, `label.demo-toggle` and `label.demo-range`, all with hover, focus-visible and active states. The `reduce-motion` and `visually-hidden` mixins come with it.
+
+Demos are real pages in an iframe, not slides on the canvas, so px and viewport units are fine in demo styles.
 
 ## Demo scripts
 
