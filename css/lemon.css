@@ -209,7 +209,7 @@
 
 @keyframes lemon-spine-in {
   from {
-    scale: 0 1;
+    translate: -100% 0;
   }
 }
 .reveal .slides section.has-spine.spine-arrives.present::before {
@@ -260,6 +260,26 @@
   opacity: 0.75;
   writing-mode: vertical-rl;
   rotate: 180deg;
+}
+
+.reveal .slides section.spine-card {
+  place-content: center;
+  justify-items: center;
+  row-gap: 0.1em;
+  text-align: center;
+}
+.reveal .slides section.spine-card > .spine-number {
+  color: var(--lemon-text);
+  font-size: 34cqh;
+  line-height: 0.85;
+}
+.reveal .slides section.spine-card > .spine-label {
+  align-self: auto;
+  max-height: none;
+  font-size: 1.25em;
+  opacity: 1;
+  writing-mode: horizontal-tb;
+  rotate: none;
 }
 
 .reveal pre {
@@ -474,6 +494,9 @@
   max-width: 100%;
   margin-inline: auto;
 }
+.reveal .grid figure img {
+  margin-inline: 0;
+}
 .reveal .grid .box {
   display: flex;
   align-items: center;
@@ -648,11 +671,11 @@
   }
 }
 @keyframes lemon-blink {
-  0%, 40%, 71%, 100% {
-    opacity: 1;
+  0%, 86%, 91%, 94%, 100% {
+    scale: 1 1;
   }
-  41%, 70% {
-    opacity: 0;
+  88.5%, 92.5% {
+    scale: 1 0.08;
   }
 }
 .reveal .strobe {
@@ -660,7 +683,8 @@
 }
 
 .reveal .blink {
-  animation: lemon-blink 0.5s infinite;
+  display: inline-block;
+  animation: lemon-blink 3.2s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -860,11 +884,19 @@
 }
 .reveal .slides section.divider > h2 {
   position: relative;
-  grid-column: 1;
+  grid-column: 1/-1;
   grid-row: 1;
   align-self: start;
+  justify-self: start;
+  inline-size: max-content;
+  max-inline-size: 100%;
+  padding-block: 0.12em 0.22em;
+  margin-block: -0.12em -0.22em;
   padding-left: 7.5cqw;
-  color: var(--lemon-on-field);
+  background: linear-gradient(to right, var(--lemon-on-field) 40cqw, var(--lemon-field) 40cqw);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
   font-family: "Yrsa", Georgia, serif;
   font-size: 22cqh;
   font-weight: 500;
@@ -1040,8 +1072,6 @@
   line-height: 1.1;
 }
 .reveal .links a {
-  color: var(--lemon-text-quiet);
-  font-family: "Share Tech Mono", ui-monospace, "SF Mono", Menlo, monospace;
   font-size: 0.8em;
 }
 
