@@ -1,10 +1,14 @@
+//- This talk's slides. Replace all of this: it's only here so a fresh template shows a few working pieces. pug/examples/_example-slides.pug is the menu of every template.
 section
-  section
-    +demo("sample-demo.html")
-  section
-    +iframe("https://ahoylemon.xyz")
+  section.statement
+    h2 Your first idea goes here.
+    p.aside (Replace pug/sections/_talk-content.pug.)
+  +demo("sample-demo.html")
   section
     +image("gif/shooty-frooty.gif")
   section
-    +link("https://ahoylemon.github.io/new-talk/")
-      | Check out my talk template repository!
+    +iframe("https://ahoylemon.xyz")
+  section.statement
+    h2
+      +link("https://github.com/AhoyLemon/new-talk")
+        | Check out my talk template repository!

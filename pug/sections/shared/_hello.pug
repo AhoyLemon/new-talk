@@ -1,6 +1,6 @@
-section(data-transition="convex" data-transition-speed="6000")
+section
 
-  section
+  section.hello
     h1 Hi!
     h2.fragment My name is Lemon.
     p.fragment (I make websites.)
@@ -10,17 +10,14 @@ section(data-transition="convex" data-transition-speed="6000")
         li For money and for fun
         li Love the platform
 
-  //- Org/company intro — update image paths and content to match your org
-  //- section(data-transition="none" data-background-image="img/bg/[your-bg].webp" data-background-size="cover")
-  //-   .grid(style="display:grid;grid-template-columns:1fr; gap:50dvh;align-items:center;")
-  //-     figure.fragment(style="padding-right:11dvw")
-  //-       img(src="svg/[your-org-logo].svg")
-  //-     .fragment(style="text-align:right;")
-  //-       p [Org tagline]
+  //- Org/company intro: swap in your org's background and logo, then uncomment.
+  //- section.over-media(data-background-image="img/bg/[your-bg].webp" data-background-size="cover")
+    //-   h3 [Org tagline]
+  //-   p
+  //-     img(src="svg/[your-org-logo].svg")
 
-  //- "Serious Professional" punchline — data-auto-animate technique
-  //- Two consecutive slides share a data-id element; the second swaps the background to something absurd
-  //- section(data-auto-animate data-background-image="img/[your-bg].webp")
-  //-   code(data-id="SeriousProfessional") I am a serious professional.
-  //- section(data-auto-animate data-background-image="img/gif/[your-funny.gif]" data-background-size="contain")
-  //-   code(data-id="SeriousProfessional") I am a serious professional.
+  //- "Serious professional" punchline, an auto-animate gag: both slides match the line by data-id, and the second swaps the background for something absurd.
+  //- section.statement(data-auto-animate data-background-image="img/bg/[your-bg].webp" data-background-size="cover")
+  //-   h2(data-id="SeriousProfessional") I am a serious professional.
+  //- section.statement(data-auto-animate data-background-image="img/gif/shooty-frooty.gif" data-background-size="contain")
+  //-   h2(data-id="SeriousProfessional") I am a serious professional.

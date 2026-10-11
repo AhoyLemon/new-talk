@@ -23,22 +23,27 @@ mixin videoBG(slug,start)
     block
 
 mixin introScreen(slug, start)
-  +videoBG(slug,start)
-    if talkTitle && subtitle
-      h3(style="margin-bottom:0")= talkTitle
-      h4(style="text-transform:none;")= subtitle
-      .a-talk-by(style="margin-top:52vh;")
-        b.white.shadowed
-          | (a talk by #{authorHandle})
-    else if talkTitle
-      h3(style="margin-bottom:0")= talkTitle
-      .a-talk-by(style="margin-top:52vh;")
-        b.white.shadowed
-          | (a talk by #{authorHandle})
+  +videoBG(slug,start)(class="over-media")&attributes(attributes)
+    if talkTitle
+      h3= talkTitle
+    if subtitle
+      p= subtitle
+    p a talk by #{authorHandle}
     block
 
+//- A live demo slide. The iframe keeps the demo's own CSS-pixel frame, since every demo is designed for exactly that viewport. The block carries the notes.
 mixin demo(fileName, width = 1280, height = 600)
-  iframe.resizable(src=`./demos/${fileName}` width=width height=height)
+  section.demo(style=`--demo-w: ${width}; --demo-h: ${height};`)&attributes(attributes)
+    iframe.demo-frame(src=`./demos/${fileName}` width=width height=height title=`Demo: ${fileName.replace(".html", "")}`)
+    block
 
 mixin iframe(url, width = 1280, height = 600)
   iframe.resizable(src=url width=width height=height)
+
+//- A visual gag that still needs its real image, GIF or video. Deliberately loud so it can't ship by accident: swap the asset in as the slide's data-background and drop the mixin.
+mixin gag(description)
+  section.gag.over-media&attributes(attributes)
+    .gag-placeholder
+      p.gag-label Visual gag goes here
+      p.gag-description= description
+    block
