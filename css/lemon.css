@@ -21,6 +21,9 @@
   --lemon-code-surface: color-mix(in oklab, var(--lemon-ink), var(--lemon-cream) 4%);
   --lemon-code-frame: color-mix(in oklab, var(--lemon-cream) 18%, transparent);
   --lemon-spine-text: var(--lemon-cream);
+  --lemon-bm-magenta: #fc2ffc;
+  --lemon-bm-coral: #ff6b6b;
+  --lemon-bm-cobalt-light: #8c9fff;
   --lemon-canvas-w: 1280;
   --lemon-canvas-h: 720;
 }
@@ -732,6 +735,107 @@
   font-size: 0.8em;
 }
 
+.reveal .slides section.bm {
+  align-content: start;
+  row-gap: 0;
+}
+.reveal .slides section.bm > .bm-wordmark {
+  inline-size: 30cqw;
+}
+.reveal .slides section.bm > .bm-wordmark + * {
+  margin-top: 12cqh;
+}
+
+.reveal .bm-wordmark {
+  display: block;
+  block-size: auto;
+  overflow: visible;
+  color: var(--lemon-text);
+  fill: currentColor;
+}
+.reveal .bm-wordmark .bm-accent-a {
+  fill: var(--lemon-bm-coral);
+}
+.reveal .bm-wordmark .bm-accent-i {
+  fill: var(--lemon-bm-magenta);
+}
+
+.reveal .slides section.bm.bm-hello {
+  padding-top: 26cqh;
+}
+.reveal .slides section.bm.bm-hello > .bm-wordmark {
+  inline-size: 66cqw;
+}
+.reveal .slides section.bm.bm-hello > .bm-wordmark + * {
+  margin-top: 0.9em;
+}
+
+@keyframes bm-ignite {
+  from {
+    fill: currentColor;
+  }
+}
+.reveal .slides section.bm-hello.present .bm-wordmark :is(.bm-accent-a, .bm-accent-i) {
+  animation: bm-ignite 640ms cubic-bezier(0.2, 0.7, 0.2, 1) 1.2s backwards;
+}
+
+.reveal .bm-tagline {
+  max-inline-size: 26ch;
+  color: var(--lemon-text-quiet);
+  font-size: 1.25em;
+  font-weight: 500;
+  line-height: 1.15;
+}
+.reveal .bm-tagline strong {
+  background: linear-gradient(90deg, var(--lemon-bm-coral) 0%, var(--lemon-bm-magenta) 52%, var(--lemon-bm-cobalt-light) 130%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: 600;
+}
+
+@keyframes bm-headbang {
+  0% {
+    translate: 0 0;
+    animation-timing-function: cubic-bezier(0.36, 0, 0.66, -0.56);
+  }
+  40% {
+    translate: 0 -0.35em;
+    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+.reveal ul.bm-hands {
+  display: grid;
+  gap: 0.6em;
+  padding: 0;
+  list-style: none;
+}
+.reveal ul.bm-hands li {
+  display: grid;
+  grid-template-columns: 0.85em 1fr;
+  column-gap: 0.6em;
+  align-items: center;
+  font-size: 1em;
+}
+.reveal ul.bm-hands li::before {
+  content: "";
+  aspect-ratio: 210/249;
+  background: var(--lemon-bm-magenta);
+  mask: url("../svg/_m/metal-hand.svg") center/contain no-repeat;
+}
+.reveal ul.bm-hands li.fragment.visible::before {
+  animation: bm-headbang 560ms 280ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .slides section.bm-hello.present .bm-wordmark :is(.bm-accent-a, .bm-accent-i),
+  .reveal ul.bm-hands li.fragment.visible::before {
+    animation: none;
+  }
+}
 .reveal .slides section.cover {
   grid-template-rows: auto 1fr auto auto;
   align-content: stretch;
