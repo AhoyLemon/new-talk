@@ -10,12 +10,11 @@ section
         li For money and for fun
         li Love the platform
 
-  //- Blank Metal: the Lemon deck with a bit of _M (components/_blank-metal.scss). The label and the foot joke carry a data-id, so they hold still while the logo shrinks into the ink panel and the white side slides in. Drop these four if a talk isn't a Blank Metal one.
+  //- Blank Metal: the Lemon deck with a bit of _M (components/_blank-metal.scss). The label carries a data-id, so it holds still while the logo shrinks into the ink panel and the white side slides in. Drop these four if a talk isn't a Blank Metal one.
   section.bm.bm-hello(data-auto-animate)
     p.bm-label(data-id="BmLabel") Where I work
     +bmLogo()(data-id="BmLogo")
     p.bm-tagline.fragment Your new favorite AI engineering partner.
-    p.bm-foot(data-id="BmFoot") Not a sponsored segment. I just work here.
     aside.notes
       ul
         li AI-first development agency
@@ -28,14 +27,13 @@ section
     +bmLogo()(data-id="BmLogo")
     .bm-content
       ul.bm-hands
-        li.fragment Development agency
-        li.fragment Minneapolis, MN
+        li.fragment Training &amp; Enablement
+        li.fragment Minneapolis, Minnesota
         li.fragment AI-first
-        li.fragment Anthropic partner
-    p.bm-foot(data-id="BmFoot") Not a sponsored segment. I just work here.
+        li.fragment Anthropic preferred partner
     aside.notes
       ul
-        li Web development, AI-first agency
+        li Training and enablement, AI-first
         li Actively solving real problems for clients
 
   //- "Serious professional": the line holds its data-id while the next slide swaps in something absurd, and auto-animate drops it onto the caption strip.
@@ -43,8 +41,8 @@ section
     p.bm-label(data-id="BmLabel") Where I work
     +bmLogo()(data-id="BmLogo")
     .bm-content
+      p.bm-role Front End Tech Lead
       h2(data-id="SeriousProfessional") I am a serious professional.
-    p.bm-foot(data-id="BmFoot") Not a sponsored segment. I just work here.
     aside.notes
       ul
         li Setup: "I am a serious professional."
