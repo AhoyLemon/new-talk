@@ -23,7 +23,7 @@ There is no reveal theme. `reveal/reset.css` and `reveal/reveal.css` stay, becau
 | `scss/lemon/motion/` | The dissolve, landing fragments, auto-animate |
 | `scss/lemon/todo/_shame.scss` | The few rules that need `!important` (print, and reduced motion inside auto-animate) |
 | `js/line-numbers.js` | Gives every code block line numbers before reveal starts |
-| `js/spine.js` | Grows the spine in when you arrive from a slide without one |
+| `js/arrivals.js` | Slides the spine (and a Blank Metal split's white side) in when you arrive from a slide without one, and lands a spine card's label on the band |
 | `pug/examples/_example-slides.pug` | The catalogue: an index over `pug/examples/catalogue/`, one partial per family. Not in the build. |
 
 ## The canvas, and why there are no px
@@ -76,9 +76,9 @@ section.has-spine(data-auto-animate)
   h3 The content sits beside the band
 ```
 
-With `data-auto-animate` on each slide and `data-id` on the number and label, they hold still while the content changes. The band is the slide's own `::before`, so it travels with its slide, and its shadow carries it past the canvas into any letterboxing. Arriving from a slide without a spine, it slides in from the left edge: `js/spine.js` sets `.spine-arrives` on that step only.
+With `data-auto-animate` on each slide and `data-id` on the number and label, they hold still while the content changes. The band is the slide's own `::before`, so it travels with its slide, and its shadow carries it past the canvas into any letterboxing. Arriving from a slide without a spine, it slides in from the left edge: `js/arrivals.js` sets `.spine-arrives` on that step only.
 
-Open the section with a **spine card** and the summary is handed to the band. The card sets the number and label big in the middle of the slide; auto-animate into the first spine slide and the band slides in, reveal shrinks the number into place, and `js/spine.js` turns the label on its side, shrinks it and lands it:
+Open the section with a **spine card** and the summary is handed to the band. The card sets the number and label big in the middle of the slide; auto-animate into the first spine slide and the band slides in, reveal shrinks the number into place, and `js/arrivals.js` turns the label on its side, shrinks it and lands it:
 
 ```pug
 section.spine-card(data-auto-animate)
@@ -105,7 +105,7 @@ Each template is a class on the `section`. A slide with no template class still 
 | `dl.metric` | A term worth defining | The term in Yrsa at billing scale, its name in Mustard, one line of meaning |
 | `.q-and-a` | The questions people actually ask | `dt` with `strong Q:`, `dd` with `strong A:` |
 | `ul.links` | Resources | `strong` for what it is, then an ordinary link (`a` or `+link`) for where it lives |
-| `.bm`, `.bm-hello` | The Blank Metal intro in `pug/sections/shared/_hello.pug` | Lemon with a bit of _M: `+bmWordmark` draws the _M wordmark inline. On `.bm-hello` it hangs big from the statement line and ignites (mono, then the coral A and magenta stem light up to spell "AI"); auto-animate (`data-id` on the wordmark) carries it into the top-left corner of the `.bm` slides after it. `.bm-tagline` paints `strong` in _M's brand gradient; `ul.bm-hands` uses magenta metal hands for bullets, each nodding once as its item lands. |
+| `.bm`, `.bm-hello`, `.bm-split` | The Blank Metal intro in `pug/sections/shared/_hello.pug` | Lemon with a bit of _M. `+bmLogo` draws the stacked _M logo inline. `.bm-hello` is full ink: a tracked magenta `.bm-label` at the top, the logo big from the statement line, igniting a beat after arrival (mono, then the coral A and the magenta stem of the L light up to spell "AI"), a `.bm-tagline`, and a `.bm-foot` `//` joke. `.bm-split` is _M's split: the logo shrinks into a 40cqw ink panel while the white side slides in from the right, with the content in `.bm-content` on white. The label and foot carry a `data-id`, so they hold still throughout. `ul.bm-hands` uses magenta metal hands for bullets, each nodding once as its item lands. |
 
 ### Components
 
@@ -142,7 +142,7 @@ Each template is a class on the `section`. A slide with no template class still 
 - `center: true`: it never actually centres anything, because every Lemon slide is exactly canvas-tall, so reveal's centring offset is zero. What it buys is auto-animate measuring with `getBoundingClientRect`. With `center: false` reveal measures `offsetLeft` against each element's own offset parent, and anything travelling between two differently positioned parents (a number moving into the spine) flies to the wrong place.
 - `transition: "lemon"`.
 - `defaultTiming` non-null, so the speaker view's pacing timer shows. A slide sets its own with `data-timing` (seconds); the intro reel and the catalogue use `data-timing="0"` so they don't count.
-- Script order in `pug/partials/_javascripts.pug`: anything that rewrites slides (`line-numbers.js`) or listens on `.reveal` (`spine.js`) loads after reveal's plugins and before `reveal-config.js`.
+- Script order in `pug/partials/_javascripts.pug`: anything that rewrites slides (`line-numbers.js`) or listens on `.reveal` (`arrivals.js`) loads after reveal's plugins and before `reveal-config.js`.
 
 ## Using the catalogue
 

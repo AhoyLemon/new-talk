@@ -29,7 +29,7 @@
   }
 }
 
-// Arriving from a slide without a band, the band slides in from the left edge while the number travels into it. js/spine.js sets .spine-arrives only on that step, so moving within a section doesn't replay it.
+// Arriving from a slide without a band, the band slides in from the left edge while the number travels into it. js/arrivals.js sets .spine-arrives only on that step, so moving within a section doesn't replay it.
 @keyframes lemon-spine-in {
   from {
     translate: -100% 0;
@@ -88,7 +88,7 @@
   rotate: 180deg;
 }
 
-// The spine card: a section's title card, with its summary set big in the middle of the slide. Auto-animate from it into the section's first spine slide and the summary moves onto the band: reveal shrinks the number into place (matched by data-id), and js/spine.js turns the label on its side, shrinks it and lands it. Give the card's label no data-id, so reveal leaves it to the script.
+// The spine card: a section's title card, with its summary set big in the middle of the slide. Auto-animate from it into the section's first spine slide and the summary moves onto the band: reveal shrinks the number into place (matched by data-id), and js/arrivals.js turns the label on its side, shrinks it and lands it. Give the card's label no data-id, so reveal leaves it to the script.
 .reveal .slides section.spine-card {
   place-content: center;
   justify-items: center;

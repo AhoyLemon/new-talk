@@ -59,7 +59,7 @@ A Markdown paragraph is one line. So is a comment in Pug, TypeScript, JavaScript
 A `testing` local (switches `siteURL` between `localURL` and `liveURL`, and thus which URLs the OG/Twitter meta tags resolve against) is set by whichever script does the rendering, not hardcoded in the template — see [Deployment](#deployment).
 
 - **`pug/partials/_variables.pug`** — talk title, subtitle, `liveURL`, `localURL`, `description` and `authorHandle`. `setup` fills these in; edit them directly after that.
-- **`pug/partials/_mixins.pug`** — reusable Pug mixins: `+link`, `+image`, `+videoBG`, `+introScreen`, `+demo` (builds its own `section.demo`, so a demo slide is `+demo("file.html")(data-timing="…")` with its notes in the block), `+iframe`, `+gag(description)` (a loud placeholder for a visual gag that still needs its asset), and `+bmWordmark` (Blank Metal's _M wordmark, inline so CSS can light its accents).
+- **`pug/partials/_mixins.pug`** — reusable Pug mixins: `+link`, `+image`, `+videoBG`, `+introScreen`, `+demo` (builds its own `section.demo`, so a demo slide is `+demo("file.html")(data-timing="…")` with its notes in the block), `+iframe`, `+gag(description)` (a loud placeholder for a visual gag that still needs its asset), and `+bmLogo` (Blank Metal's stacked _M logo, inline so CSS can light its accents).
 - **`pug/sections/`** — one file per logical section of the talk, included in `index.pug`. Shared sections in `shared/` (`_hello.pug`, `_intros.pug`, `_hit-me-up.pug`, `_thank-you.pug`) carry forward across talks — edit lightly. `_hello.pug` includes the Blank Metal intro; drop those four slides for a talk that isn't a Blank Metal one. `_talk-content.pug` is the blank canvas for this talk's slides; replace it entirely, and split it into more files as the talk grows.
 - **`pug/examples/`** — `_example-slides.pug` is the Lemon catalogue: every slide template and its alternates, one family per partial in `pug/examples/catalogue/`. Not included in the build; to judge a pattern in the real deck, include it at the end of `pug/index.pug` for a while and take it out again. `_example-videos.pug` holds intro reels.
 
@@ -120,7 +120,7 @@ Inside a slide, sizes are in `cqw`/`cqh` (the slide canvas is a size container) 
 
 `js/reveal-config.js` contains `Reveal.initialize({...})` with all options and plugin registration. Plugins loaded: Markdown, Highlight, Notes, Zoom. The canvas (1280×720, `margin: 0`), `display: "grid"`, `center: true` and `transition: "lemon"` are all load-bearing for the Lemon deck system; LEMON-DECK.md says why. `defaultTiming` is set so the speaker view's pacing timer shows.
 
-Two scripts load before the config: `js/line-numbers.js` gives every code block line numbers before reveal reads it, and `js/spine.js` grows the spine in when you arrive from a slide without one.
+Two scripts load before the config: `js/line-numbers.js` gives every code block line numbers before reveal reads it, and `js/arrivals.js` slides the spine (and a Blank Metal split's white side) in when you arrive from a slide without one.
 
 ### Vendored reveal.js
 

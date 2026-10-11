@@ -1,4 +1,4 @@
-// The spine's arrival. Reveal's events bubble from the .reveal element, which exists before Reveal.initialize runs, so this can load ahead of the config like the other slide scripts.
+// Panels that slide in when you arrive from a slide without them: the spine, and the white side of a Blank Metal split. Reveal's events bubble from the .reveal element, which exists before Reveal.initialize runs, so this can load ahead of the config like the other slide scripts.
 (() => {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -43,5 +43,9 @@
     currentSlide.classList.toggle("spine-arrives", arriving);
 
     if (arriving && previousSlide?.classList.contains("spine-card")) landLabel(previousSlide, currentSlide);
+
+    // The same for the white side of a Blank Metal split: it slides in once, then holds still across the split slides that follow.
+    const splitArriving = currentSlide.classList.contains("bm-split") && !previousSlide?.classList.contains("bm-split");
+    currentSlide.classList.toggle("bm-arrives", splitArriving);
   });
 })();

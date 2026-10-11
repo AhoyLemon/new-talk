@@ -1,23 +1,53 @@
 @use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
 
-// Blank Metal's hello slides: the Lemon deck with a bit of _M in it. Lemon's ground, faces and placement; _M's wordmark (+bmWordmark), its two accents, its brand gradient and its metal hand, all from the _M storybook. The accents appear nowhere else in the deck (DESIGN.md records it).
+// Blank Metal's hello slides: the Lemon deck with a bit of _M in it. Lemon's ground, faces and statement line; _M's stacked logo (+bmLogo), its two accents, its split (an ink panel on the left, content on white on the right) and its metal hand, all from the _M storybook. The accents and the white appear nowhere else in the deck (DESIGN.md records it).
 
-// Every .bm slide wears the wordmark small in the top-left corner and hangs its content from the statement line under it, so the mark holds still while auto-animate changes the slide around it.
+// Every .bm slide: a tracked label at the top and a // joke at the foot, both pinned to the same spots on every slide (and matched by data-id), so they hold still while the logo and the white side move around them. Content hangs from Lemon's statement line.
 .reveal .slides section.bm {
   align-content: start;
+  padding-top: 26cqh;
   row-gap: 0;
 
-  > .bm-wordmark {
-    inline-size: 30cqw;
+  > .bm-logo {
+    inline-size: 52cqw;
   }
 
-  > .bm-wordmark + * {
-    margin-top: 12cqh;
+  > .bm-logo + .bm-tagline {
+    margin-top: 0.8em;
   }
 }
 
-// The _M wordmark. Its coral A and the magenta stem of its L spell "AI", hidden in METAL.
-.reveal .bm-wordmark {
+.reveal .bm-label {
+  position: absolute;
+  top: $safe-y;
+  left: $safe-x;
+  margin: 0;
+  color: $bm-magenta;
+  font-family: $font-mono;
+  font-size: $step-small;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.reveal .bm-foot {
+  position: absolute;
+  bottom: 6cqh;
+  left: $safe-x;
+  max-inline-size: 40cqw - $safe-x - 4cqw;
+  margin: 0;
+  @include aside;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  &::before {
+    content: "// ";
+  }
+}
+
+// The stacked _M logo. Its coral A and the magenta stem of the L in METAL spell "AI".
+.reveal .bm-logo {
   display: block;
   block-size: auto;
   overflow: visible;
@@ -33,44 +63,73 @@
   }
 }
 
-// The hello: the wordmark billed big from the statement line, mono at first. A beat after the slide arrives it ignites, the way it does in the _M storybook: the A and the stem fade into their colours and "AI" was in there all along. Auto-animate then carries the mark into the corner for the slides that follow.
-.reveal .slides section.bm.bm-hello {
-  padding-top: 26cqh;
-
-  > .bm-wordmark {
-    inline-size: 66cqw;
-  }
-
-  > .bm-wordmark + * {
-    margin-top: 0.9em;
-  }
-}
-
+// The hello: the logo billed big from the statement line, mono at first. A beat after the slide arrives it ignites, the way it does in the _M storybook: the A and the stem fade into their colours, and "AI" was in METAL all along.
 @keyframes bm-ignite {
   from {
     fill: currentColor;
   }
 }
 
-.reveal .slides section.bm-hello.present .bm-wordmark :is(.bm-accent-a, .bm-accent-i) {
+.reveal .slides section.bm-hello.present .bm-logo :is(.bm-accent-a, .bm-accent-i) {
   animation: bm-ignite $bm-ignite $bm-ease 1.2s backwards;
 }
 
-// The tagline: Lemon's kicker, with "AI" painted in _M's brand gradient (coral into magenta), the same two colours the wordmark just lit.
 .reveal .bm-tagline {
   max-inline-size: 26ch;
   color: $text-quiet;
   font-size: $step-heading;
   font-weight: 500;
   line-height: 1.15;
+}
 
-  strong {
-    background: $bm-gradient;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    font-weight: 600;
+// The split: the ink panel takes Lemon's divider line (40cqw) and keeps the logo; the content sits on white to the right. The white is the section's own ::before, bled past the canvas edge like the spine, and arriving from a slide without it, it slides in from the right (js/arrivals.js sets .bm-arrives on that step only).
+.reveal .slides section.bm.bm-split {
+  grid-template-columns: 40cqw minmax(0, 1fr);
+  column-gap: 6cqw;
+  padding-left: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 40cqw;
+    right: 0;
+    background: $bm-white;
+    box-shadow: 50cqw 0 0 50cqw $bm-white;
   }
+
+  > .bm-logo {
+    grid-column: 1;
+    inline-size: 26cqw;
+    margin-left: $safe-x;
+  }
+
+  > .bm-content {
+    position: relative;
+    grid-column: 2;
+    grid-row: 1;
+    color: $ink;
+  }
+}
+
+@keyframes bm-white-in {
+  from {
+    translate: 100% 0;
+  }
+}
+
+.reveal .slides section.bm-split.bm-arrives.present::before {
+  animation: bm-white-in $bm-ignite $bm-ease both;
+}
+
+.reveal.overview .slides section.bm-split::before {
+  box-shadow: none;
+}
+
+// Reveal's arrows and slide number sit over the white side, so they turn ink there.
+.reveal:has(.slides section.bm-split.present) :is(.controls, .slide-number) {
+  color: $ink;
 }
 
 // The _M list: a magenta metal hand for a bullet, as in the storybook's hand list. When its item lands, the hand headbangs once: the storybook's headbang, cut down to a single nod.
@@ -117,7 +176,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal .slides section.bm-hello.present .bm-wordmark :is(.bm-accent-a, .bm-accent-i),
+  .reveal .slides section.bm-hello.present .bm-logo :is(.bm-accent-a, .bm-accent-i),
+  .reveal .slides section.bm-split.bm-arrives.present::before,
   .reveal ul.bm-hands li.fragment.visible::before {
     animation: none;
   }

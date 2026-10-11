@@ -48,14 +48,21 @@ mixin gag(description)
       p.gag-description= description
     block
 
-//- Blank Metal's _M wordmark, drawn inline so CSS can light its two accents: the coral A and the magenta stem of the L, which spell "AI". Paths from the _M storybook's wordmark-color-on-dark.svg.
-mixin bmWordmark()
-  svg.bm-wordmark(viewBox="0 0 430 64.71")&attributes(attributes)
-    path(d="M0,64.69v-24.4h54v24.4H0Z")
-    path(d="M92.3,64.69V10.29l27.2,19.86,27.2-19.86v54.4h-54.4Z")
-    path(d="M165.44,35.9V11.51h51.78v24.38h-51.78Z")
-    path(d="M165.44,64.71v-24.38h51.78v24.38h-51.78Z")
-    path(d="M249.13,64.71v-28.37h-12.77V11.51h51.78v24.82h-12.77v28.37h-26.24Z")
-    path(d="M378.22,64.71V11.51h26.24v28.37h25.53v24.83h-51.78Z")
-    path.bm-accent-a(d="M298.43,64.69l30.14-54.4,30.14,54.4h-60.29Z")
-    path.bm-accent-i(d="M378.22,64.71V11.51h26.24v53.2h-26.24Z")
+//- Blank Metal's stacked _M logo, drawn inline so CSS can light its two accents: the coral A and the magenta stem of the L in METAL, which spell "AI". Paths from the _M storybook's stacked-color-on-dark.svg.
+mixin bmLogo()
+  svg.bm-logo(viewBox="0 0 435.25 129.42")&attributes(attributes)
+    //- BLANK
+    path(d="M92,54.79V1.37h37.89c7.69,0,13.96,6.34,13.96,14.03,0,5.48-4.27,10.26-9.12,12.54,5.2,2.14,9.83,7.12,9.83,12.89,0,7.69-6.27,13.96-13.96,13.96h-38.6Z")
+    path(d="M165.92,54.79V1.37h26.35v28.49h25.64v24.93h-52Z")
+    path(d="M233.43,55.02L263.92,0l30.48,55.02h-60.97Z")
+    path(d="M363.11,56l-28.49-14.96v13.75h-24.93V.16l28.49,15.81V1.37h24.93v54.63Z")
+    path(d="M380.43,54.79V1.37h21.94l5.13,8.9,5.56-8.9h19.23l-15.53,25.14,16.24,28.28h-52.57Z")
+    //- _METAL
+    path(d="M0,129.4v-24.4h54v24.4H0Z")
+    path(d="M92.3,129.4v-54.4l27.2,19.86,27.2-19.86v54.4h-54.4Z")
+    path(d="M165.44,100.61v-24.38h51.78v24.38h-51.78Z")
+    path(d="M165.44,129.42v-24.38h51.78v24.38h-51.78Z")
+    path(d="M249.13,129.42v-28.37h-12.77v-24.82h51.78v24.82h-12.77v28.37h-26.24Z")
+    path(d="M378.22,129.42v-53.2h26.24v28.37h25.53v24.83h-51.78Z")
+    path.bm-accent-a(d="M298.43,129.4l30.14-54.4,30.14,54.4h-60.29Z")
+    path.bm-accent-i(d="M378.22,129.42v-53.2h26.24v53.2h-26.24Z")
