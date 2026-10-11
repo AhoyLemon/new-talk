@@ -144,6 +144,8 @@ All scripts in `scripts/` are TypeScript run directly with `tsx`:
 
 ## Deployment
 
+The deployed site at `https://ahoylemon.github.io/<talk>/` is how a deck is distributed: it should look right on a screen, and that's the whole job. PDF export isn't a goal. Reveal's `?print-pdf` view and the print stylesheets still exist, but nothing is tuned or tested for them.
+
 `.github/workflows/test.yml` runs `bun run test` and `bun run build` on every push and PR to `main`. `.github/workflows/deploy.yml` re-runs the same test-then-build gate on every push to `main`, then stages a GitHub Pages artifact from an allowlist (`index.html`, `favicon.ico`, `og-image.png`, `css/`, `js/`, `reveal/`, `svg/`, `video/`, `favicons/`, `img/`, and `demos/`'s built `*.html`/`css/`/`js/` — not `demos/pug/`, `demos/scss/`, or `demos/ts/` source) and deploys it via `actions/deploy-pages`.
 
 **A new talk has to switch Pages on once:** Settings → Pages → Source → GitHub Actions. Until then the deploy job skips itself (it checks `github.event.repository.has_pages`), so the first pushes don't fail; the test workflow still runs.

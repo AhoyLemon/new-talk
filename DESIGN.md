@@ -308,7 +308,7 @@ Demos are real pages in a `+demo` iframe (1280 x 600 by default), styled from `d
 - **Do** put Focus Yellow on one thing per slide at most.
 - **Do** frame every code block on the code surface, give it line numbers, and name its file with the frame's tab.
 - **Do** put text that sits on media on a Cream strip.
-- **Do** keep the reduced-motion paths the deck already has, which crossfade instead of moving. Slide accessibility work is otherwise out of scope: the only requirement is that a slide is legible from the back of the room.
+- **Do** keep the reduced-motion paths the deck already has, which crossfade instead of moving. WCAG work on the deck is otherwise out of scope, and so is PDF export: the requirement is that a slide looks right on screen and is legible from the back of the room.
 
 ### Don't:
 - **Don't** load a reveal theme or a theme heading font.

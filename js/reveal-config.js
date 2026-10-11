@@ -39,7 +39,8 @@ Reveal.initialize({
   // - "all":      Always show the slide number
   // - "print":    Only when printing to PDF
   // - "speaker":  Only in the speaker view
-  showSlideNumber: "speaker",
+  // On everywhere, so a slide can be named in review ("slide 47") and reached with G then the number. Switch to "speaker" if the corner number gets in the way on stage.
+  showSlideNumber: "all",
 
   // Use 1 based indexing for # links to match slide number (default is zero based)
   hashOneBasedIndex: true,
