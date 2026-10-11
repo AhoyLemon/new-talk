@@ -76,7 +76,17 @@ section.has-spine(data-auto-animate)
   h3 The content sits beside the band
 ```
 
-With `data-auto-animate` on each slide and `data-id` on the number and label, they hold still while the content changes. The band is the slide's own `::before`, so it travels with its slide, and its shadow carries it past the canvas into any letterboxing. Arriving from a slide without a spine, it grows out of the left edge: `js/spine.js` sets `.spine-arrives` on that step only. If a talk generates its spines (web-animations did, from its cheat cards), do it in a script that loads before `reveal-config.js`.
+With `data-auto-animate` on each slide and `data-id` on the number and label, they hold still while the content changes. The band is the slide's own `::before`, so it travels with its slide, and its shadow carries it past the canvas into any letterboxing. Arriving from a slide without a spine, it slides in from the left edge: `js/spine.js` sets `.spine-arrives` on that step only.
+
+Open the section with a **spine card** and the summary is handed to the band. The card sets the number and label big in the middle of the slide; auto-animate into the first spine slide and the band slides in, reveal shrinks the number into place, and `js/spine.js` turns the label on its side, shrinks it and lands it:
+
+```pug
+section.spine-card(data-auto-animate)
+  p.spine-number(data-id="SpineNumber") 01
+  code.spine-label one thing
+```
+
+The card's label gets no `data-id` on purpose: reveal's auto-animate morphs boxes, not rotation or writing mode, so the script does that move. If a talk generates its spines (web-animations did, from its cheat cards), do it in a script that loads before `reveal-config.js`.
 
 ## Templates
 
@@ -87,27 +97,39 @@ Each template is a class on the `section`. A slide with no template class still 
 | `.cover` | The first slide, and optionally the last | Byline at the top (`.a-talk-by`), title set low in Yrsa, subtitle as an aside. The lemon slide wears it too, so the deck ends where it started. |
 | `.hello` | "Hi!" | Yrsa at billing scale, name under it, parenthetical as an aside |
 | `.statement` | One sentence, placed | Hangs from a fixed line high on the panel, flush left. A following `p` is the kicker; `p.aside` makes it a mono aside. Several `h2`s stack as a build. `.is-shout` is the loud register, in Yrsa. `.lead-in` puts a quiet setup line before the heading. |
-| `.divider` | A new section of the talk | A Mustard field floods the left 40%, wall to wall, with the name high in it in Yrsa; the promise sits low on the right. Must never look like anything that counts. |
+| `.divider` | A new section of the talk | A Mustard field floods the left 40%, wall to wall, with the name high in it in Yrsa; the promise sits low on the right. A name longer than the field runs on past its edge in the field's colour. Must never look like anything that counts. |
+| `.spine-card` | Opening a section that gets a spine | The section's number and label big in the middle, handed to the band by auto-animate (see The spine) |
 | `+demo("file.html", w, h)` | A live demo | Builds its own `section.demo`; the iframe keeps its own frame and scales as one piece to fit beside the spine (or the whole canvas, without one) |
 | `.over-media` | A photo, GIF or video owning the canvas | Put the media in a reveal `data-background-*`. The heading rides on a cream strip low on the left; a `p` rides on an ink strip. `.thanks` sets the heading in Yrsa. |
 | `+gag("description")` | A visual gag whose asset you haven't found yet | A loud dashed placeholder in the over-media layout. Swap the asset in as the slide's `data-background-*` and drop the mixin. |
 | `dl.metric` | A term worth defining | The term in Yrsa at billing scale, its name in Mustard, one line of meaning |
 | `.q-and-a` | The questions people actually ask | `dt` with `strong Q:`, `dd` with `strong A:` |
-| `ul.links` | Resources | `strong` for what it is, `a` (or `+link`) for where it lives |
+| `ul.links` | Resources | `strong` for what it is, then an ordinary link (`a` or `+link`) for where it lives |
 
 ### Components
 
 - **Code**: `pre > code` sits in a frame on a barely lifted surface, with line numbers on every block (`js/line-numbers.js`). `pre(data-file="name.css")` puts a filename tab on the frame's top edge. Highlight steps (`data-line-numbers="1-3|5-7"`) dim the other lines. `pre.huge` for a single big line.
 - **Tables**: loose by default, `.dense` for a dozen rows that get talked through. The `caption` is the table's title, in Syne; `th` are small mono capitals; `tr.highlight` is a faint yellow tint, never a solid block.
-- **Grids**: `.grid(data-columns="2|3|4")`, or `data-columns="2-1"` / `"1-2"` for an uneven split. A `.column` inside holds a small heading, a sentence or two, and maybe a code block. The bare `columns` attribute older decks used still works.
+- **Grids**: `.grid(data-columns="2|3|4")`, or `data-columns="2-1"` / `"1-2"` for an uneven split. A `.column` inside holds a small heading, a sentence or two, and maybe a code block. A `figure` in a grid sits flush left, so its caption lines up under the image. The bare `columns` attribute older decks used still works.
 - **Quote**: `blockquote` with an optional `cite`. The mark sits inside the block in Mustard; the cite is indented in Yrsa italic.
 - **Embeds**: `.iframe-holder > iframe` is a 16:9 hole for YouTube, CodePen or a live site, capped to the safe area. `+iframe(url, w, h)` embeds a page at its own size.
 - **Credits**: `.source` or `cite.credit`, low on the panel on an ink strip, fading in a beat after the slide arrives.
-- **Effects**: `.strobe` and `.blink`, cycling through the palette, for the slide that wants to be loud on purpose.
+- **Effects**: `.strobe` cycles a word through the palette, for the slide that wants to be loud on purpose. `.blink` blinks a word like an eye: still, then two quick blinks every few seconds.
+- **Busy backgrounds**: put `data-background-opacity` (around `0.35`) on a slide whose picture fights the words on it; the Ink ground shows through and the words stay readable.
 
 ## Motion
 
-- **Between slides: one dissolve.** The custom `lemon` transition (`transition: "lemon"` in the config; reveal adds the name as a class and `motion/_transitions.scss` does the rest) clears the outgoing slide quickly and brings the next one in a beat later. Nothing flies. Moving down a stack dissolves faster than moving to the next idea. A slide can still ask for one of reveal's own with `data-transition`.
+- **Between slides: one dissolve.** The custom `lemon` transition (`transition: "lemon"` in the config; reveal adds the name as a class and `motion/_transitions.scss` does the rest) clears the outgoing slide quickly and brings the next one in a beat later. Nothing flies. Moving down a stack dissolves faster than moving to the next idea.
+- **Reveal's own transitions, when the move means something.** Because the default never flies, a slide that does says something. `data-transition` on a section asks for one of reveal's, and Lemon's rules step aside for it. The catalogue's Transitions family shows each where its move earns it:
+  - `none` is a smash cut, for a punchline that can't wait a frame.
+  - `fade` with `data-transition-speed="slow"` says time passed.
+  - `slide` pushes the steps of one sequence along.
+  - `convex` turns the cube to another side of the same thing.
+  - `concave` folds inward, from the surface into how it works.
+  - `zoom` dives into one detail of what came before.
+  - A pair like `zoom-in fade-out` arrives one way and leaves another.
+  - `data-transition-speed="fast"` or `"slow"` changes the pace of any transition.
+  - `data-background-transition` moves a slide's picture separately from its words.
 - **Fragments land**: a short rise and a fade, the rise eased on a recorded spring (`$spring`, all 87 samples). `.fragment.bounce` drops in from above and lets the spring's overshoot bounce it. `.fragment.strike` draws a Rust line through its text. `.fragment.mark` sweeps Focus Yellow behind a word.
 - **Auto-animate** carries an element from one slide to the next. To move text crisply, match it with `data-id` on a `p` (or a heading or `li`) at both ends: reveal then animates its font-size alone. Matched on any other element, it scales the element *and* animates its font-size, and the text balloons before it settles.
 - Slides and fragments animate only `transform`, `translate`, `scale` and `opacity`, so the compositor does the work. The exceptions are deliberate: a spine number travels by font-size (two characters, crisp at every frame), and links and `.mark` transition colour.

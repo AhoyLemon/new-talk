@@ -1,11 +1,11 @@
-//- STRUCTURE AND MOTION: dividers, the spine, auto-animate, transitions and links.
+//- STRUCTURE: dividers, the spine, auto-animate and links.
 
 section.divider(data-timing="0")
   h2 Structure
-  p Dividers, the spine, and things that move.
-  p templates/_divider.scss, layout/_spine.scss, motion/
+  p Dividers, the spine, and things that move together.
+  p templates/_divider.scss, layout/_spine.scss, motion/_auto-animate.scss
 
-//- A divider, then a section on the spine. The first slide has no band, so it grows in when the second arrives (js/spine.js).
+//- A divider, then a section on the spine: a spine card sets the summary big, then hands it to the band.
 section
 
   section.divider(data-timing="0")
@@ -15,33 +15,39 @@ section
     aside.notes
       ul
         li section.divider: the Mustard field floods the left 40%, the name sits high in it, the promise low on the right. Never count with it.
+        li A name too long for the field runs on past its edge in the field's colour.
 
-  section.statement(data-auto-animate data-timing="0")
-    h2 A section about one thing.
-    p.aside (watch the left edge)
+  section.spine-card(data-auto-animate data-timing="0")
+    p.spine-number(data-id="SpineNumber") 01
+    code.spine-label one thing
     aside.notes
       ul
-        li No spine yet. The next slide grows one in.
-
-  section.has-spine(data-auto-animate data-timing="0")
-    .spine-tag
-      p.spine-number(data-id="SpineNumber") 01
-      code.spine-label(data-id="SpineLabel") one thing
-    h3 The spine carries the summary
-    p A number at the top, a label running up the band.
-    aside.notes
-      ul
-        li .has-spine on every slide of the section, with a .spine-tag holding p.spine-number and .spine-label. Only for a section that's about one thing.
+        li section.spine-card: the section's summary, big, in the middle. layout/_spine.scss.
+        li Its number has a data-id; its label has none, so js/spine.js can turn it onto the band.
 
   section.has-spine(data-auto-animate data-timing="0")
     .spine-tag
       p.spine-number(data-id="SpineNumber") 01
       code.spine-label(data-id="SpineLabel") one thing
-    h3 And it holds still
-    p Matched by data-id, the number and label stay put while the content changes.
+    h3(data-id="SpineHeading") The spine carries the summary
+    ul
+      li(data-id="SpinePoint1") A number at the top
     aside.notes
       ul
-        li data-auto-animate on each slide, data-id on the number and label.
+        li The band slides in, the number shrinks into place, and the label turns, shrinks and lands.
+        li .has-spine on every slide of the section, with a .spine-tag holding p.spine-number and .spine-label (both with a data-id). Only for a section that's about one thing.
+
+  section.has-spine(data-auto-animate data-timing="0")
+    .spine-tag
+      p.spine-number(data-id="SpineNumber") 01
+      code.spine-label(data-id="SpineLabel") one thing
+    h3(data-id="SpineHeading") The spine carries the summary
+    ul
+      li(data-id="SpinePoint1") A number at the top
+      li A label up the band
+    aside.notes
+      ul
+        li Everything matched by data-id holds perfectly still; only the new point rises in.
 
 //- Auto-animate: match text by data-id on a p, heading or li and it moves crisply.
 section
@@ -64,26 +70,10 @@ section
       li(data-id="Second") Second
       li Fourth, rising in unmatched
 
-//- Transitions: Lemon's dissolve is the default; a slide can still ask reveal for another.
-section
-
-  section(data-timing="0")
-    h3 Every slide dissolves
-    p The lemon transition, set in js/reveal-config.js.
-    aside.notes
-      ul
-        li transition: "lemon". motion/_transitions.scss.
-
-  section(data-transition="zoom" data-timing="0")
-    h2 Unless it asks for something else.
-    aside.notes
-      ul
-        li data-transition="zoom" (or fade, slide, convex, concave). Lemon's rules step aside for any slide with data-transition.
-
-  section(data-timing="0")
-    h3 Internal links
-    p
-      a(href="#/CatalogueCode") Jump back to the code examples.
-    aside.notes
-      ul
-        li An id on a section, then a href="#/ThatId".
+section(data-timing="0")
+  h3 Internal links
+  p
+    a(href="#/CatalogueCode") Jump back to the code examples.
+  aside.notes
+    ul
+      li An id on a section, then a href="#/ThatId".

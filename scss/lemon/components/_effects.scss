@@ -1,6 +1,6 @@
 @use "../abstracts/variables" as *;
 
-// The loud ones, kept for the slide that wants to be loud on purpose. Both cycle through the palette rather than a rainbow, and both stop for anyone who asked for less motion.
+// The loud one and the sly one. .strobe cycles through the palette rather than a rainbow, for the slide that wants to be loud on purpose; .blink blinks like an eye. Both stop for anyone who asked for less motion.
 
 @keyframes lemon-strobe {
   0%,
@@ -25,17 +25,19 @@
   }
 }
 
+// An eyelid, not a light switch: the word holds still, then blinks twice, quickly, the way an eye does.
 @keyframes lemon-blink {
   0%,
-  40%,
-  71%,
+  86%,
+  91%,
+  94%,
   100% {
-    opacity: 1;
+    scale: 1 1;
   }
 
-  41%,
-  70% {
-    opacity: 0;
+  88.5%,
+  92.5% {
+    scale: 1 0.08;
   }
 }
 
@@ -44,7 +46,8 @@
 }
 
 .reveal .blink {
-  animation: lemon-blink 0.5s infinite;
+  display: inline-block;
+  animation: lemon-blink 3.2s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

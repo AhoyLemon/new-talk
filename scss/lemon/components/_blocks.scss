@@ -62,6 +62,11 @@
     margin-inline: auto;
   }
 
+  // A figure's image sits flush left, so its caption lines up under it.
+  figure img {
+    margin-inline: 0;
+  }
+
   .box {
     display: flex;
     align-items: center;

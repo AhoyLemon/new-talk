@@ -109,9 +109,8 @@
     line-height: 1.1;
   }
 
+  // An ordinary link, the same as anywhere else in the deck: text colour with the Rust underline.
   a {
-    color: $text-quiet;
-    font-family: $font-mono;
     font-size: $step-body;
   }
 }

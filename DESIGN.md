@@ -219,7 +219,7 @@ The canvas is 1280 x 720 with `margin: 0`; reveal scales the whole canvas with o
 
 Every slide that is not a stack is a grid (reveal writes `display: grid` from the config). The safe area is 7.5cqw left and right and 10cqh top and bottom; content runs down the left edge and is centred vertically unless a template places it. Stacks are containers, never layouts.
 
-Text is flush left everywhere. A statement hangs from a fixed line 26cqh from the top, so every statement in the deck lands in the same spot with the empty canvas underneath. A source credit sits low on the panel, 3.5cqh from the bottom, beside the spine when there is one.
+Text is flush left everywhere, except the spine card (see Recorded exceptions). A statement hangs from a fixed line 26cqh from the top, so every statement in the deck lands in the same spot with the empty canvas underneath. A source credit sits low on the panel, 3.5cqh from the bottom, beside the spine when there is one.
 
 **The Hang High Rule.** Statements hang from the same high line, flush left, never centred vertically and never centred horizontally. Confidence comes from placement and room, not from size.
 
@@ -271,7 +271,10 @@ One sentence hung from the high line, flush left (see Layout). A reply may follo
 The statement's loud register, in Yrsa at Shout size, 14ch. Rare: once per talk, maybe twice.
 
 ### Divider
-A new side of the tape. A Mustard field floods the left 40cqw of the slide, wall to wall, with the section name set high in it in Yrsa (On field Ink). The promise sits low on the Ink ground to the right (Heading size, 22ch), with its detail under it in Lead. Name top-left, promise bottom-right, so the eye crosses the whole slide. It must never be mistaken for anything that counts.
+A new side of the tape. A Mustard field floods the left 40cqw of the slide, wall to wall, with the section name set high in it in Yrsa (On field Ink). A name longer than the field runs straight on past its edge, turning Mustard on the Ink ground where it leaves the field. The promise sits low on the Ink ground to the right (Heading size, 22ch), with its detail under it in Lead. Name top-left, promise bottom-right, so the eye crosses the whole slide. It must never be mistaken for anything that counts.
+
+### Spine card
+The title card for a section that gets a spine: its number at billing scale in Share Tech Mono (34cqh) and its label at Heading size, centred on the slide. Auto-animating into the section's first slide hands both to the band: the band slides in, the number shrinks into place, and the label turns on its side, shrinks and lands.
 
 ### Demo
 A live demo iframe keeps the CSS-pixel frame its demo was designed for and is scaled as one piece to fit the panel beside the spine (97% of the free width, 92% of the height), centred in that panel.
@@ -280,19 +283,21 @@ A live demo iframe keeps the CSS-pixel frame its demo was designed for and is sc
 See Over-media caption. The thank-you is the same strip with the word in Yrsa at Shout size.
 
 ### Reference
-A metric is a term at billing scale in Yrsa with its name in Mustard and one line of meaning. A Q&A pairs the question people actually ask (Heading) with a short answer (Lead), key terms in Mustard mono. Resources list what a thing is (Heading) over where it lives (mono, Quiet text).
+A metric is a term at billing scale in Yrsa with its name in Mustard and one line of meaning. A Q&A pairs the question people actually ask (Heading) with a short answer (Lead), key terms in Mustard mono. Resources list what a thing is (Heading) over where it lives, an ordinary link in Body size.
 
 ## Motion
 
-Slides and fragments move only opacity, translate and scale. The deliberate exceptions: a spine number travels by font-size (two characters, so re-laying them out each frame costs nothing and stays crisp where a scale would blur), and links and the mark sweep transition colour.
+Slides and fragments move only opacity, translate and scale. The deliberate exceptions: a spine number travels by font-size (two characters, so re-laying them out each frame costs nothing and stays crisp where a scale would blur), the spine card's label turns as it lands on the band (rotate, still on the compositor), and links and the mark sweep transition colour.
 
 - **The dissolve.** One transition between slides, reveal's custom `lemon` transition: the outgoing slide clears in 260ms ease-in, the incoming slide arrives a beat later (120ms) over 640ms on the ease-out curve. Stepping down a stack is a smaller step, so it dissolves faster (180ms out, 420ms in). Nothing flies.
 - **Fragments land.** A fragment rises 0.32em and fades in: opacity over 360ms ease-out, the rise over 900ms on a recorded spring (`$spring`, all 87 samples, as `linear()`). `.fragment.bounce` falls from above so the spring's overshoot bounces it.
 - **Strike and mark.** A strike is a Rust line drawn left to right through its word (520ms). A mark is Focus Yellow sweeping in behind one word (420ms), the text turning Ink; a slide gets one mark at most.
 - **Auto-animate.** Inside an auto-animated stack, auto-animate replaces the dissolve. Matched text is animated by font-size alone so it never balloons. Everything unmatched rises 0.25em and fades in on the same ease-out, a beat behind.
+- **Blink.** `.blink` holds a word still, then squashes it flat and back twice in quick succession every 3.2s, like an eye.
+- **The spine card's hand-off.** The band slides in from the left edge (560ms, ease-out); the number travels by font-size; the label turns 90 degrees counter-clockwise from horizontal to the band's bottom-to-top reading while it shrinks and moves, over the auto-animate duration.
 - **Reduced motion.** Fragments crossfade in place in 240ms, strikes and marks fade rather than draw, the slide dissolve is a 200ms linear fade, and auto-animate snaps while its content still crossfades. The strobe and blink effects stop.
 
-**The One Dissolve Rule.** Every slide change is the same dissolve through the ground. A slide may ask for another transition explicitly, but the default never slides, zooms or flips.
+**The One Dissolve Rule.** Every slide change is the same dissolve through the ground. A slide may ask for one of reveal's own transitions explicitly, and should only when the move means something (a smash cut, time passing, a turn to another side, a dive into a detail); the default never slides, zooms or flips.
 
 ## Demos
 
@@ -327,5 +332,6 @@ Deliberate deviations from the rules above. Anything not listed here is drift.
 - **The gag placeholders are striped and dashed on purpose.** A visual gag that still needs its real image (`+gag`) is a dashed Focus Yellow frame over a faint 45-degree Focus Yellow stripe, with a mono label. It breaks the no-gradient and One Watch rules so it cannot ship by accident, and each one already sits in the over-media layout its real image will use. It disappears when the asset lands.
 - **Syne's lowercase g has a flat, square-cut tail.** That is the letterform, not a rendering bug; no stylistic set changes it.
 - **The last slide is on lemon yellow.** The closing cover composition sits on a reveal background of `#e6e924`, outside the palette, with every role flipped to Ink. It is the lemon, once.
-- **The strobe and blink effects are loud on purpose.** Kept for a slide that wants to be loud, they cycle through the palette, never a rainbow, and stop under reduced motion.
+- **The strobe is loud on purpose.** Kept for a slide that wants to be loud, it cycles through the palette, never a rainbow, and stops under reduced motion, as does the blink.
+- **The spine card is centred.** It's the moment before a section's summary goes onto the band, so the summary sits in the middle of the slide, the one place the deck centres anything.
 - **Print and PDF export reassert the canvas grid with `!important`.** Reveal's print stylesheet forces every slide to block layout; the overrides live in the shame file where they are visible.

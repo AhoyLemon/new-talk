@@ -2,6 +2,8 @@
 @use "../abstracts/mixins" as *;
 
 // A divider: a new side of the tape. A field of colour floods the left of the slide, wall to wall, with the name set high in it in Yrsa; the promise sits low on the ground beside it. Name top-left, promise bottom-right, so the eye crosses the whole slide. It must never be mistaken for anything that counts.
+//
+// A name longer than the field runs straight on past its edge: On field colour inside the field, the field's own colour outside it, split by a hard stop in the text's background at the field's edge.
 
 .reveal .slides section.divider {
   grid-template-columns: 40cqw minmax(0, 1fr);
@@ -24,11 +26,20 @@
 
   > h2 {
     position: relative;
-    grid-column: 1;
+    grid-column: 1 / -1;
     grid-row: 1;
     align-self: start;
+    justify-self: start;
+    inline-size: max-content;
+    max-inline-size: 100%;
+    // The text's background only paints inside the box, so the box reaches past the tight line height to cover ascenders and descenders.
+    padding-block: 0.12em 0.22em;
+    margin-block: -0.12em -0.22em;
     padding-left: $safe-x;
-    color: $on-field;
+    background: linear-gradient(to right, $on-field 40cqw, $field 40cqw);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
     font-family: $font-display;
     font-size: 22cqh;
     font-weight: 500;
