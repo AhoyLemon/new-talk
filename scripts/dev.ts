@@ -17,6 +17,7 @@ interface PackageJson {
 let browserSyncReady = false;
 let sassReady = false;
 let pugReady = false;
+let tsReady = false;
 let hasErrors = false;
 
 let localUrl = "http://localhost:3000";
@@ -64,7 +65,7 @@ function displaySuccess(spinner: any) {
 }
 
 function checkAllReady(spinner: any) {
-  if (browserSyncReady && sassReady && pugReady && !hasErrors) {
+  if (browserSyncReady && sassReady && pugReady && tsReady && !hasErrors) {
     // Give it a moment for BrowserSync to fully start
     setTimeout(() => displaySuccess(spinner), 500);
   }
@@ -84,6 +85,9 @@ function startProcess(
   processes.push(proc);
 
   let hasOutput = false;
+
+  // bun build streams an error frame across several stderr chunks: the "11 | " source gutter arrives separately from the "error:" line. Hold a chunk that carries no keyword so the error block can print the whole frame rather than just the half that happened to match.
+  let pendingStderr = "";
 
   proc.stdout.on("data", (data: Buffer) => {
     const output = data.toString();
@@ -134,10 +138,32 @@ function startProcess(
         spinner.text = `${chalk.green("✓")} BrowserSync ready`;
         checkAllReady(spinner);
       }
+    } else if (name === "TypeScript") {
+      // bun build puts its success summary on stdout:
+      //   Bundled 1 module in 12ms
+      //
+      //     sample-demo.js  387 bytes  (entry point)
+      if (
+        !tsReady &&
+        (output.includes("Bundled") || output.includes("(entry point)"))
+      ) {
+        tsReady = true;
+        spinner.text = `${chalk.green("✓")} TypeScript ready`;
+        checkAllReady(spinner);
+      }
     }
 
     // After success display, show important messages
-    if (browserSyncReady && sassReady && pugReady) {
+    if (browserSyncReady && sassReady && pugReady && tsReady) {
+      // bun build's summary runs to four lines. Condense it to one so saving a demo mid-talk does not scroll the URLs off the screen.
+      if (name === "TypeScript") {
+        const summary = output.match(/Bundled \d+ modules? in [\d.]+m?s/);
+        if (summary) {
+          process.stdout.write(chalk.dim(`  [${name}] `) + summary[0] + "\n");
+        }
+        return;
+      }
+
       // Show only file changes and errors, not compilation output
       const shouldShow =
         output.includes("error") ||
@@ -161,8 +187,7 @@ function startProcess(
     const output = data.toString();
     hasOutput = true;
 
-    // Some processes write normal info to stderr, check before treating as error
-    // Sass often writes its "watching" messages to stderr
+    // Some processes write normal info to stderr, check before treating as error. Sass often writes its "watching" messages to stderr
     if (
       name === "Sass" &&
       !sassReady &&
@@ -173,6 +198,20 @@ function startProcess(
       spinner.text = `${chalk.green("✓")} Sass ready`;
       checkAllReady(spinner);
       return;
+    }
+
+    // A failed bun build writes nothing to stdout and, under --watch, does not exit either. So a demo that is already broken when `bun run dev` starts would never set tsReady and the spinner would turn under the error block forever. Resolve the flag here instead. checkAllReady still refuses to claim success, because the block below sets hasErrors.
+    if (name === "TypeScript") {
+      if (
+        !output.toLowerCase().includes("error") &&
+        !output.toLowerCase().includes("fail")
+      ) {
+        // A gutter/caret fragment, or an ANSI-only chunk. Keep it for the frame.
+        pendingStderr = (pendingStderr + output).slice(-4096);
+        return;
+      }
+      tsReady = true;
+      spinner.stop();
     }
 
     // Only treat as error if it actually contains error keywords
@@ -186,7 +225,8 @@ function startProcess(
       console.error(
         chalk.dim("  ─────────────────────────────────────────────\n")
       );
-      console.error(output);
+      console.error(pendingStderr + output);
+      pendingStderr = "";
       console.error(
         chalk.dim("  ─────────────────────────────────────────────\n")
       );
@@ -202,6 +242,9 @@ function startProcess(
         checkAllReady(spinner);
       } else if (name === "Pug" && !pugReady) {
         pugReady = true;
+        checkAllReady(spinner);
+      } else if (name === "TypeScript" && !tsReady) {
+        tsReady = true;
         checkAllReady(spinner);
       } else if (name === "BrowserSync" && !browserSyncReady) {
         browserSyncReady = true;
@@ -250,6 +293,26 @@ async function startDev() {
   startProcess("Pug", "tsx", ["scripts/watch-pug.ts"], spinner);
 
   startProcess(
+    "TypeScript",
+    "bun",
+    [
+      "build",
+      // [!_] skips _-prefixed partials. bun build bundles, so an imported partial is inlined into every entry that uses it and never needs a file of its own. The shell expands this once, at spawn, which is why adding a NEW demo needs a `bun run dev` restart. --root matches package.json's build:js so bundles land flat at demos/js/<name>.js.
+      "--root",
+      "demos/ts",
+      "demos/ts/[!_]*.ts",
+      "--outdir",
+      "demos/js",
+      "--target",
+      "browser",
+      "--watch",
+      // Without this, every rebuild writes a clear-screen escape to both stdout and stderr, even through pipes, wiping the banner below.
+      "--no-clear-screen",
+    ],
+    spinner
+  );
+
+  startProcess(
     "BrowserSync",
     "browser-sync",
     [
@@ -272,7 +335,7 @@ async function startDev() {
 
   // Timeout check - if not ready in 10 seconds, something is wrong
   setTimeout(() => {
-    if (!browserSyncReady || !sassReady || !pugReady) {
+    if (!browserSyncReady || !sassReady || !pugReady || !tsReady) {
       spinner.warn(
         chalk.yellow("Some services are taking longer than expected...")
       );

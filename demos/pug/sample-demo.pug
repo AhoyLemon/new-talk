@@ -2,14 +2,16 @@
 include ../../pug/partials/_variables.pug
 
 doctype html
-html
+html(lang="en")
   head
     include partials/_head.pug
     title Demo #{exampleNum}
-    link(rel="stylesheet" href="./css/has.css")
   body
     #app(example-number=exampleNum)
       main
-        h1 Demo #{exampleNum}
+        h1.subject Demo #{exampleNum}
         p This is a sample demo to illustrate how to add a demo to 
-          span= talkTitle  
+          span= talkTitle
+        button.demo-trigger(type="button") Animate the heading
+
+    script(type="module" src="js/sample-demo.js?updated="+lastUpdated)

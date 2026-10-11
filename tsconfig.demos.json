@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    // Each demo script is bundled and loaded as its own <script type="module"> with no shared global scope. Without this, a .ts file with no import/export is treated as a global script, so two demos that both declare (e.g.) `const trigger` collide in the type-checker even though they never share a scope in the browser.
+    "moduleDetection": "force",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+
+    // Demo scripts run in a browser, not in Node. Without this, TypeScript loads every package under node_modules/@types, so `process.cwd()` would typecheck clean in a file destined for an iframe. Do not remove.
+    "types": [],
+
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": ["demos/ts/**/*.ts"],
+  "exclude": ["node_modules"]
+}
