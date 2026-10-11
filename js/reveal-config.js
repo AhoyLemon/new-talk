@@ -1,17 +1,20 @@
 Reveal.initialize({
+  // The canvas: true 16:9, edge to edge. Lemon draws its own safe area inside each slide, and everything in a slide is sized against this canvas (cqw/cqh), so these two numbers are the only px in the layout.
   width: 1280,
+  height: 720,
+  margin: 0,
+  minScale: 0.2,
+  maxScale: 4,
   // Display presentation control arrows
   controls: true,
 
-  // Help the user learn the controls by providing hints, for example by
-  // bouncing the down arrow when they first encounter a vertical slide
+  // Help the user learn the controls by providing hints, for example by bouncing the down arrow when they first encounter a vertical slide
   controlsTutorial: true,
 
   // Determines where controls appear, "edges" or "bottom-right"
   controlsLayout: "bottom-right",
 
-  // Visibility rule for backwards navigation arrows; "faded", "hidden"
-  // or "visible"
+  // Visibility rule for backwards navigation arrows; "faded", "hidden" or "visible"
   controlsBackArrows: "faded",
 
   // Display a presentation progress bar
@@ -27,11 +30,10 @@ Reveal.initialize({
   // - "c":   Flattened slide number
   // - "c/t":   Flattened slide number / total slides
   //
-  // Alternatively, you can provide a function that returns the slide
-  // number for the current slide. The function should take in a slide
-  // object and return an array with one string [slideNumber] or
-  // three strings [n1,delimiter,n2]. See #formatSlideNumber().
-  slideNumber: true,
+  // Alternatively, you can provide a function that returns the slide number for the current slide. The function should take in a slide object and return an array with one string [slideNumber] or three strings [n1,delimiter,n2]. See #formatSlideNumber().
+  //
+  // Flattened numbering, so a slide can be named in review ("slide 47") and reached with G then the number.
+  slideNumber: "c",
 
   // Can be used to limit the contexts in which the slide number appears
   // - "all":      Always show the slide number
@@ -39,12 +41,10 @@ Reveal.initialize({
   // - "speaker":  Only in the speaker view
   showSlideNumber: "speaker",
 
-  // Use 1 based indexing for # links to match slide number (default is zero
-  // based)
+  // Use 1 based indexing for # links to match slide number (default is zero based)
   hashOneBasedIndex: true,
 
-  // Add the current slide number to the URL hash so that reloading the
-  // page/copying the URL will return you to the same slide
+  // Add the current slide number to the URL hash so that reloading the page/copying the URL will return you to the same slide
   hash: true,
 
   // Flags if we should monitor the hash and change slides accordingly
@@ -61,18 +61,16 @@ Reveal.initialize({
 
   // Optional function that blocks keyboard events when retuning false
   //
-  // If you set this to 'focused', we will only capture keyboard events
-  // for embedded decks when they are in focus
+  // If you set this to 'focused', we will only capture keyboard events for embedded decks when they are in focus
   keyboardCondition: null,
 
-  // Disables the default reveal.js slide layout (scaling and centering)
-  // so that you can use custom CSS layout
+  // Disables the default reveal.js slide layout (scaling and centering) so that you can use custom CSS layout
   disableLayout: false,
 
   // Enable the slide overview mode
   overview: true,
 
-  // Vertical centering of slides
+  // On, but it never centres anything: every Lemon slide is exactly canvas-tall, so reveal's centring offset works out to zero. What it buys is auto-animate measuring with getBoundingClientRect, which anything travelling between two differently positioned parents needs, like a number moving into the spine (with this off, reveal measures offsetLeft against each element's own offset parent and it flies to the wrong place).
   center: true,
 
   // Enables touch navigation on devices with touch input
@@ -87,27 +85,20 @@ Reveal.initialize({
   // Changes the behavior of our navigation directions.
   //
   // "default"
-  // Left/right arrow keys step between horizontal slides, up/down
-  // arrow keys step between vertical slides. Space key steps through
-  // all slides (both horizontal and vertical).
+  // Left/right arrow keys step between horizontal slides, up/down arrow keys step between vertical slides. Space key steps through all slides (both horizontal and vertical).
   //
   // "linear"
-  // Removes the up/down arrows. Left/right arrows step through all
-  // slides (both horizontal and vertical).
+  // Removes the up/down arrows. Left/right arrows step through all slides (both horizontal and vertical).
   //
   // "grid"
-  // When this is enabled, stepping left/right from a vertical stack
-  // to an adjacent vertical stack will land you at the same vertical
-  // index.
+  // When this is enabled, stepping left/right from a vertical stack to an adjacent vertical stack will land you at the same vertical index.
   //
   // Consider a deck with six slides ordered in two vertical stacks:
   // 1.1    2.1
   // 1.2    2.2
   // 1.3    2.3
   //
-  // If you're on slide 1.3 and navigate right, you will normally move
-  // from 1.3 -> 2.1. If "grid" is used, the same navigation takes you
-  // from 1.3 -> 2.3.
+  // If you're on slide 1.3 and navigate right, you will normally move from 1.3 -> 2.1. If "grid" is used, the same navigation takes you from 1.3 -> 2.3.
   navigationMode: "default",
 
   // Randomizes the order of slides each time the presentation loads
@@ -116,16 +107,13 @@ Reveal.initialize({
   // Turns fragments on and off globally
   fragments: true,
 
-  // Flags whether to include the current fragment in the URL,
-  // so that reloading brings you to the same fragment position
+  // Flags whether to include the current fragment in the URL, so that reloading brings you to the same fragment position
   fragmentInURL: true,
 
-  // Flags if the presentation is running in an embedded mode,
-  // i.e. contained within a limited portion of the screen
+  // Flags if the presentation is running in an embedded mode, i.e. contained within a limited portion of the screen
   embedded: false,
 
-  // Flags if we should show a help overlay when the question-mark
-  // key is pressed
+  // Flags if we should show a help overlay when the question-mark key is pressed
   help: true,
 
   // Flags if it should be possible to pause the presentation (blackout)
@@ -141,8 +129,7 @@ Reveal.initialize({
   autoPlayMedia: null,
 
   // Global override for preloading lazy-loaded iframes
-  // - null:   Iframes with data-src AND data-preload will be loaded when within
-  //           the viewDistance, iframes with only data-src will be loaded when visible
+  // - null:   Iframes with data-src AND data-preload will be loaded when within the viewDistance, iframes with only data-src will be loaded when visible
   // - true:   All iframes with data-src will be loaded when within the viewDistance
   // - false:  All iframes with data-src will be loaded only when visible
   preloadIframes: null,
@@ -150,19 +137,15 @@ Reveal.initialize({
   // Can be used to globally disable auto-animation
   autoAnimate: true,
 
-  // Optionally provide a custom element matcher that will be
-  // used to dictate which elements we can animate between.
+  // Optionally provide a custom element matcher that will be used to dictate which elements we can animate between.
   autoAnimateMatcher: null,
 
-  // Default settings for our auto-animate transitions, can be
-  // overridden per-slide or per-element via data arguments
-  autoAnimateEasing: "ease",
-  autoAnimateDuration: 1.0,
+  // Default settings for our auto-animate transitions, can be overridden per-slide or per-element via data arguments
+  autoAnimateEasing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  autoAnimateDuration: 0.8,
   autoAnimateUnmatched: true,
 
-  // CSS properties that can be auto-animated. Position & scale
-  // is matched separately so there's no need to include styles
-  // like top/right/bottom/left, width/height or margin.
+  // CSS properties that can be auto-animated. Position & scale is matched separately so there's no need to include styles like top/right/bottom/left, width/height or margin.
   autoAnimateStyles: [
     "opacity",
     "color",
@@ -179,8 +162,7 @@ Reveal.initialize({
   ],
 
   // Controls automatic progression to the next slide
-  // - 0:      Auto-sliding only happens if the data-autoslide HTML attribute
-  //           is present on the current slide or fragment
+  // - 0:      Auto-sliding only happens if the data-autoslide HTML attribute is present on the current slide or fragment
   // - 1+:     All slides will progress automatically at the given interval
   // - false:  No auto-sliding, even if data-autoslide is present
   autoSlide: 0,
@@ -191,17 +173,13 @@ Reveal.initialize({
   // Use this method for navigation when auto-sliding (defaults to navigateNext)
   autoSlideMethod: null,
 
-  // Specify the average time in seconds that you think you will spend
-  // presenting each slide. This is used to show a pacing timer in the
-  // speaker view
-  defaultTiming: null,
+  // Specify the average time in seconds that you think you will spend presenting each slide. This is used to show a pacing timer in the speaker view. A slide can set its own with data-timing (seconds); this is the fallback, and it has to be non-null or the pacing timer never appears.
+  defaultTiming: 10,
 
   // Enable slide navigation via mouse wheel
   mouseWheel: false,
 
-  // Opens links in an iframe preview overlay
-  // Add `data-preview-link` and `data-preview-link="false"` to customise each link
-  // individually
+  // Opens links in an iframe preview overlay. Add `data-preview-link` and `data-preview-link="false"` to customise each link individually
   previewLinks: false,
 
   // Exposes the reveal.js API through window.postMessage
@@ -214,7 +192,8 @@ Reveal.initialize({
   focusBodyOnPageVisibilityChange: true,
 
   // Transition style
-  transition: "slide", // none/fade/slide/convex/concave/zoom
+  // "lemon" is ours (scss/lemon/motion/_transitions.scss): reveal adds the name as a class and the stylesheet does the rest.
+  transition: "lemon",
 
   // Transition speed
   transitionSpeed: "default", // default/fast/slow
@@ -222,30 +201,23 @@ Reveal.initialize({
   // Transition style for full page slide backgrounds
   backgroundTransition: "fade", // none/fade/slide/convex/concave/zoom
 
-  // The maximum number of pages a single slide can expand onto when printing
-  // to PDF, unlimited by default
-  pdfMaxPagesPerSlide: Number.POSITIVE_INFINITY,
+  // The maximum number of pages a single slide can expand onto when printing to PDF, unlimited by default
+  pdfMaxPagesPerSlide: 1,
 
   // Prints each fragment on a separate slide
   pdfSeparateFragments: true,
 
-  // Offset used to reduce the height of content within exported PDF pages.
-  // This exists to account for environment differences based on how you
-  // print to PDF. CLI printing options, like phantomjs and wkpdf, can end
-  // on precisely the total height of the document whereas in-browser
-  // printing has to end one pixel before.
+  // Offset used to reduce the height of content within exported PDF pages. This exists to account for environment differences based on how you print to PDF. CLI printing options, like phantomjs and wkpdf, can end on precisely the total height of the document whereas in-browser printing has to end one pixel before.
   pdfPageHeightOffset: -1,
 
   // Number of slides away from the current that are visible
   viewDistance: 3,
 
-  // Number of slides away from the current that are visible on mobile
-  // devices. It is advisable to set this to a lower number than
-  // viewDistance in order to save resources.
+  // Number of slides away from the current that are visible on mobile devices. It is advisable to set this to a lower number than viewDistance in order to save resources.
   mobileViewDistance: 2,
 
-  // The display mode that will be used to show slides
-  display: "block",
+  // The display mode that will be used to show slides. Reveal writes it inline on every visible slide, so the slide grid has to come from here, not the stylesheet.
+  display: "grid",
 
   // Hide cursor if inactive
   hideInactiveCursor: true,

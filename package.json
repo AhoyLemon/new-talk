@@ -16,6 +16,8 @@
     "watch:js": "bun build --root demos/ts demos/ts/[!_]*.ts --outdir demos/js --target browser --watch --no-clear-screen",
     "update:reveal": "tsx scripts/update-reveal.ts",
     "check:pug": "tsx scripts/build-pug.ts --check",
+    "check:fonts": "tsx scripts/check-fonts.ts",
+    "postinstall": "tsx scripts/check-fonts.ts || true",
     "test": "sass scss/lemon.scss:css/lemon.css scss/talk.scss:css/talk.css scss/print:css/print --no-source-map --quiet && tsc --noEmit -p tsconfig.demos.json && npm run check:pug"
   },
   "keywords": [
