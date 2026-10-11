@@ -28,6 +28,12 @@
   --lemon-canvas-h: 720;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   color-scheme: dark;
   accent-color: var(--lemon-rust);

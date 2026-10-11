@@ -39,7 +39,7 @@ $toggle-width: 68px;
 $toggle-height: 34px;
 $toggle-knob: 22px;
 $toggle-knob-inset: 4px;
-$toggle-travel: $toggle-width - $toggle-knob - (2 * $toggle-knob-inset) - 4px; // 30px, minus the 2px borders
+$toggle-travel: $toggle-width - $toggle-knob - (2 * $toggle-knob-inset) - 4px; // 34px: the track's inside (border-box, minus its 2px borders) less the knob and both insets
 $range-width: 116px;
 $range-height: 40px;
 $range-thumb: 26px;
@@ -139,6 +139,13 @@ $focus-outline-offset: 3px;
 }
 
 // BASE -----------------------------------------------------------------------
+
+// Every size in this file (the frame, the controls' tracks and knobs) is measured border-box.
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 :root {
   color-scheme: dark;
