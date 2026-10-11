@@ -59,15 +59,15 @@ A Markdown paragraph is one line. So is a comment in Pug, TypeScript, JavaScript
 A `testing` local (switches `siteURL` between `localURL` and `liveURL`, and thus which URLs the OG/Twitter meta tags resolve against) is set by whichever script does the rendering, not hardcoded in the template — see [Deployment](#deployment).
 
 - **`pug/partials/_variables.pug`** — talk title, subtitle, `liveURL`, `localURL`, `description` and `authorHandle`. `setup` fills these in; edit them directly after that.
-- **`pug/partials/_mixins.pug`** — reusable Pug mixins: `+link`, `+image`, `+videoBG`, `+introScreen`, `+demo` (builds its own `section.demo`, so a demo slide is `+demo("file.html")(data-timing="…")` with its notes in the block), `+iframe`, and `+gag(description)` (a loud placeholder for a visual gag that still needs its asset).
-- **`pug/sections/`** — one file per logical section of the talk, included in `index.pug`. Shared sections in `shared/` (`_hello.pug`, `_intros.pug`, `_hit-me-up.pug`, `_thank-you.pug`) carry forward across talks — edit lightly. `_talk-content.pug` is the blank canvas for this talk's slides; replace it entirely, and split it into more files as the talk grows.
+- **`pug/partials/_mixins.pug`** — reusable Pug mixins: `+link`, `+image`, `+videoBG`, `+introScreen`, `+demo` (builds its own `section.demo`, so a demo slide is `+demo("file.html")(data-timing="…")` with its notes in the block), `+iframe`, `+gag(description)` (a loud placeholder for a visual gag that still needs its asset), and `+bmWordmark` (Blank Metal's _M wordmark, inline so CSS can light its accents).
+- **`pug/sections/`** — one file per logical section of the talk, included in `index.pug`. Shared sections in `shared/` (`_hello.pug`, `_intros.pug`, `_hit-me-up.pug`, `_thank-you.pug`) carry forward across talks — edit lightly. `_hello.pug` includes the Blank Metal intro; drop those four slides for a talk that isn't a Blank Metal one. `_talk-content.pug` is the blank canvas for this talk's slides; replace it entirely, and split it into more files as the talk grows.
 - **`pug/examples/`** — `_example-slides.pug` is the Lemon catalogue: every slide template and its alternates, one family per partial in `pug/examples/catalogue/`. Not included in the build; to judge a pattern in the real deck, include it at the end of `pug/index.pug` for a while and take it out again. `_example-videos.pug` holds intro reels.
 
 A slide can carry `data-timing` (seconds), which drives the pacing timer in reveal's speaker view; slides without one use `defaultTiming` from the config. Slides outside the main path (the intro reel, the catalogue) carry `data-timing="0"`.
 
 ### Assets
 
-`img/`, `svg/`, `video/` hold talk assets. Folders prefixed with `_` (e.g. `img/_shared/`) are shared across all talks — don't delete them when starting a new talk. Unprefixed files and folders are talk-specific. `svg/lemon.svg`, `video/simone-thankyou-8.mp4` and the GIFs in `img/gif/` are used by the shared sections.
+`img/`, `svg/`, `video/` hold talk assets. Folders prefixed with `_` (e.g. `img/_shared/`) are shared across all talks — don't delete them when starting a new talk. Unprefixed files and folders are talk-specific. `svg/_m/metal-hand.svg` (from the _M storybook) is the Blank Metal intro's bullet. `svg/lemon.svg`, `video/simone-thankyou-8.mp4` and the GIFs in `img/gif/` are used by the shared sections.
 
 ### Routing
 

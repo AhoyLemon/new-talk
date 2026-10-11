@@ -70,3 +70,14 @@ $fold-width: 0.16cqw;
 $fold: var(--lemon-fold);
 $spine-ground: var(--lemon-spine-ground);
 $spine-text: var(--lemon-spine-text);
+
+// Blank Metal ------------------------------------------------------------------
+// _M's accents, gradient and motion curves, from the _M storybook (src/styles/base/_tokens.scss, docs/motion.md). Only the .bm hello slides use them.
+
+$bm-magenta: var(--lemon-bm-magenta);
+$bm-coral: var(--lemon-bm-coral);
+$bm-gradient: linear-gradient(90deg, var(--lemon-bm-coral) 0%, var(--lemon-bm-magenta) 52%, var(--lemon-bm-cobalt-light) 130%);
+$bm-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+$bm-ease-anticipate: cubic-bezier(0.36, 0, 0.66, -0.56);
+$bm-ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+$bm-ignite: 640ms;

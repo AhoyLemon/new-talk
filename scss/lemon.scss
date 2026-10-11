@@ -13,13 +13,14 @@
 // LAYOUT: the spine down the left edge of every slide
 @use "lemon/layout/spine";
 
-// COMPONENTS: code, tables, blocks, embeds, loud effects, gag placeholders
+// COMPONENTS: code, tables, blocks, embeds, loud effects, gag placeholders, the Blank Metal pieces
 @use "lemon/components/code";
 @use "lemon/components/tables";
 @use "lemon/components/blocks";
 @use "lemon/components/effects";
 @use "lemon/components/embeds";
 @use "lemon/components/gag";
+@use "lemon/components/blank-metal";
 
 // TEMPLATES: whole-slide compositions
 @use "lemon/templates/cover";

@@ -18,7 +18,7 @@ There is no reveal theme. `reveal/reset.css` and `reveal/reveal.css` stay, becau
 | `scss/lemon/abstracts/` | `_variables.scss` (every decided value, with each custom property bound to a Sass variable once) and `_mixins.scss` (`on-field`, `aside`, `visually-hidden`). Abstracts emit no CSS. |
 | `scss/lemon/base/` | `_root.scss` (the `--lemon-*` tokens), `_canvas.scss` (the slide box), `_type.scss` (default type), `_browser.scss` (selection, focus, links, reveal's arrows and slide number) |
 | `scss/lemon/layout/_spine.scss` | The spine |
-| `scss/lemon/components/` | Code and its syntax palette, tables, blocks (grid, quote, figure, credits, kbd), embeds (`.iframe-holder`), the loud effects, gag placeholders |
+| `scss/lemon/components/` | Code and its syntax palette, tables, blocks (grid, quote, figure, credits, kbd), embeds (`.iframe-holder`), the loud effects, gag placeholders, and the Blank Metal pieces |
 | `scss/lemon/templates/` | Cover and hello, statement, divider, demo, over-media, reference (metric, Q&A, links, contact table) |
 | `scss/lemon/motion/` | The dissolve, landing fragments, auto-animate |
 | `scss/lemon/todo/_shame.scss` | The few rules that need `!important` (print, and reduced motion inside auto-animate) |
@@ -105,6 +105,7 @@ Each template is a class on the `section`. A slide with no template class still 
 | `dl.metric` | A term worth defining | The term in Yrsa at billing scale, its name in Mustard, one line of meaning |
 | `.q-and-a` | The questions people actually ask | `dt` with `strong Q:`, `dd` with `strong A:` |
 | `ul.links` | Resources | `strong` for what it is, then an ordinary link (`a` or `+link`) for where it lives |
+| `.bm`, `.bm-hello` | The Blank Metal intro in `pug/sections/shared/_hello.pug` | Lemon with a bit of _M: `+bmWordmark` draws the _M wordmark inline. On `.bm-hello` it hangs big from the statement line and ignites (mono, then the coral A and magenta stem light up to spell "AI"); auto-animate (`data-id` on the wordmark) carries it into the top-left corner of the `.bm` slides after it. `.bm-tagline` paints `strong` in _M's brand gradient; `ul.bm-hands` uses magenta metal hands for bullets, each nodding once as its item lands. |
 
 ### Components
 

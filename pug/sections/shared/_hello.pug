@@ -10,14 +10,39 @@ section
         li For money and for fun
         li Love the platform
 
-  //- Org/company intro: swap in your org's background and logo, then uncomment.
-  //- section.over-media(data-background-image="img/bg/[your-bg].webp" data-background-size="cover")
-    //-   h3 [Org tagline]
-  //-   p
-  //-     img(src="svg/[your-org-logo].svg")
+  //- Blank Metal: the Lemon deck with a bit of _M (components/_blank-metal.scss). Drop these four if a talk isn't a Blank Metal one.
+  section.bm.bm-hello(data-auto-animate)
+    +bmWordmark()(data-id="BmWordmark")
+    p.bm-tagline.fragment Your new favorite #[strong AI] engineering partner.
+    aside.notes
+      ul
+        li AI-first development agency
+        li Based in Minneapolis
+        li Help companies build smarter, faster products
+        li AI as a first-class part of the process, not a bolt-on
 
-  //- "Serious professional" punchline, an auto-animate gag: both slides match the line by data-id, and the second swaps the background for something absurd.
-  //- section.statement(data-auto-animate data-background-image="img/bg/[your-bg].webp" data-background-size="cover")
-  //-   h2(data-id="SeriousProfessional") I am a serious professional.
-  //- section.statement(data-auto-animate data-background-image="img/gif/shooty-frooty.gif" data-background-size="contain")
-  //-   h2(data-id="SeriousProfessional") I am a serious professional.
+  section.bm(data-auto-animate)
+    +bmWordmark()(data-id="BmWordmark")
+    ul.bm-hands
+      li.fragment Development agency
+      li.fragment Minneapolis, MN
+      li.fragment AI-first
+      li.fragment Anthropic partner
+    aside.notes
+      ul
+        li Web development, AI-first agency
+        li Actively solving real problems for clients
+
+  //- "Serious professional": the line holds its data-id while the next slide swaps in something absurd, and auto-animate drops it onto the caption strip.
+  section.bm(data-auto-animate)
+    +bmWordmark()(data-id="BmWordmark")
+    h2(data-id="SeriousProfessional") I am a serious professional.
+    aside.notes
+      ul
+        li Setup: "I am a serious professional."
+
+  section.over-media(data-auto-animate data-background-image="img/gif/shooty-frooty.gif" data-background-size="contain")
+    h2(data-id="SeriousProfessional") I am a serious professional.
+    aside.notes
+      ul
+        li Punchline.
