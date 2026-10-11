@@ -4,12 +4,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { spawnSync } from "child_process";
 
+import { setPugConst } from "./_pug-vars";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
-
-// User input lands inside double-quoted Pug strings, so a quote in a title must not end the string early.
-const pugString = (value: string) => value.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 
 // Prompts for a new talk's title, shortname, live URL, handle and description, writes them into package.json, _variables.pug and the README, then rebuilds the HTML.
 async function setup() {
@@ -113,35 +112,12 @@ async function setup() {
     );
     let pugVars = fs.readFileSync(pugVarsPath, "utf8");
 
-    pugVars = pugVars.replace(
-      /- const talkTitle = ".*"/,
-      `- const talkTitle = "${pugString(response.talkTitle)}"`
-    );
-
-    pugVars = pugVars.replace(
-      /- const subtitle = ".*"/,
-      `- const subtitle = "${pugString(response.subtitle || "")}"`
-    );
-
-    pugVars = pugVars.replace(
-      /- const liveURL = ".*"/,
-      `- const liveURL = "${response.liveURL}"`
-    );
-
-    pugVars = pugVars.replace(
-      /- const localURL = ".*"/,
-      `- const localURL = "http://localhost:3000/"`
-    );
-
-    pugVars = pugVars.replace(
-      /- const authorHandle = ".*"/,
-      `- const authorHandle = "${pugString(response.authorHandle || "@AhoyLemon")}"`
-    );
-
-    pugVars = pugVars.replace(
-      /- const description = ".*"/,
-      `- const description = "${pugString(description)}"`
-    );
+    pugVars = setPugConst(pugVars, "talkTitle", response.talkTitle);
+    pugVars = setPugConst(pugVars, "subtitle", response.subtitle || "");
+    pugVars = setPugConst(pugVars, "liveURL", response.liveURL);
+    pugVars = setPugConst(pugVars, "localURL", "http://localhost:3000/");
+    pugVars = setPugConst(pugVars, "authorHandle", response.authorHandle || "@AhoyLemon");
+    pugVars = setPugConst(pugVars, "description", description);
 
     fs.writeFileSync(pugVarsPath, pugVars);
     console.log("✓ Updated Pug variables");
@@ -153,7 +129,7 @@ async function setup() {
     const readmePath = path.join(projectRoot, "README.md");
     let readme = fs.readFileSync(readmePath, "utf8");
 
-    readme = readme.replace(/# .*/, `# ${response.talkTitle}`);
+    readme = readme.replace(/# .*/, () => `# ${response.talkTitle}`);
 
     fs.writeFileSync(readmePath, readme);
     console.log("✓ Updated README.md");
