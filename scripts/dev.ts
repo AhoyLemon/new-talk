@@ -239,6 +239,7 @@ async function startDev() {
     [
       "scss/lemon.scss:css/lemon.css",
       "scss/talk.scss:css/talk.css",
+      "scss/print:css/print",
       "demos/scss:demos/css",
       "--no-source-map",
       "--watch",

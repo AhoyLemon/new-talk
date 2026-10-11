@@ -26,9 +26,11 @@ function compilePugFile(
       return false;
     }
 
+    // testing:true keeps local dev resolving siteURL/asset links to localhost
     const html = pug.renderFile(sourcePath, {
       pretty: true,
       basedir: path.dirname(sourcePath),
+      testing: true,
     });
 
     const outputDir = path.dirname(outputPath);

@@ -2,11 +2,9 @@
  * Pug Routing Configuration
  * ===========================
  *
- * This file defines how Pug templates are compiled to HTML files.
- * It gives you complete control over your site's URL structure.
+ * This file defines how Pug templates are compiled to HTML files. It gives you complete control over your site's URL structure.
  *
- * IMPORTANT: This is a build-time configuration file. It should NOT be deployed
- * to production as it's only used during development and build processes.
+ * IMPORTANT: This is a build-time configuration file. It should NOT be deployed to production as it's only used during development and build processes.
  *
  *
  * How It Works
@@ -38,8 +36,7 @@
  *
  * Partial Files
  * -------------
- * Files starting with underscore (_) are automatically treated as partials
- * and do NOT need routes. They're meant to be included in other templates.
+ * Files starting with underscore (_) are automatically treated as partials and do NOT need routes. They're meant to be included in other templates.
  *
  * Examples: _head.pug, _footer.pug, _mixins.pug
  *
@@ -69,7 +66,7 @@ export const routes: RouteMap = {
   // Main presentation
   "pug/index.pug": "index.html",
 
-  // CSS Demos
+  // Demos
   "demos/pug/sample-demo.pug": "demos/sample-demo.html",
 };
 
