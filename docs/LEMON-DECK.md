@@ -120,7 +120,7 @@ Each template is a class on the `section`. A slide with no template class still 
 | `dl.metric` | A term worth defining | The term in Yrsa at billing scale, its name in Mustard, one line of meaning |
 | `.q-and-a` | The questions people actually ask | `dt` with `strong Q:`, `dd` with `strong A:` |
 | `ul.links` | Resources | `strong` for what it is, then an ordinary link (`a` or `+link`) for where it lives |
-| `.bm`, `.bm-hello`, `.bm-split` | The Blank Metal intro in `pug/sections/shared/_hello.pug` | `+bmLogo` draws the stacked _M logo inline; on `.bm-hello` it ignites a beat after arrival. `.bm-split` puts a 40cqw ink panel beside `.bm-content` on white, which slides in from the right. `.bm-label` (with a `data-id`) holds still across them; `.bm-role` is a quiet line before a heading; `ul.bm-hands` bullets are metal hands that nod as they land. |
+| `.bm`, `.bm-hello`, `.bm-split` | The Blank Metal intro in `pug/sections/shared/_blank-metal.pug` | `+bmLogo` draws the stacked _M logo inline; on `.bm-hello` it ignites a beat after arrival. `.bm-split` puts a 40cqw ink panel beside `.bm-content` on white, which slides in from the right. `.bm-label` (with a `data-id`) holds still across them; `.bm-role` is a quiet line before a heading; `ul.bm-hands` bullets are metal hands that nod as they land. |
 
 ### Components
 
