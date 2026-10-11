@@ -8,7 +8,7 @@ A [reveal.js](https://revealjs.com/) presentation template with Pug, Sass, and m
 
 ## Prerequisites
 
-You'll need [Bun](https://bun.sh/). [Node.js](https://nodejs.org/) works for everything else, but the demo TypeScript build (`build:js`) shells out to `bun build`, so bun has to be on your PATH either way.
+You'll need both [Node.js](https://nodejs.org/) and [Bun](https://bun.sh/). The build scripts run on Node (through `tsx`, and some chain `npm run`), and the demo TypeScript build shells out to `bun build`.
 
 ## Getting Started
 
