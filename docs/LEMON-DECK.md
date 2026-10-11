@@ -1,6 +1,6 @@
 # The Lemon deck system
 
-How every Lemon talk deck looks and moves, and how to build slides in it. It was designed in AhoyLemon/web-animations#33 for *How To Cheat At Web Animations* and folded back into this template, so every talk starts on it.
+How every Lemon talk deck looks and moves, and how to build slides in it.
 
 [`DESIGN.md`](../DESIGN.md) is the visual contract (tokens, rules, recorded exceptions) for both the deck and the demos. This file is the working guide: where things live, which template to reach for, and the traps. [`pug/examples/_example-slides.pug`](../pug/examples/_example-slides.pug) is the catalogue, with every template in it.
 
@@ -33,7 +33,7 @@ The deck is a 1280×720 canvas (`width`, `height` and `margin: 0` in `js/reveal-
 
 `.reveal .slides` is a size container, and everything inside a slide is sized in `cqw` and `cqh` (percentages of the canvas) or in `em` off the slide's root size (`3.125cqw`, which is 40px at 1280).
 
-- **No px inside slides.** A template has to survive a talk with a different canvas (new-css is 1420 wide, The Smelter 1920), and px tuned to 1280 break the moment it moves.
+- **No px inside slides.** A template has to survive a talk with a different canvas (1420 or 1920 wide, say), and px tuned to 1280 break the moment it moves.
 - **No `vw`/`vh` inside slides.** They measure the browser window, not the slide, and then reveal's transform scales them a second time, so their proportions drift with every display.
 - **Viewport units only for window-space chrome**: reveal's arrows, slide number and progress bar, which sit on the window rather than the canvas.
 
@@ -41,7 +41,7 @@ The exceptions are numbers that aren't sizes: a demo iframe keeps the CSS-pixel 
 
 ## Colour
 
-The default palette is the rehearsal-poster palette (it descends from ahoylemon.xyz): Ink, Cream, Focus Yellow, Rust, Mustard and Wheat, as `--lemon-*` custom properties on `:root`. Templates never read a palette name directly; they read roles: `--lemon-ground`, `--lemon-text`, `--lemon-text-quiet`, `--lemon-line`, `--lemon-touch`, `--lemon-field`, `--lemon-on-field`, `--lemon-fold`, `--lemon-spine-ground`, `--lemon-code-surface`, `--lemon-code-frame`.
+The palette is Ink, Cream, Focus Yellow, Rust, Mustard and Wheat, as `--lemon-*` custom properties on `:root`. Templates never read a palette name directly; they read roles: `--lemon-ground`, `--lemon-text`, `--lemon-text-quiet`, `--lemon-line`, `--lemon-touch`, `--lemon-field`, `--lemon-on-field`, `--lemon-fold`, `--lemon-spine-ground`, `--lemon-code-surface`, `--lemon-code-frame`.
 
 A talk retunes by redeclaring any of these on `:root` in its own `talk.scss`:
 
@@ -51,14 +51,14 @@ A talk retunes by redeclaring any of these on `:root` in its own `talk.scss`:
 }
 ```
 
-Focus Yellow means "the thing to watch", so a slide uses it on one thing at most.
+The rules for using them (One Watch, Tint Not Fill) are in DESIGN.md.
 
 ## Type
 
 Three faces, loaded from Google Fonts in `pug/partials/_head.pug` (and in `demos/pug/partials/_head.pug` for the demos):
 
-- **Syne** does the everyday work: statements, headings, taglines, lists, captions. **Never above weight 600**: past that, Syne widens into an extended cut that's hard to read from the back of a room. Its lowercase `g` ends in a flat, square-cut tail. That's the letterform, not a rendering bug.
-- **Yrsa** is rationed so it lands: the cover title, "Hi!", divider names, the shout, "Thank you.", a metric term, and quote citations in its italic. Roughly one slide in eight.
+- **Syne** does the everyday work, never above weight 600.
+- **Yrsa** is rationed to a few moments (DESIGN.md lists them).
 - **Share Tech Mono** is for code and numbers, and also for asides and jokes: `p.aside` is the voice of "(I make websites.)".
 
 `bun install` runs `scripts/check-fonts.ts` (also `bun run check:fonts`), which warns when any of the three isn't installed locally. With no network the browser falls back to an installed font of the same name, so installing them is what keeps a deck right offline. It never fails the install and is silent in CI.
@@ -101,7 +101,7 @@ section.spine-card(data-auto-animate)
   code.spine-label one thing
 ```
 
-The card's label gets no `data-id` on purpose: reveal's auto-animate morphs boxes, not rotation or writing mode, so the script does that move. If a talk generates its spines (web-animations did, from its cheat cards), do it in a script that loads before `reveal-config.js`.
+The card's label gets no `data-id` on purpose: reveal's auto-animate morphs boxes, not rotation or writing mode, so the script does that move.
 
 ## Templates
 
@@ -120,13 +120,13 @@ Each template is a class on the `section`. A slide with no template class still 
 | `dl.metric` | A term worth defining | The term in Yrsa at billing scale, its name in Mustard, one line of meaning |
 | `.q-and-a` | The questions people actually ask | `dt` with `strong Q:`, `dd` with `strong A:` |
 | `ul.links` | Resources | `strong` for what it is, then an ordinary link (`a` or `+link`) for where it lives |
-| `.bm`, `.bm-hello`, `.bm-split` | The Blank Metal intro in `pug/sections/shared/_hello.pug` | Lemon with a bit of _M. `+bmLogo` draws the stacked _M logo inline. `.bm-hello` is full ink: a tracked cobalt `.bm-label` at the top, the logo big from the statement line, igniting a beat after arrival (mono, then the coral A and the magenta stem of the L light up to spell "AI") and a `.bm-tagline`. `.bm-split` is _M's split: the logo shrinks into a 40cqw ink panel while the white side slides in from the right, with the content in `.bm-content` on white (`.bm-role` is a quiet line before a heading there). The label carries a `data-id`, so it holds still throughout. `ul.bm-hands` uses magenta metal hands for bullets, each nodding once as its item lands. |
+| `.bm`, `.bm-hello`, `.bm-split` | The Blank Metal intro in `pug/sections/shared/_hello.pug` | `+bmLogo` draws the stacked _M logo inline; on `.bm-hello` it ignites a beat after arrival. `.bm-split` puts a 40cqw ink panel beside `.bm-content` on white, which slides in from the right. `.bm-label` (with a `data-id`) holds still across them; `.bm-role` is a quiet line before a heading; `ul.bm-hands` bullets are metal hands that nod as they land. |
 
 ### Components
 
 - **Code**: `pre > code` sits in a frame on a barely lifted surface, with line numbers on every block (`js/line-numbers.js`). `pre(data-file="name.css")` puts a filename tab on the frame's top edge. Highlight steps (`data-line-numbers="1-3|5-7"`) dim the other lines. `pre.huge` for a single big line.
 - **Tables**: loose by default, `.dense` for a dozen rows that get talked through. The `caption` is the table's title, in Syne; `th` are small mono capitals; `tr.highlight` is a faint yellow tint, never a solid block.
-- **Grids**: `.grid(data-columns="2|3|4")`, or `data-columns="2-1"` / `"1-2"` for an uneven split. A `.column` inside holds a small heading, a sentence or two, and maybe a code block. A `figure` in a grid sits flush left, so its caption lines up under the image. The bare `columns` attribute older decks used still works.
+- **Grids**: `.grid(data-columns="2|3|4")`, or `data-columns="2-1"` / `"1-2"` for an uneven split. A `.column` inside holds a small heading, a sentence or two, and maybe a code block. A `figure` in a grid sits flush left, so its caption lines up under the image.
 - **Quote**: `blockquote` with an optional `cite`. The mark sits inside the block in Mustard; the cite is indented in Yrsa italic.
 - **Embeds**: `.iframe-holder > iframe` is a 16:9 hole for YouTube, CodePen or a live site, capped to the safe area. `+iframe(url, w, h)` embeds a page at its own size.
 - **Credits**: `.source` or `cite.credit`, low on the panel on an ink strip, fading in a beat after the slide arrives.
@@ -148,7 +148,7 @@ Each template is a class on the `section`. A slide with no template class still 
   - `data-background-transition` moves a slide's picture separately from its words.
 - **Fragments land**: a short rise and a fade, the rise eased on a recorded spring (`$spring`, all 87 samples). `.fragment.bounce` drops in from above and lets the spring's overshoot bounce it. `.fragment.strike` draws a Rust line through its text. `.fragment.mark` sweeps Focus Yellow behind a word.
 - **Auto-animate** carries an element from one slide to the next. To move text crisply, match it with `data-id` on a `p` (or a heading or `li`) at both ends: reveal then animates its font-size alone. Matched on any other element, it scales the element *and* animates its font-size, and the text balloons before it settles.
-- Slides and fragments animate only `transform`, `translate`, `scale` and `opacity`, so the compositor does the work. The exceptions are deliberate: a spine number travels by font-size (two characters, crisp at every frame), and links and `.mark` transition colour.
+- Slides and fragments animate only `transform`, `translate`, `scale`, `rotate` and `opacity`, so the compositor does the work. DESIGN.md lists the deliberate exceptions.
 
 ## Reveal config the system relies on
 

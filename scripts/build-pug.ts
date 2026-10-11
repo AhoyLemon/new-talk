@@ -24,7 +24,6 @@ function buildPug() {
       const sourcePath = path.resolve(projectRoot, source);
       const outputPath = path.resolve(projectRoot, output);
 
-      // Check if source file exists
       if (!fs.existsSync(sourcePath)) {
         console.error(`❌ Source file not found: ${source}`);
         errorCount++;
@@ -39,13 +38,11 @@ function buildPug() {
       });
 
       if (!checkOnly) {
-        // Ensure output directory exists
         const outputDir = path.dirname(outputPath);
         if (!fs.existsSync(outputDir)) {
           fs.mkdirSync(outputDir, { recursive: true });
         }
 
-        // Write HTML file
         fs.writeFileSync(outputPath, html);
       }
 

@@ -11,10 +11,7 @@ const projectRoot = path.resolve(__dirname, "..");
 // User input lands inside double-quoted Pug strings, so a quote in a title must not end the string early.
 const pugString = (value: string) => value.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 
-/**
- * Setup script for new talk projects
- * Prompts for talk title, shortname, live URL, author handle and description
- */
+// Prompts for a new talk's title, shortname, live URL, handle and description, writes them into package.json, _variables.pug and the README, then rebuilds the HTML.
 async function setup() {
   console.log(`
 ╭───────────────────────────────────────────────────╮
@@ -91,7 +88,6 @@ async function setup() {
 
   console.log("\n📝 Updating project files...");
 
-  // Update package.json
   try {
     const packageJsonPath = path.join(projectRoot, "package.json");
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
@@ -108,7 +104,6 @@ async function setup() {
     console.error("❌ Error updating package.json:", (error as any).message);
   }
 
-  // Update Pug variables
   try {
     const pugVarsPath = path.join(
       projectRoot,
@@ -118,37 +113,31 @@ async function setup() {
     );
     let pugVars = fs.readFileSync(pugVarsPath, "utf8");
 
-    // Update talk title
     pugVars = pugVars.replace(
       /- const talkTitle = ".*"/,
       `- const talkTitle = "${pugString(response.talkTitle)}"`
     );
 
-    // Update subtitle
     pugVars = pugVars.replace(
       /- const subtitle = ".*"/,
       `- const subtitle = "${pugString(response.subtitle || "")}"`
     );
 
-    // Update live URL
     pugVars = pugVars.replace(
       /- const liveURL = ".*"/,
       `- const liveURL = "${response.liveURL}"`
     );
 
-    // Update local URL
     pugVars = pugVars.replace(
       /- const localURL = ".*"/,
       `- const localURL = "http://localhost:3000/"`
     );
 
-    // Update author handle
     pugVars = pugVars.replace(
       /- const authorHandle = ".*"/,
       `- const authorHandle = "${pugString(response.authorHandle || "@AhoyLemon")}"`
     );
 
-    // Update description
     pugVars = pugVars.replace(
       /- const description = ".*"/,
       `- const description = "${pugString(description)}"`
@@ -160,12 +149,10 @@ async function setup() {
     console.error("❌ Error updating Pug variables:", (error as any).message);
   }
 
-  // Update README
   try {
     const readmePath = path.join(projectRoot, "README.md");
     let readme = fs.readFileSync(readmePath, "utf8");
 
-    // Update title in README
     readme = readme.replace(/# .*/, `# ${response.talkTitle}`);
 
     fs.writeFileSync(readmePath, readme);

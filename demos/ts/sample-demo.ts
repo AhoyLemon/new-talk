@@ -1,14 +1,4 @@
-// Demo script for demos/sample-demo.html.
-//
-// Built to demos/js/sample-demo.js by `bun run build:js`, and rebuilt on save by `bun run dev`. The page loads it as <script type="module">, which is deferred by spec, so the DOM is already parsed and this can query the document at the top level with no DOMContentLoaded wrapper.
-//
-// Conventions for anything added alongside this file:
-//   - demos/ts/*.ts        one file per demo, each its own bundle entry
-//   - demos/ts/partials/   shared modules, _-prefixed, inlined by the bundler into whichever demos import them
-//
-// Adding a NEW file here needs a `bun run dev` restart. The entry glob is expanded by the shell once when the watcher spawns. Editing existing files (partials included) rebuilds fine.
-//
-// `bun build` strips these types without checking them, so it will happily bundle code that does not typecheck. `bun run test` is the only thing that actually checks it.
+// The sample demo's script, bundled to demos/js/sample-demo.js. demos/demos.md covers how demo scripts are built and loaded.
 
 const trigger = document.querySelector<HTMLButtonElement>(".demo-trigger");
 const subject = document.querySelector<HTMLElement>(".subject");

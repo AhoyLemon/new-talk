@@ -59,13 +59,11 @@ A Markdown paragraph is one line. So is a comment in Pug, TypeScript, JavaScript
 A `testing` local (switches `siteURL` between `localURL` and `liveURL`, and thus which URLs the OG/Twitter meta tags resolve against) is set by whichever script does the rendering, not hardcoded in the template — see [Deployment](#deployment).
 
 - **`pug/partials/_variables.pug`** — talk title, subtitle, `liveURL`, `localURL`, `description` and `authorHandle`. `setup` fills these in; edit them directly after that.
-- **`pug/partials/_mixins.pug`** — reusable Pug mixins: `+link`, `+image`, `+videoBG`, `+introScreen`, `+demo` (builds its own `section.demo`, so a demo slide is `+demo("file.html")(data-spine-section="…")` with its notes in the block), `+iframe`, `+gag(description)` (a loud placeholder for a visual gag that still needs its asset), and `+bmLogo` (Blank Metal's stacked _M logo, inline so CSS can light its accents).
+- **`pug/partials/_mixins.pug`** — reusable Pug mixins: `+link`, `+image`, `+videoBG`, `+introScreen`, `+demo` (builds its own `section.demo`; its block holds the notes), `+iframe`, `+gag` and `+bmLogo`. LEMON-DECK.md says when to use each.
 - **`pug/sections/`** — one file per logical section of the talk, included in `index.pug`. Shared sections in `shared/` (`_hello.pug`, `_intros.pug`, `_hit-me-up.pug`, `_thank-you.pug`) carry forward across talks — edit lightly. `_hello.pug` includes the Blank Metal intro; drop those four slides for a talk that isn't a Blank Metal one. The talk's own slides go in new files here.
 - **`pug/examples/`** — `_example-slides.pug` is the Lemon catalogue: every slide template and its alternates, one family per vertical stack in `pug/examples/catalogue/`. A fresh talk includes it as its starting content between the shared intro and outro; copy what you need into `pug/sections/`, then swap the include in `pug/index.pug` for your own. `_example-videos.pug` holds intro reels.
 
-A slide can carry `data-timing` (seconds), which drives the pacing timer in reveal's speaker view; slides without one use `defaultTiming` from the config. Set it once on a vertical stack and `js/stacks.js` gives it to every slide in the stack that doesn't set its own: the intro reel's stack sets `data-timing="0"`, so its reels don't count.
-
-The same script gives a whole stack the spine: `data-spine="Label"` on the stack puts a number and the label on every slide in it, and `data-spine-section="Sub"` on a slide makes the label read "Label › Sub" from there on. The catalogue does this for each family. LEMON-DECK.md has the details.
+A slide can carry `data-timing` (seconds) for the speaker view's pacing timer; without one it uses `defaultTiming`. `js/stacks.js` lets a vertical stack set `data-timing` or `data-spine` once for all its slides (LEMON-DECK.md has the details).
 
 ### Assets
 
@@ -77,19 +75,7 @@ The same script gives a whole stack the spine: `data-spine="Label"` on the stack
 
 ### Demos
 
-Standalone interactive demos live in `demos/`. To add one:
-1. Copy `demos/pug/sample-demo.pug`, `demos/scss/sample-demo.scss` and `demos/ts/sample-demo.ts`
-2. Add the route in `routes/pug.routes.ts`
-3. Keep the stylesheet to the demo's own subject: `demos/scss/partials/_demo-foundation.scss` owns the frame, strip, rail, controls and type
-4. Embed in a slide with `+demo('my-demo.html')` or `+demo('my-demo.html', width, height)`
-
-Demo scripts are TypeScript, bundled to `demos/js/` and loaded with `script(type="module" src="js/my-demo.js?updated="+lastUpdated)`. `type="module"` is required — the bundler emits ESM — and it earns its keep, since modules are deferred by spec so a demo can query the DOM at the top level with no `DOMContentLoaded` wrapper.
-
-Shared modules go in `demos/ts/partials/` with a `_` prefix. The bundler inlines them into whichever demos import them, so they never get a file of their own.
-
-**Adding a new `demos/ts/` file needs a `bun run dev` restart.** The entry glob is expanded by the shell once, when the watcher spawns, so a brand new file is invisible until then. Editing existing files is fine, partials included — the watcher follows the module graph and rebuilds every entry that imports a changed partial.
-
-[`demos/demos.md`](../demos/demos.md) has the rest.
+Standalone interactive demos live in `demos/`, embedded with `+demo('my-demo.html')`. [`demos/demos.md`](../demos/demos.md) covers adding one, the shared demo foundation, and demo scripts (including the restart a new `demos/ts/` file needs).
 
 ### TypeScript configs
 
@@ -106,21 +92,19 @@ They should drift. Widening `lib` for a build script must not silently widen wha
 
 ### Styles
 
-The deck is styled by the Lemon deck system, with no reveal theme. **[`docs/LEMON-DECK.md`](LEMON-DECK.md) is the guide**: the canvas and units, colour tokens, type roles, the spine, every template, and motion. [`DESIGN.md`](../DESIGN.md) is the visual contract for both the deck and the demos.
+The deck is styled by the Lemon deck system, with no reveal theme. [`docs/LEMON-DECK.md`](LEMON-DECK.md) is the working guide and [`DESIGN.md`](../DESIGN.md) is the visual contract.
 
-`scss/lemon.scss` → `css/lemon.css` — the Lemon deck system, shared by every talk. The entry file holds only `@use` lines; the rules live in `scss/lemon/` (abstracts, base, layout, components, templates, motion, and `todo/_shame.scss` for anything needing `!important`). It owns the sensible defaults: the palette as `--lemon-*` tokens, type roles, the canvas, the spine, code, tables, quotes, grids, embeds, slide templates and motion.
+- `scss/lemon.scss` → `css/lemon.css`: the Lemon deck system, `@use` lines only over `scss/lemon/`. Shared by every talk.
+- `scss/talk.scss` → `css/talk.css`: this talk's own surfaces, and any `--lemon-*` retuning. Starts empty.
+- `demos/scss/` → `demos/css/`: demo styles, each over `partials/_demo-foundation.scss`.
 
-`scss/talk.scss` → `css/talk.css` — this talk's own surfaces. It starts empty on every new talk. Anything named after the talk's subject matter, or specific to a single slide, goes here. A talk retunes Lemon's colours by redeclaring `--lemon-*` properties here.
-
-Inside a slide, sizes are in `cqw`/`cqh` (the slide canvas is a size container) or `em`, never px or `vw`/`vh`. LEMON-DECK.md explains why.
-
-`demos/scss/` → `demos/css/` — demo styles. Every demo `@use`s `partials/_demo-foundation.scss`, which shares Lemon's tokens from `scss/lemon/base/_root.scss`.
+Inside a slide, sizes are `cqw`/`cqh` or `em`, never px or `vw`/`vh`.
 
 **Rule of thumb:** if you'd want the style in your *next* talk, it belongs in `lemon.scss`. If you'd only ever need it for *this* talk, it belongs in `talk.scss`.
 
 ### Reveal.js config
 
-`js/reveal-config.js` contains `Reveal.initialize({...})` with all options and plugin registration. Plugins loaded: Markdown, Highlight, Notes, Zoom. The canvas (1280×720, `margin: 0`), `display: "grid"`, `center: true` and `transition: "lemon"` are all load-bearing for the Lemon deck system; LEMON-DECK.md says why. `defaultTiming` is set so the speaker view's pacing timer shows.
+`js/reveal-config.js` holds `Reveal.initialize({...})`: only the options that differ from reveal's defaults, plus the plugins (Markdown, Highlight, Notes, Zoom). LEMON-DECK.md says which ones the deck relies on.
 
 Three scripts load before the config: `js/line-numbers.js` gives every code block line numbers before reveal reads it, `js/stacks.js` hands a stack's `data-timing` and `data-spine` to its slides, and `js/arrivals.js` slides the spine (and a Blank Metal split's white side) in when you arrive from a slide without one.
 
@@ -146,10 +130,10 @@ All scripts in `scripts/` are TypeScript run directly with `tsx`:
 
 ## Deployment
 
-The deployed site at `https://ahoylemon.github.io/<talk>/` is how a deck is distributed: it should look right on a screen, and that's the whole job. PDF export isn't a goal. Reveal's `?print-pdf` view and the print stylesheets still exist, but nothing is tuned or tested for them.
+The deployed site at `https://ahoylemon.github.io/<talk>/` is how a deck is distributed: it should look right on a screen. PDF export isn't a goal, so nothing is tuned or tested for `?print-pdf`.
 
 `.github/workflows/test.yml` runs `bun run test` and `bun run build` on every push and PR to `main`. `.github/workflows/deploy.yml` re-runs the same test-then-build gate on every push to `main`, then stages a GitHub Pages artifact from an allowlist (`index.html`, `favicon.ico`, `og-image.png`, `css/`, `js/`, `reveal/`, `svg/`, `video/`, `favicons/`, `img/`, and `demos/`'s built `*.html`/`css/`/`js/` — not `demos/pug/`, `demos/scss/`, or `demos/ts/` source) and deploys it via `actions/deploy-pages`.
 
 **A new talk has to switch Pages on once:** Settings → Pages → Source → GitHub Actions. Until then the deploy job skips itself (it checks `github.event.repository.has_pages`), so the first pushes don't fail; the test workflow still runs.
 
-The site deploys to a GitHub Pages **project** site (`https://<user>.github.io/<talk>/`), not a domain root, which is why `+image()`, `_favicons.pug`, and `_social.pug` all use document-relative paths (no leading `/`) rather than root-absolute ones — `index.html` always sits at the root of wherever it's served, so a relative path resolves correctly under both `http://localhost:3000/` and the `/<talk>/` subpath. `liveURL` needs its trailing slash for the same reason; `setup` adds one if it's missing.
+It's a Pages **project** site, served from `/<talk>/` rather than a domain root, so asset paths are document-relative (no leading `/`) and `liveURL` keeps its trailing slash (`setup` adds one).

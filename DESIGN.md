@@ -227,7 +227,7 @@ Text is flush left everywhere, except the spine card (see Recorded exceptions). 
 
 A solid band down the left edge (7cqw wide), like the spine of a cassette's J-card, cut off on its right by a fold line (a 0.16cqw Cream Muted rule). Its ground is the Deck Surface, a barely lifted Ink. It carries a summary of what the section is about: a number at the top in Share Tech Mono (1.6em, tabular) and a label running up the band, bottom to top, in the Aside size at 75%. Slides with a spine pad their content by the spine width plus a 4cqw panel gap.
 
-The spine is the section's own pseudo-element, so it travels with its slide, and its colour extends past the canvas edge so a window wider than 16:9 still shows one continuous band. Arriving from a slide without a spine, it grows out of the left edge (560ms, the deck's ease-out); moving within the section never replays it.
+The spine is the section's own pseudo-element, so it travels with its slide, and its colour extends past the canvas edge so a window wider than 16:9 still shows one continuous band. Arriving from a slide without a spine, it slides in from the left edge (560ms, the deck's ease-out); moving within the section never replays it.
 
 **The Earned Spine Rule.** A section gets a spine only when it can be summarised in it. Everything else runs edge to edge, so the band is never decoration. A vertical stack that is one concept can take the spine as a whole (`data-spine` on the stack), with the label naming its current subsection.
 

@@ -1,4 +1,4 @@
-// Lemon's default palette: the rehearsal-poster colours, which descend from ahoylemon.xyz. A talk retunes any of these from talk.scss by redeclaring the property on :root; templates only ever read the role properties.
+// Lemon's palette and roles. A talk retunes any of these from talk.scss by redeclaring the property on :root; templates only ever read the role properties.
 
 :root {
   --lemon-ink: #141411;

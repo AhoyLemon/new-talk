@@ -93,7 +93,6 @@ function startProcess(
     const output = data.toString();
     hasOutput = true;
 
-    // Capture BrowserSync URLs
     if (name === "BrowserSync") {
       const localMatch = output.match(/Local:\s+(https?:\/\/[^\s]+)/);
       const externalMatch = output.match(/External:\s+(https?:\/\/[^\s]+)/);
@@ -104,7 +103,6 @@ function startProcess(
       if (uiMatch) uiUrl = uiMatch[1];
     }
 
-    // Check for ready signals
     if (name === "Sass") {
       if (
         !sassReady &&
@@ -153,7 +151,6 @@ function startProcess(
       }
     }
 
-    // After success display, show important messages
     if (browserSyncReady && sassReady && pugReady && tsReady) {
       // bun build's summary runs to four lines. Condense it to one so saving a demo mid-talk does not scroll the URLs off the screen.
       if (name === "TypeScript") {
@@ -164,7 +161,7 @@ function startProcess(
         return;
       }
 
-      // Show only file changes and errors, not compilation output
+      // Once everything is up, pass through only file changes and errors, not compilation output
       const shouldShow =
         output.includes("error") ||
         output.includes("Error") ||
@@ -175,7 +172,6 @@ function startProcess(
         /\d+:\d+:\d+\s+[AP]M/.test(output); // Timestamp pattern
 
       if (shouldShow) {
-        // Don't clear, just append with timestamp-aware formatting
         if (output.trim().length > 0) {
           process.stdout.write(chalk.dim(`  [${name}] `) + output);
         }
@@ -236,7 +232,6 @@ function startProcess(
   // After a short delay, assume the process is ready if it hasn't crashed
   setTimeout(() => {
     if (!hasOutput && proc.exitCode === null) {
-      // Process is running but silent, assume it's ready
       if (name === "Sass" && !sassReady) {
         sassReady = true;
         checkAllReady(spinner);
@@ -275,7 +270,6 @@ async function startDev() {
     color: "cyan",
   }).start();
 
-  // Start all processes
   startProcess(
     "Sass",
     "sass",
@@ -326,7 +320,6 @@ async function startDev() {
     spinner
   );
 
-  // Handle cleanup on exit
   process.on("SIGINT", () => {
     console.log(chalk.yellow("\n\n  Stopping dev server...\n"));
     processes.forEach((proc) => proc.kill());

@@ -61,7 +61,7 @@ $ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 $spring: linear(0, 0.051, 0.141, 0.261, 0.399, 0.546, 0.693, 0.832, 0.957, 1.066, 1.153, 1.219, 1.264, 1.288, 1.294, 1.284, 1.262, 1.229, 1.19, 1.148, 1.105, 1.063, 1.025, 0.991, 0.963, 0.942, 0.927, 0.918, 0.914, 0.915, 0.921, 0.929, 0.94, 0.952, 0.965, 0.977, 0.989, 0.999, 1.008, 1.015, 1.02, 1.023, 1.025, 1.025, 1.024, 1.022, 1.019, 1.015, 1.012, 1.008, 1.004, 1.001, 0.998, 0.996, 0.995, 0.993, 0.993, 0.993, 0.993, 0.993, 0.994, 0.995, 0.996, 0.997, 0.998, 0.999, 1, 1.001, 1.001, 1.002, 1.002, 1.002, 1.002, 1.002, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999);
 
 // The spine ------------------------------------------------------------------
-// A narrow column down the left edge of the slides that opt in, cut off by a fold line, like the spine of a cassette's J-card. It carries the section marker (a number, set at the top) and gives every slide a fixed edge to sit against. The fraction lives on its own so demo scaling can do arithmetic with it.
+// A narrow column down the left edge of the slides that opt in, cut off by a fold line, like the spine of a cassette's J-card. It carries the section marker (a number, set at the top) and gives those slides a fixed edge to sit against. The fraction lives on its own so demo scaling can do arithmetic with it.
 
 $spine-fraction: 0.07;
 $spine: 7cqw;
