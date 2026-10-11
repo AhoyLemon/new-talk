@@ -184,8 +184,9 @@
   }
 }
 
+// The present slide only, not a present stack: a stack is .present too, which would show every credit in it before its own slide arrives.
 .reveal section.present > .source,
-.reveal section.present cite.credit {
+.reveal section.present:not(.stack) cite.credit {
   opacity: 1;
   transition-delay: 1s;
 }
