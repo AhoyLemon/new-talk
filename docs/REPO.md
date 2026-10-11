@@ -15,13 +15,13 @@ bun run build:js      # Bundle demos/ts/*.ts to demos/js/ (one-shot)
 bun run watch:js      # Same, rebuilding on save
 bun run setup         # Interactive CLI to configure talk title, shortname, live URL, handle and description
 bun run update:reveal # Copy reveal.js files from node_modules into the vendored reveal/ folder
-bun run test          # Check Sass compiles, demo TypeScript typechecks, and Pug templates render (no other test suite)
+bun run test          # Sass compiles, both TypeScript configs typecheck, the script tests (scripts/*.test.ts) pass, and every Pug route renders
 bun run check:fonts   # Warn if the deck's fonts (Yrsa, Syne, Share Tech Mono) aren't installed locally; also runs on install
 ```
 
 All `npm run` equivalents work too, with one exception: `build:js` and `watch:js` shell out to `bun build`, so they need bun on PATH even under npm. Everything else is runtime-agnostic.
 
-One trap: use `bun run test`, not `bun test`. The latter is bun's own test runner and it ignores the `test` script, exiting with an error about finding no test files. `npm test` is fine.
+One trap: use `bun run test`, not `bun test`. The latter is bun's own test runner: it ignores the `test` script and runs only the `*.test.ts` files, under bun instead of Node. `npm test` is fine.
 
 ## Git conventions
 
@@ -88,7 +88,7 @@ They should drift. Widening `lib` for a build script must not silently widen wha
 
 **Do not remove `"types": []` from `tsconfig.demos.json`.** Omitting the field does not mean "no ambient types", it means "everything under `node_modules/@types`" — so `process.cwd()` would typecheck clean in a file destined for a browser iframe. That one line is what makes the wall real.
 
-`bun build` strips types without checking them and exits 0 on code that does not typecheck, so `bun run test` is the only thing standing between a type error and a broken demo.
+`bun build` and `tsx` strip types without checking them, so `bun run test` (which typechecks both configs) is the only thing standing between a type error and a broken demo or build script.
 
 ### Styles
 
@@ -127,6 +127,8 @@ All scripts in `scripts/` are TypeScript run directly with `tsx`:
 - `setup.ts` — interactive prompts that update `package.json`, `pug/partials/_variables.pug`, and `README.md`, then rebuild the HTML
 - `update-reveal.ts` — copies files from `node_modules/reveal.js` into `reveal/`
 - `check-fonts.ts` — runs on `postinstall` (and as `bun run check:fonts`): warns when Yrsa, Syne or Share Tech Mono isn't installed locally, so the deck stays right offline. Always exits 0 and is silent when `CI` is set
+
+Tests for script logic sit beside the scripts as `*.test.ts` (Node's test runner, through `tsx --test`), like `pug-vars.test.ts` for setup's substitution into `_variables.pug`.
 
 ## Deployment
 

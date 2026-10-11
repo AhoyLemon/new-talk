@@ -26,7 +26,7 @@ You'll need [Bun](https://bun.sh/). [Node.js](https://nodejs.org/) works for eve
 ```bash
 bun run dev             # Start the dev server with live reload
 bun run build           # Build all Pug, Sass and demo TypeScript
-bun run test            # Check Sass compiles, demo TypeScript typechecks, and every Pug page renders
+bun run test            # Check Sass compiles, TypeScript typechecks, the script tests pass, and every Pug page renders
 bun run update:reveal   # Copy reveal.js from node_modules into the vendored reveal/ folder
 bun run check:fonts     # Warn if Yrsa, Syne or Share Tech Mono aren't installed locally
 ```

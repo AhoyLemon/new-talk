@@ -18,7 +18,7 @@
     "check:pug": "tsx scripts/build-pug.ts --check",
     "check:fonts": "tsx scripts/check-fonts.ts",
     "postinstall": "tsx scripts/check-fonts.ts || true",
-    "test": "sass scss/lemon.scss:css/lemon.css scss/talk.scss:css/talk.css scss/print:css/print --no-source-map --quiet && tsc --noEmit -p tsconfig.demos.json && npm run check:pug"
+    "test": "sass scss/lemon.scss:css/lemon.css scss/talk.scss:css/talk.css scss/print:css/print --no-source-map --quiet && tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.demos.json && tsx --test scripts/*.test.ts && npm run check:pug"
   },
   "keywords": [
     "reveal",
