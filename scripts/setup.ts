@@ -2,14 +2,18 @@ import prompts from "prompts";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { spawnSync } from "child_process";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
 
+// User input lands inside double-quoted Pug strings, so a quote in a title must not end the string early.
+const pugString = (value: string) => value.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+
 /**
  * Setup script for new talk projects
- * Prompts for talk title, shortname, and live URL
+ * Prompts for talk title, shortname, live URL, author handle and description
  */
 async function setup() {
   console.log(`
@@ -60,11 +64,19 @@ async function setup() {
       name: "liveURL",
       message: "Live URL (e.g., 'https://ahoylemon.github.io/my-talk/'):",
       initial: (prev: string) => `https://ahoylemon.github.io/${prev}/`,
+      // og:image is built as liveURL + "og-image.png", so the URL needs its trailing slash.
+      format: (value: string) => (value.trim().endsWith("/") ? value.trim() : `${value.trim()}/`),
+    },
+    {
+      type: "text",
+      name: "authorHandle",
+      message: "Your handle (for the intro byline and twitter:creator):",
+      initial: "@AhoyLemon",
     },
     {
       type: "text",
       name: "description",
-      message: "Talk description (optional):",
+      message: "Talk description (for social previews; leave blank to use the title):",
       initial: "",
     },
   ]);
@@ -74,6 +86,9 @@ async function setup() {
     process.exit(0);
   }
 
+  // The template's own description must never ship in a talk's social meta, so a blank answer falls back to the title.
+  const description = response.description?.trim() || `${response.talkTitle}, a talk by ${response.authorHandle}`;
+
   console.log("\n📝 Updating project files...");
 
   // Update package.json
@@ -82,9 +97,7 @@ async function setup() {
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
 
     packageJson.name = response.shortname;
-    if (response.description) {
-      packageJson.description = response.description;
-    }
+    packageJson.description = description;
 
     fs.writeFileSync(
       packageJsonPath,
@@ -108,13 +121,13 @@ async function setup() {
     // Update talk title
     pugVars = pugVars.replace(
       /- const talkTitle = ".*"/,
-      `- const talkTitle = "${response.talkTitle}"`
+      `- const talkTitle = "${pugString(response.talkTitle)}"`
     );
 
     // Update subtitle
     pugVars = pugVars.replace(
       /- const subtitle = ".*"/,
-      `- const subtitle = "${response.subtitle || ""}"`
+      `- const subtitle = "${pugString(response.subtitle || "")}"`
     );
 
     // Update live URL
@@ -129,13 +142,17 @@ async function setup() {
       `- const localURL = "http://localhost:3000/"`
     );
 
-    // Update description if provided
-    if (response.description) {
-      pugVars = pugVars.replace(
-        /- const description = ".*"/,
-        `- const description = "${response.description}"`
-      );
-    }
+    // Update author handle
+    pugVars = pugVars.replace(
+      /- const authorHandle = ".*"/,
+      `- const authorHandle = "${pugString(response.authorHandle || "@AhoyLemon")}"`
+    );
+
+    // Update description
+    pugVars = pugVars.replace(
+      /- const description = ".*"/,
+      `- const description = "${pugString(description)}"`
+    );
 
     fs.writeFileSync(pugVarsPath, pugVars);
     console.log("✓ Updated Pug variables");
@@ -157,14 +174,27 @@ async function setup() {
     console.error("❌ Error updating README:", (error as any).message);
   }
 
+  // Rebuild the HTML so the committed index.html and demos stop saying [LEMON TALK TEMPLATE].
+  console.log("\n🔨 Rebuilding HTML...");
+  const build = spawnSync("npm", ["run", "build:pug"], {
+    cwd: projectRoot,
+    stdio: "inherit",
+    shell: process.platform === "win32",
+  });
+  if (build.status !== 0) {
+    console.error("❌ HTML rebuild failed. Run `npm run build` once you've fixed it.");
+  }
+
   console.log("\n✨ Setup complete! Your talk is ready to go.");
   console.log(`\n🎤 Talk: ${response.talkTitle}`);
   console.log(`📦 Name: ${response.shortname}`);
   console.log(`🌐 URL: ${response.liveURL}`);
   console.log("\n📦 Next steps:");
-  console.log("   npm run dev          - Start development server");
-  console.log("   npm run build        - Build for production");
-  console.log("   npm run update:reveal - Update reveal.js\n");
+  console.log("   npm run dev           - Start development server");
+  console.log("   npm run build         - Build for production");
+  console.log("   npm run update:reveal - Update reveal.js");
+  console.log("\n🚀 To deploy: on GitHub, set Settings → Pages → Source to \"GitHub Actions\".");
+  console.log("   Until then, .github/workflows/deploy.yml skips itself; test.yml still runs.\n");
 }
 
 setup().catch((error) => {
