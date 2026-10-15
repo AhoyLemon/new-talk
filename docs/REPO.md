@@ -39,6 +39,8 @@ A Markdown paragraph is one line. So is a comment in Pug, TypeScript, JavaScript
 
 **Never edit build output directly** — always edit the source file that generates it. Output files will be overwritten on the next build.
 
+**Build output is never committed.** Everything in the "Not…" column is gitignored: `bun run dev` renders every route, compiles the Sass and bundles the demo scripts when it starts, `bun run build` does the same once, and the deploy workflow builds it fresh. A fresh clone has no `index.html` until one of those runs.
+
 | To change… | Edit… | Not… |
 |---|---|---|
 | Shared slide content | `pug/sections/shared/` files | `*.html` |
