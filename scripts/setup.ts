@@ -137,7 +137,7 @@ async function setup() {
     console.error("❌ Error updating README:", (error as any).message);
   }
 
-  // Rebuild the HTML so the committed index.html and demos stop saying [LEMON TALK TEMPLATE].
+  // Render the HTML now, so a local index.html shows the new title before `bun run dev` has ever run.
   console.log("\n🔨 Rebuilding HTML...");
   const build = spawnSync("npm", ["run", "build:pug"], {
     cwd: projectRoot,

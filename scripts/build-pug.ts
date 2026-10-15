@@ -30,7 +30,7 @@ function buildPug() {
         return;
       }
 
-      // Compile Pug to HTML. testing:false makes siteURL/asset links resolve to the live URL, matching what gets committed/deployed.
+      // Compile Pug to HTML. testing:false makes siteURL/asset links resolve to the live URL, matching what gets deployed.
       const html = pug.renderFile(sourcePath, {
         pretty: true,
         basedir: path.dirname(sourcePath),

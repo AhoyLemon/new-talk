@@ -23,3 +23,10 @@ yarn-error.log*
 prepros-6.config
 prepros.config
 config.codekit3
+
+# Build output: made by `bun run build` and `bun run dev`, never committed
+/index.html
+/demos/*.html
+/css/
+/demos/css/
+/demos/js/
