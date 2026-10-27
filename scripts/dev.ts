@@ -4,6 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import ora from "ora";
 import chalk from "chalk";
+import { demoBuildArgs } from "./build-demo-js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -289,20 +290,8 @@ async function startDev() {
   startProcess(
     "TypeScript",
     "bun",
-    [
-      "build",
-      // [!_] skips _-prefixed partials. bun build bundles, so an imported partial is inlined into every entry that uses it and never needs a file of its own. The shell expands this once, at spawn, which is why adding a NEW demo needs a `bun run dev` restart. --root matches package.json's build:js so bundles land flat at demos/js/<name>.js.
-      "--root",
-      "demos/ts",
-      "demos/ts/[!_]*.ts",
-      "--outdir",
-      "demos/js",
-      "--target",
-      "browser",
-      "--watch",
-      // Without this, every rebuild writes a clear-screen escape to both stdout and stderr, even through pipes, wiping the banner below.
-      "--no-clear-screen",
-    ],
+    // The entry list is expanded once, at spawn, which is why adding a NEW demo needs a `bun run dev` restart. --no-clear-screen stops every rebuild writing a clear-screen escape to both stdout and stderr, even through pipes, wiping the banner below.
+    demoBuildArgs(["--watch", "--no-clear-screen"]),
     spinner
   );
 
